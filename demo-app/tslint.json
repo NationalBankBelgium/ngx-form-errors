@@ -1,0 +1,22 @@
+{
+  "extends": ["../tslint.json"],
+  "rules": {
+    "member-ordering": [
+      true,
+      {
+        "order": ["static-field", "instance-field", "static-method", "instance-method"]
+      }
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
+    ],
+    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type"]
+  }
+}

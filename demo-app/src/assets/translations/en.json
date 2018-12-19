@@ -1,0 +1,33 @@
+{
+  "fullname": "F u l l N a m e",
+  "matchingPasswords.password": "Password",
+  "matchingPasswords.confirmPassword": "Confirm Password",
+  "DEMO": {
+    "COMMON": {
+      "ENABLED": "Enabled",
+      "VALUE": "Value"
+    },
+    "FIELDS": {
+      "fullname": "FULLname1",
+      "fullname2": "fullNAME2"
+    },
+    "FORM_VALIDATION": {
+      "FULL_NAME": {
+        "REQUIRED": "{{fieldName}} is required",
+        "MIN_LENGTH": "Username must be at least {{requiredLength}} characters long",
+        "MAX_LENGTH": "Username cannot be more than {{requiredLength}} characters long",
+        "PATTERN": "Your username must contain only numbers and letters",
+        "UNIQUE": "Your username has already been taken"
+      },
+      "PASSWORD": {
+        "REQUIRED": "Password is required",
+        "MIN_LENGTH": "Password must be at least 5 characters long",
+        "PATTERN": "Your password must contain at least one uppercase, one lowercase, and one number"
+      },
+      "CONFIRM_PASSWORD": {
+        "REQUIRED": "Confirm password is required",
+        "ARE_EQUAL": "Password mismatch"
+      }
+    }
+  }
+}

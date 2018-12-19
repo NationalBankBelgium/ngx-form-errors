@@ -1,0 +1,50 @@
+.form-group {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  .matching-passwords {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    mat-form-field {
+      width: 45%;
+    }
+  }
+
+  .form-buttons {
+    margin-top: 25px;
+
+    button:first-child {
+      margin-right: 20px;
+    }
+    button {
+      min-width: 150px;
+    }
+  }
+}
+
+.form-validation-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  & .form-field-info {
+    background-color: aliceblue;
+    border: 1px black solid;
+    border-radius: 6px;
+    width: 350px;
+    margin: 20px;
+    margin-right: 20px;
+  }
+}
+
+.form-validation-messages {
+  margin: 20px;
+  background-color: cornsilk;
+  border: 1px black solid;
+  border-radius: 6px;
+}

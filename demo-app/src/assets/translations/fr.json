@@ -1,0 +1,33 @@
+{
+  "fullname": "U t i l i s a t e u r",
+  "matchingPasswords.password": "Mot de passe",
+  "matchingPasswords.confirmPassword": "Confirmes le mot de passe",
+  "DEMO": {
+    "COMMON": {
+      "ENABLED": "Activé",
+      "VALUE": "Valuer"
+    },
+    "FIELDS": {
+      "fullname": "UTILISAteur1",
+      "fullname2": "utilisaTEUR2"
+    },
+    "FORM_VALIDATION": {
+      "FULL_NAME": {
+        "REQUIRED": "{{fieldName}} est nécessaire",
+        "MIN_LENGTH": "Username doit comporter au moins {{requiredLength}} caractères",
+        "MAX_LENGTH": "Username ne peut pas y avoir plus de {{requiredLength}} caractères",
+        "PATTERN": "Votre username ne doit contenir que des chiffres et des lettres",
+        "UNIQUE": "Votre username a déjà été pris"
+      },
+      "PASSWORD": {
+        "REQUIRED": "Password est nécessaire",
+        "MIN_LENGTH": "Password doit comporter au moins 5 caractères",
+        "PATTERN": "Votre password doit contenir au moins une majuscule, une minuscule et un chiffre."
+      },
+      "CONFIRM_PASSWORD": {
+        "REQUIRED": "Confirm password est nécessaire",
+        "ARE_EQUAL": "Non concordance des mots de passe passwords"
+      }
+    }
+  }
+}

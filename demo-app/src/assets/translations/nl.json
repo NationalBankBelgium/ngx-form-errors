@@ -1,0 +1,33 @@
+{
+  "fullname": "G e b r u i k e r s n a a m",
+  "matchingPasswords.password": "Wachtwoord",
+  "matchingPasswords.confirmPassword": "Bevestig Wachtwoord",
+  "DEMO": {
+    "COMMON": {
+      "ENABLED": "Ingeschakeld",
+      "VALUE": "Waarde"
+    },
+    "FIELDS": {
+      "fullname": "GEBRUIKERSnaam1",
+      "fullname2": "gebruikersNAAM2"
+    },
+    "FORM_VALIDATION": {
+      "FULL_NAME": {
+        "REQUIRED": "{{fieldName}} is verplicht",
+        "MIN_LENGTH": "Username moet minimaal {{requiredLength}} tekens lang zijn",
+        "MAX_LENGTH": "Username mag niet meer dan {{requiredLength}} tekens lang zijn",
+        "PATTERN": "Uw username mag alleen cijfers en letters bevatten",
+        "UNIQUE": "Jouw username is al in gebruik"
+      },
+      "PASSWORD": {
+        "REQUIRED": "Password is verplicht",
+        "MIN_LENGTH": "Password moet minimaal 5 tekens lang zijn",
+        "PATTERN": "Uw password moet minimaal één hoofdletter, één kleine letter en één cijfer bevatten"
+      },
+      "CONFIRM_PASSWORD": {
+        "REQUIRED": "Confirm password is verplicht",
+        "ARE_EQUAL": "Password komt niet overeen"
+      }
+    }
+  }
+}

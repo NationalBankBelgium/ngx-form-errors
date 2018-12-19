@@ -1,0 +1,58 @@
+language: node_js
+node_js:
+  - "8"
+  - "10"
+
+dist: trusty
+sudo: false # better for performance
+
+before_install:
+  - echo $TRAVIS_COMMIT
+  - echo $TRAVIS_TAG
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_BUILD_NUMBER
+  - echo $TRAVIS_REPO
+  - AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
+  - echo $AUTHOR_NAME
+  - export TZ=Europe/Brussels
+  - npm i -g npm@6.4.1
+  - NODE_VERSION="$(node -v)"
+  - echo $NODE_VERSION
+  # This ensures that we are authenticated without requiring to have an actual .npmrc file within the project
+  - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc'
+
+install:
+  # Create file & folder for Travis logs
+  # cfr scripts/_travis-fold.sh
+  - mkdir -p $LOGS_DIR
+  - touch $LOGS_DIR/build-perf.log
+  - npm ci
+  - npm run install:ci:demo
+
+env:
+  global:
+    - LOGS_DIR=/tmp/ngx-form-errors/logs
+    - LOGS_FILE=/tmp/ngx-form-errors/logs/build-perf.log
+
+branches:
+  only:
+    - master
+    - /^\d+\.\d+\.\d(-alpha\.\d+|-beta\.\d+)?$/
+
+cache:
+  directories:
+    - $HOME/.npm
+
+# Not needed since we use Puppeteer in karma.conf.ci.js
+# It downloads Chrome itself and works with or without Travis
+#addons:
+#  chrome: stable
+
+script:
+  - npm run lint:all
+  - npm run test:ci:all
+  - npm run docs:coverage
+  - bash ./scripts/ci/print-logs.sh
+
+after_success:
+  - npm run test:ci:coveralls
