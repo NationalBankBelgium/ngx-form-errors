@@ -125,6 +125,8 @@ NgxFormErrors releases are available on npm: https://www.npmjs.com/settings/nati
 
 Please follow our [contribution guidelines](/CONTRIBUTING.md).
 
+To know how to release NgxFormErrors, refer to [this page](/RELEASE.md).
+
 ## Authors
 
 ### Christopher Cortes

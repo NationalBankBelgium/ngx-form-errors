@@ -1,6 +1,6 @@
 {
   "name": "@nationalbankbelgium/ngx-form-errors",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha",
   "description": "Display validation errors for Angular Reactive forms",
   "author": "Stark Team <National Bank of Belgium>",
   "contributors": [
@@ -73,7 +73,7 @@
     "rxjs": "6.x"
   },
   "scripts": {
-    "build": "ng-packagr -p ng-package.json",
+    "build": "ng-packagr -p ng-package.json && cd dist && npm pack ./ --silent",
     "clean": "npx rimraf ./dist ./reports",
     "clean:all": "npm run clean && npm run clean:demo",
     "clean:demo": "cd demo-app && npm run clean && cd ..",
