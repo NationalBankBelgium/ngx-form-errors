@@ -4,6 +4,8 @@
 
 > An [Angular](https://angular.io) (6+) library to handle validation messages for Reactive Forms in a simple and centralized way
 
+[![NPM version](https://img.shields.io/npm/v/@nationalbankbelgium/ngx-form-errors.svg)](https://www.npmjs.com/package/@nationalbankbelgium/ngx-form-errors)
+[![npm](https://img.shields.io/npm/dm/@nationalbankbelgium/ngx-form-errors.svg)](https://www.npmjs.com/package/@nationalbankbelgium/ngx-form-errors)
 [![Build Status](https://travis-ci.org/NationalBankBelgium/ngx-form-errors.svg?branch=master)](https://travis-ci.org/NationalBankBelgium/ngx-form-errors)
 [![Coverage Status](https://coveralls.io/repos/github/NationalBankBelgium/ngx-form-errors/badge.svg?branch=master)](https://coveralls.io/github/NationalBankBelgium/ngx-form-errors?branch=master)
 [![Dependency Status](https://david-dm.org/NationalBankBelgium/ngx-form-errors.svg)](https://david-dm.org/NationalBankBelgium/ngx-form-errors)
