@@ -1,4 +1,4 @@
-import { Directive, Input } from "@angular/core";
+import { Directive, Input, OnInit } from "@angular/core";
 
 /**
  * Directive that defines the group of the form model to be validated.
@@ -7,7 +7,7 @@ import { Directive, Input } from "@angular/core";
 @Directive({
 	selector: "[ngxFormErrorsGroup]"
 })
-export class NgxFormErrorsGroupDirective {
+export class NgxFormErrorsGroupDirective implements OnInit {
 	/**
 	 * The group of the form model
 	 * @param value - The group name
@@ -38,5 +38,11 @@ export class NgxFormErrorsGroupDirective {
 		// 			". Add this directive to an element only once"
 		// 	);
 		// }
+	}
+
+	public ngOnInit(): void {
+		if (!this.group) {
+			throw new Error("NgxFormErrorsGroupDirective: no group provided.");
+		}
 	}
 }
