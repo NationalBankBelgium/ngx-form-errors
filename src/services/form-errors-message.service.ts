@@ -28,7 +28,7 @@ export class NgxFormErrorsMessageService {
 	/**
 	 * @ignore
 	 */
-	protected fieldNames: NgxValidationErrorMessages = {};
+	protected fieldNames: NgxValidationErrorFieldNames = {};
 
 	/**
 	 * Adds the given error messages to the set of messages known by this service
@@ -56,7 +56,7 @@ export class NgxFormErrorsMessageService {
 		let errorKey: string = error;
 
 		if (group) {
-			errorKey = `${group}.${error}`;
+			errorKey = `${group}.${error}`; // concatenating group + error with a "."
 		}
 
 		if (this.errorMessages.hasOwnProperty(errorKey)) {
@@ -94,7 +94,7 @@ export class NgxFormErrorsMessageService {
 		let fieldNameKey: string = fieldName;
 
 		if (group) {
-			fieldNameKey = `${group}.${fieldName}`;
+			fieldNameKey = `${group}.${fieldName}`; // concatenating group + field name with a "."
 		}
 
 		if (this.fieldNames.hasOwnProperty(fieldNameKey)) {

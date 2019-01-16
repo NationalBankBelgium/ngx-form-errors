@@ -8,6 +8,7 @@ import {
 	OnChanges,
 	OnDestroy,
 	OnInit,
+	Optional,
 	SimpleChanges,
 	TemplateRef,
 	Type,
@@ -32,6 +33,8 @@ interface NgxValidationErrorContext {
 	$implicit: ValidationErrors;
 }
 
+export type FormControlState = "untouched" | "touched" | "pristine" | "dirty" | string;
+
 /**
  * Directive that creates dynamically an Error component when there are validation errors in the form control bound to it.
  * The Error component should be defined via the forRoot() method of the NgxFormErrorsModule and it should be included in the
@@ -42,23 +45,24 @@ interface NgxValidationErrorContext {
 	exportAs: "ngxFormErrors"
 })
 export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
-	/* tslint:disable:no-input-rename */
 	/**
 	 * The name of the form control to be bound to this directive
 	 */
+	/* tslint:disable-next-line:no-input-rename */
 	@Input("ngxFormErrors")
 	public formControlName: string;
 
 	/**
 	 * The name to be displayed for the form control bound to this directive
 	 */
+	/* tslint:disable-next-line:no-input-rename */
 	@Input("ngxFormErrorsFieldName")
 	public fieldName: string;
 
 	/**
 	 * The form control bound to this directive
 	 */
-	protected formControl: AbstractControl;
+	public formControl: AbstractControl;
 
 	/**
 	 * Subject used as source to emit the validation errors from the form control
@@ -105,7 +109,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 		public templateRef: TemplateRef<any>,
 		public viewContainer: ViewContainerRef,
 		componentFactoryResolver: ComponentFactoryResolver,
-		public formErrorsGroup: NgxFormErrorsGroupDirective,
+		@Optional() public formErrorsGroup: NgxFormErrorsGroupDirective,
 		private formErrorsMessageService: NgxFormErrorsMessageService,
 		@Inject(NGX_FORM_ERRORS_CONFIG) private formErrorsConfig: NgxFormErrorsConfig
 	) {
@@ -166,9 +170,6 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 				}
 
 				this.controlErrorsSubj.next(fieldErrors);
-				/// if (this.componentRef) {
-				/// 	this.componentRef.changeDetectorRef.detectChanges();
-				/// }
 			});
 
 		// trigger initial validation in case the field is untouched
@@ -193,12 +194,11 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * @param error - The Angular validation error
 	 */
 	private constructFieldError(errorKey: string, error: any): NgxFormFieldError {
-		const validationMessage: string | undefined = this.formErrorsMessageService.getMessageForError(
-			errorKey,
-			this.formErrorsGroup.group
-		);
-		let fieldName: string | undefined = this.formErrorsMessageService.getFieldName(this.formControlName, this.formErrorsGroup.group);
+		const errorGroup: string | undefined = this.formErrorsGroup && this.formErrorsGroup.group ? this.formErrorsGroup.group : undefined;
+		const validationMessage: string | undefined = this.formErrorsMessageService.getMessageForError(errorKey, errorGroup);
+		let fieldName: string | undefined = this.formErrorsMessageService.getFieldName(this.formControlName, errorGroup);
 
+		// the alias provided via the directive will always take precedence
 		if (this.fieldName) {
 			fieldName = this.fieldName;
 		}
@@ -268,7 +268,10 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * Whether the form control has the given state
 	 * @param state - The state of the form control to be checked
 	 */
-	public hasState(state: string): boolean {
+	public hasState(state: FormControlState): boolean {
+		if (!this.formControl) {
+			return false; // false by default
+		}
 		if (typeof this.formControl[state] === "undefined") {
 			throw new Error("ngxFormErrors directive: form control has no '" + state + "' state defined");
 		}
