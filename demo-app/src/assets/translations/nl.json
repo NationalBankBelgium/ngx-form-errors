@@ -1,32 +1,44 @@
 {
-  "fullname": "G e b r u i k e r s n a a m",
-  "matchingPasswords.password": "Wachtwoord",
-  "matchingPasswords.confirmPassword": "Bevestig Wachtwoord",
   "DEMO": {
-    "COMMON": {
-      "ENABLED": "Ingeschakeld",
-      "VALUE": "Waarde"
+    "PLACEHOLDERS": {
+      "USER_NAME": "Gebruikersnaam",
+      "PASSWORD": "Wachtwoord",
+      "CONFIRM_PASSWORD": "Bevestig wachtwoord"
     },
     "FIELDS": {
-      "fullname": "GEBRUIKERSnaam1",
-      "fullname2": "gebruikersNAAM2"
+      "USER_NAME": "Uw gebruikersnaam",
+      "PASSWORD_ALIAS": "Een geldig wachtwoord",
+      "CONFIRM_PASSWORD": "Wachtwoordbevestiging"
     },
     "FORM_VALIDATION": {
-      "FULL_NAME": {
+      "WITHOUT_NGX_FORM_ERRORS": {
+        "REQUIRED": "Dit veld is verplicht",
+        "USER_NAME": {
+          "REQUIRED": "Gebruikersnaam is verplicht",
+          "UNIQUE": "Uw gebruikersnaam is al in gebruik"
+        },
+        "PASSWORD": {
+          "REQUIRED": "Wachtwoord is verplicht",
+          "MIN_LENGTH": "Wachtwoord moet minimaal 3 tekens lang zijn",
+          "PATTERN": "Uw wachtwoord moet minimaal één hoofdletter, één kleine letter en één cijfer bevatten"
+        },
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Bevestig wachtwoord is verplicht",
+          "ARE_EQUAL": "Wachtwoord komt niet overeen"
+        }
+      },
+      "WITH_NGX_FORM_ERRORS": {
         "REQUIRED": "{{fieldName}} is verplicht",
-        "MIN_LENGTH": "Username moet minimaal {{requiredLength}} tekens lang zijn",
-        "MAX_LENGTH": "Username mag niet meer dan {{requiredLength}} tekens lang zijn",
-        "PATTERN": "Uw username mag alleen cijfers en letters bevatten",
-        "UNIQUE": "Jouw username is al in gebruik"
-      },
-      "PASSWORD": {
-        "REQUIRED": "Password is verplicht",
-        "MIN_LENGTH": "Password moet minimaal 5 tekens lang zijn",
-        "PATTERN": "Uw password moet minimaal één hoofdletter, één kleine letter en één cijfer bevatten"
-      },
-      "CONFIRM_PASSWORD": {
-        "REQUIRED": "Confirm password is verplicht",
-        "ARE_EQUAL": "Password komt niet overeen"
+        "USER_NAME": {
+          "UNIQUE": "Uw gebruikersnaam is al in gebruik"
+        },
+        "PASSWORD": {
+          "MIN_LENGTH": "Wachtwoord moet minimaal {{requiredLength}} tekens lang zijn",
+          "PATTERN": "Uw Wachtwoord moet minimaal één hoofdletter, één kleine letter en één cijfer bevatten"
+        },
+        "CONFIRM_PASSWORD": {
+          "ARE_EQUAL": "Wachtwoord komt niet overeen"
+        }
       }
     }
   }

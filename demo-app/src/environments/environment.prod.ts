@@ -1,4 +1,4 @@
-/*tslint:disable:completed-docs typedef*/
+/*tslint:disable:typedef*/
 export const environment = {
 	production: true
 };

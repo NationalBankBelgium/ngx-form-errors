@@ -1,3 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/theming";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  font-family: BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+app-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    background-color: #174985;
+
+    .app-title {
+      color: #fff;
+      margin-bottom: 0;
+    }
+
+    .app-subtitle {
+      color: #ddd;
+      font-size: 16px;
+      line-height: 16px;
+      // align visually
+      margin: 5px 0 0 4px;
+    }
+  }
+
+  mat-sidenav-container {
+    flex: 100% 1;
+
+    mat-sidenav {
+      max-height: 100%;
+      overflow-y: scroll;
+
+      app-language-selector mat-button-toggle-group {
+        width: 100%;
+        display: flex;
+
+        > * {
+          flex: 1;
+        }
+      }
+
+      mat-list.mat-list.mat-list-base {
+        padding-top: 0;
+
+        mat-list-item {
+          outline: none;
+          cursor: pointer;
+
+          &.active,
+          &.active:hover {
+            background-color: #7796ff;
+            color: #fdfdfd;
+          }
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+          }
+        }
+      }
+    }
+
+    mat-sidenav-content {
+      max-height: 100%;
+      overflow-y: scroll;
+    }
+  }
+}
+
+.container {
+  padding: 10px;
+}

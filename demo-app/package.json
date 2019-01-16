@@ -28,6 +28,7 @@
     "@ngx-translate/core": "^11.0.1",
     "core-js": "^2.6.0",
     "eligrey-classlist-js-polyfill": "1.2.20180112",
+    "normalize.css": "^8.0.1",
     "rxjs": "^6.3.3",
     "tslib": "~1.9.3",
     "zone.js": "~0.8.26"

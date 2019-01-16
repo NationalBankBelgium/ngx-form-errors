@@ -1,4 +1,3 @@
-/*tslint:disable:completed-docs*/
 import { TestBed, async, ComponentFixture } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
@@ -7,16 +6,26 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatListModule } from "@angular/material/list";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { TranslateModule } from "@ngx-translate/core";
 import { NgxFormErrorsModule } from "@nationalbankbelgium/ngx-form-errors";
 import { AppComponent } from "./app.component";
-import { LanguageSelectorComponent } from "./components/language-selector";
-import { SimpleFormErrorComponent } from "./components/simple-form-error";
+import { AppRoutingModule } from "./app-routing.module";
+import { LanguageSelectorComponent, SimpleFormErrorComponent } from "./components";
+import { ReactiveFormsExampleComponent, TemplateDrivenFormsExampleComponent, NgxFormsExampleComponent } from "./pages";
 
 describe("AppComponent", () => {
 	beforeEach(async(() => {
 		return TestBed.configureTestingModule({
-			declarations: [AppComponent, LanguageSelectorComponent, SimpleFormErrorComponent],
+			declarations: [
+				AppComponent,
+				LanguageSelectorComponent,
+				NgxFormsExampleComponent,
+				ReactiveFormsExampleComponent,
+				TemplateDrivenFormsExampleComponent,
+				SimpleFormErrorComponent
+			],
 			imports: [
 				FormsModule,
 				ReactiveFormsModule,
@@ -24,6 +33,9 @@ describe("AppComponent", () => {
 				MatCardModule,
 				MatFormFieldModule,
 				MatInputModule,
+				MatListModule,
+				MatSidenavModule,
+				AppRoutingModule,
 				NoopAnimationsModule,
 				NgxFormErrorsModule.forRoot({
 					formErrorComponent: SimpleFormErrorComponent

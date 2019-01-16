@@ -1,5 +1,4 @@
-/*tslint:disable:completed-docs use-host-property-decorator*/
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewEncapsulation, HostBinding } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
 
@@ -14,13 +13,12 @@ const componentName: string = "language-selector";
 @Component({
 	selector: "app-language-selector",
 	templateUrl: "./language-selector.component.html",
-	encapsulation: ViewEncapsulation.None,
-	// TODO use @HostBinding instead
-	host: {
-		class: componentName
-	}
+	encapsulation: ViewEncapsulation.None
 })
 export class LanguageSelectorComponent implements OnInit, OnDestroy {
+	@HostBinding("class")
+	public cssClass: string = componentName;
+
 	/**
 	 * The currently selected language
 	 */
@@ -67,11 +65,9 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
 	 */
 	public changeLanguage(language: string): void {
 		if (this.selectedLanguage !== language) {
-			console.log(componentName + ": setting current language => " + language);
 			this.selectedLanguage = language;
 
 			this.translateService.use(language);
-			console.log(componentName + ": locale changed to => " + language);
 		}
 	}
 

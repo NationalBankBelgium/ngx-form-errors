@@ -1,32 +1,44 @@
 {
-  "fullname": "F u l l N a m e",
-  "matchingPasswords.password": "Password",
-  "matchingPasswords.confirmPassword": "Confirm Password",
   "DEMO": {
-    "COMMON": {
-      "ENABLED": "Enabled",
-      "VALUE": "Value"
+    "PLACEHOLDERS": {
+      "USER_NAME": "Username",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm password"
     },
     "FIELDS": {
-      "fullname": "FULLname1",
-      "fullname2": "fullNAME2"
+      "USER_NAME": "Your name",
+      "PASSWORD_ALIAS": "A valid passcode",
+      "CONFIRM_PASSWORD": "Password confirmation"
     },
     "FORM_VALIDATION": {
-      "FULL_NAME": {
+      "WITHOUT_NGX_FORM_ERRORS": {
+        "REQUIRED": "This field is required",
+        "USER_NAME": {
+          "REQUIRED": "Username is required",
+          "UNIQUE": "Your username has already been taken"
+        },
+        "PASSWORD": {
+          "REQUIRED": "Password is required",
+          "MIN_LENGTH": "Password must be at least 3 characters long",
+          "PATTERN": "Your password must contain at least one uppercase, one lowercase, and one number"
+        },
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Confirm password is required",
+          "ARE_EQUAL": "Password mismatch"
+        }
+      },
+      "WITH_NGX_FORM_ERRORS": {
         "REQUIRED": "{{fieldName}} is required",
-        "MIN_LENGTH": "Username must be at least {{requiredLength}} characters long",
-        "MAX_LENGTH": "Username cannot be more than {{requiredLength}} characters long",
-        "PATTERN": "Your username must contain only numbers and letters",
-        "UNIQUE": "Your username has already been taken"
-      },
-      "PASSWORD": {
-        "REQUIRED": "Password is required",
-        "MIN_LENGTH": "Password must be at least 5 characters long",
-        "PATTERN": "Your password must contain at least one uppercase, one lowercase, and one number"
-      },
-      "CONFIRM_PASSWORD": {
-        "REQUIRED": "Confirm password is required",
-        "ARE_EQUAL": "Password mismatch"
+        "USER_NAME": {
+          "UNIQUE": "Your username has already been taken"
+        },
+        "PASSWORD": {
+          "MIN_LENGTH": "Password must be at least {{requiredLength}} characters long",
+          "PATTERN": "Your password must contain at least one uppercase, one lowercase, and one number"
+        },
+        "CONFIRM_PASSWORD": {
+          "ARE_EQUAL": "Password mismatch"
+        }
       }
     }
   }
