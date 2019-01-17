@@ -1,4 +1,3 @@
-/*tslint:disable:completed-docs*/
 import { FormControl, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class PasswordValidator {

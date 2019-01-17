@@ -1,1 +1,1 @@
-<div *ngFor="let error of errors" class="some-custom-error-message">{{ error.message }}</div>
+<div *ngFor="let error of errors; trackBy: trackError" class="some-custom-error-message">{{ error.message }}</div>

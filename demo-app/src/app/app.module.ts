@@ -3,25 +3,45 @@ import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatListModule } from "@angular/material/list";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatGridListModule } from "@angular/material/grid-list";
 import { NgxFormErrorsMessageService, NgxFormErrorsModule } from "@nationalbankbelgium/ngx-form-errors";
 import { AppComponent } from "./app.component";
 import { initializeTranslation } from "./translation.config";
+import { AppRoutingModule } from "./app-routing.module";
 import { LanguageSelectorComponent, SimpleFormErrorComponent, TranslatedFormErrorComponent } from "./components";
-import { MatCardModule } from "@angular/material/card";
+import { ReactiveFormsExampleComponent, NgxFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
 
+/* tslint:disable:no-hardcoded-credentials */
 @NgModule({
-	declarations: [AppComponent, LanguageSelectorComponent, SimpleFormErrorComponent, TranslatedFormErrorComponent],
+	declarations: [
+		AppComponent,
+		LanguageSelectorComponent,
+		SimpleFormErrorComponent,
+		TranslatedFormErrorComponent,
+		ReactiveFormsExampleComponent,
+		NgxFormsExampleComponent,
+		TemplateDrivenFormsExampleComponent
+	],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		AppRoutingModule,
 		FormsModule,
+		MatButtonModule,
 		MatButtonToggleModule,
 		MatCardModule,
 		MatFormFieldModule,
+		MatGridListModule,
 		MatInputModule,
+		MatListModule,
+		MatSidenavModule,
 		ReactiveFormsModule,
 		TranslateModule.forRoot(),
 		NgxFormErrorsModule.forRoot({
@@ -38,15 +58,17 @@ export class AppModule {
 		initializeTranslation(this.translateService);
 
 		errorMessageService.addErrorMessages({
-			required: "DEMO.FORM_VALIDATION.FULL_NAME.REQUIRED",
-			"form-group.required": "DEMO.DEMO.BUTTON.TITLE",
-			minlength: "DEMO.FORM_VALIDATION.FULL_NAME.MIN_LENGTH",
-			maxlength: "DEMO.FORM_VALIDATION.FULL_NAME.MAX_LENGTH",
-			pattern: "DEMO.FORM_VALIDATION.FULL_NAME.PATTERN"
+			required: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.REQUIRED",
+			// "matchingPasswords.password.required": "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.REQUIRED",
+			minlength: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.MIN_LENGTH",
+			maxlength: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.MAX_LENGTH",
+			pattern: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.PATTERN"
 		});
 
 		errorMessageService.addFieldNames({
-			"some-whatever-type.fullname": "DEMO.FIELDS.fullname2"
+			username: "DEMO.FIELDS.USER_NAME",
+			"matchingPasswords.password": "DEMO.FIELDS.PASSWORD",
+			"matchingPasswords.confirmPassword": "DEMO.FIELDS.CONFIRM_PASSWORD"
 		});
 	}
 }

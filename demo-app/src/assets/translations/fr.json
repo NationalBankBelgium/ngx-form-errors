@@ -1,32 +1,44 @@
 {
-  "fullname": "U t i l i s a t e u r",
-  "matchingPasswords.password": "Mot de passe",
-  "matchingPasswords.confirmPassword": "Confirmes le mot de passe",
   "DEMO": {
-    "COMMON": {
-      "ENABLED": "Activé",
-      "VALUE": "Valuer"
+    "PLACEHOLDERS": {
+      "USER_NAME": "Nom d'utilisateur",
+      "PASSWORD": "Mot de passe",
+      "CONFIRM_PASSWORD": "Confirmez le mot de passe"
     },
     "FIELDS": {
-      "fullname": "UTILISAteur1",
-      "fullname2": "utilisaTEUR2"
+      "USER_NAME": "Votre nom d'utilisateur",
+      "PASSWORD_ALIAS": "Un code d'authentification valide",
+      "CONFIRM_PASSWORD": "Confirmation mot de passe"
     },
     "FORM_VALIDATION": {
-      "FULL_NAME": {
+      "WITHOUT_NGX_FORM_ERRORS": {
+        "REQUIRED": "Ce champ est nécessaire",
+        "USER_NAME": {
+          "REQUIRED": "Nom d'utilisateur est nécessaire",
+          "UNIQUE": "Votre nom d'utilisateur a déjà été pris"
+        },
+        "PASSWORD": {
+          "REQUIRED": "Mot de passe est nécessaire",
+          "MIN_LENGTH": "Mot de passe doit comporter au moins 3 caractères",
+          "PATTERN": "Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre."
+        },
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Confirmez le mot de passe est nécessaire",
+          "ARE_EQUAL": "Non concordance des mots de passe passwords"
+        }
+      },
+      "WITH_NGX_FORM_ERRORS": {
         "REQUIRED": "{{fieldName}} est nécessaire",
-        "MIN_LENGTH": "Username doit comporter au moins {{requiredLength}} caractères",
-        "MAX_LENGTH": "Username ne peut pas y avoir plus de {{requiredLength}} caractères",
-        "PATTERN": "Votre username ne doit contenir que des chiffres et des lettres",
-        "UNIQUE": "Votre username a déjà été pris"
-      },
-      "PASSWORD": {
-        "REQUIRED": "Password est nécessaire",
-        "MIN_LENGTH": "Password doit comporter au moins 5 caractères",
-        "PATTERN": "Votre password doit contenir au moins une majuscule, une minuscule et un chiffre."
-      },
-      "CONFIRM_PASSWORD": {
-        "REQUIRED": "Confirm password est nécessaire",
-        "ARE_EQUAL": "Non concordance des mots de passe passwords"
+        "USER_NAME": {
+          "UNIQUE": "Votre nom d'utilisateur a déjà été pris"
+        },
+        "PASSWORD": {
+          "MIN_LENGTH": "Mot de passe doit comporter au moins {{requiredLength}} caractères",
+          "PATTERN": "Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre."
+        },
+        "CONFIRM_PASSWORD": {
+          "ARE_EQUAL": "Non concordance des mots de passe passwords"
+        }
       }
     }
   }

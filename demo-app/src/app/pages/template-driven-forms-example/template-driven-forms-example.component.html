@@ -1,0 +1,170 @@
+<div class="mat-display-1">Template Driven Forms</div>
+
+<form (ngSubmit)="onSubmitUserDetails(formNg)" #formNg="ngForm" class="form-group">
+	<div class="content">
+		<mat-card class="form-card">
+			<mat-card-content>
+				<mat-form-field class="username">
+					<input
+						matInput
+						[placeholder]="'DEMO.PLACEHOLDERS.USER_NAME' | translate"
+						[(ngModel)]="username"
+						name="username"
+						#usernameField="ngModel"
+						required
+					/>
+					<mat-error *ngFor="let validation of validationMessages.username">
+						<div
+							class="error-message"
+							*ngIf="
+								(usernameField.errors && usernameField.errors[validation.type] && usernameField.dirty) ||
+								usernameField.touched
+							"
+						>
+							{{ validation.message | translate }}
+						</div>
+					</mat-error>
+				</mat-form-field>
+				<div class="matching-passwords">
+					<mat-form-field class="full-width">
+						<input
+							matInput
+							type="password"
+							[placeholder]="'DEMO.PLACEHOLDERS.PASSWORD' | translate"
+							[(ngModel)]="password"
+							name="password"
+							#passwordField="ngModel"
+							required
+							[pattern]="passwordPattern"
+							minlength="3"
+							maxlength="10"
+						/>
+						<mat-error *ngFor="let validation of validationMessages.password">
+							<div
+								class="error-message"
+								*ngIf="
+									passwordField.errors &&
+									passwordField.errors[validation.type] &&
+									(passwordField.dirty || passwordField.touched)
+								"
+							>
+								{{ validation.message | translate }}
+							</div>
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="full-width">
+						<input
+							matInput
+							type="password"
+							[placeholder]="'DEMO.PLACEHOLDERS.CONFIRM_PASSWORD' | translate"
+							[(ngModel)]="confirmPassword"
+							name="confirmPassword"
+							#confirmPasswordField="ngModel"
+							[errorStateMatcher]="parentErrorStateMatcher"
+							required
+						/>
+						<mat-error *ngFor="let validation of validationMessages.confirmPassword">
+							<div
+								class="error-message"
+								*ngIf="
+									((confirmPasswordField.errors && confirmPasswordField.errors[validation.type]) ||
+										(passwordField.errors && passwordField.errors[validation.type])) &&
+									(confirmPasswordField.dirty || confirmPasswordField.touched)
+								"
+							>
+								{{ validation.message | translate }}
+							</div>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</mat-card-content>
+
+			<mat-card-actions>
+				<button color="primary" mat-raised-button type="submit" [disabled]="!formNg.valid">Submit</button>
+				<!--<button color="primary" mat-button type="button" (click)="getFormStatus(formNg)">Get Form status</button>-->
+				<button color="primary" mat-button type="button" (click)="toggleValidationDetails()">
+					{{ showValidationDetails ? "Hide validation details" : "Show validation details" }}
+				</button>
+				<button color="primary" mat-button type="button" (click)="toggleValidationSummary()">
+					{{ showValidationSummary ? "Hide validation summary" : "Show validation summary" }}
+				</button>
+			</mat-card-actions>
+		</mat-card>
+
+		<div class="form-field-info-wrapper" *ngIf="showValidationDetails">
+			<div class="form-field-info-content">
+				<mat-card class="form-field-info">
+					<mat-card-title>Username</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ !!usernameField.errors }}</div>
+						<div>Has 'required' error: {{ usernameField.hasError("required") }}</div>
+						<!--<div>Is valid?: {{ usernameField.isValid() }}</div>-->
+						<div>
+							'required' error: <pre>{{ usernameField.getError("required") | json }}</pre>
+						</div>
+						<div>Is touched? {{ usernameField.touched }}</div>
+						<div *ngIf="usernameField.errors">
+							Errors: <pre>{{ usernameField.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</mat-card>
+
+				<mat-card class="form-field-info">
+					<mat-card-title>Password</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ !!passwordField.errors }}</div>
+						<div>Has 'pattern' error: {{ passwordField.hasError("pattern") }}</div>
+						<!--<div>Is valid?: {{ passwordField.isValid() }}</div>-->
+						<div>Is touched? {{ passwordField.touched }}</div>
+						<div>
+							'pattern' error: <pre>{{ passwordField.getError("pattern") | json }}</pre>
+						</div>
+						<div *ngIf="passwordField.errors">
+							Errors: <pre>{{ passwordField.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</mat-card>
+
+				<mat-card class="form-field-info">
+					<mat-card-title>Confirm password</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ !!confirmPasswordField.errors }}</div>
+						<div>Has 'required' error: {{ confirmPasswordField.hasError("required") }}</div>
+						<!--<div>Is valid?: {{ confirmPasswordField.isValid() }}</div>-->
+						<div>Is touched? {{ confirmPasswordField.touched }}</div>
+						<div>
+							'required' error: <pre>{{ confirmPasswordField.getError("required") | json }}</pre>
+						</div>
+						<div *ngIf="confirmPasswordField.errors">
+							Errors: <pre>{{ confirmPasswordField.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</mat-card>
+			</div>
+		</div>
+
+		<mat-card
+			class="form-validation-messages"
+			[ngClass]="{ 'no-errors': !usernameField.errors && !passwordField.errors && !confirmPasswordField.errors }"
+			*ngIf="showValidationSummary"
+		>
+			<p *ngIf="!usernameField.errors && !passwordField.errors && !confirmPasswordField.errors">No validation errors</p>
+			<ul *ngIf="usernameField.errors || passwordField.errors || confirmPasswordField.errors">
+				<ng-container *ngFor="let validation of validationMessages.username">
+					<li *ngIf="usernameField.errors && usernameField.errors[validation.type]">{{ validation.message | translate }}</li>
+				</ng-container>
+
+				<ng-container *ngFor="let validation of validationMessages.password">
+					<li *ngIf="passwordField.errors && passwordField.errors[validation.type]">{{ validation.message | translate }}</li>
+				</ng-container>
+
+				<ng-container *ngFor="let validation of validationMessages.confirmPassword">
+					<li *ngIf="confirmPasswordField.errors && confirmPasswordField.errors[validation.type]">
+						{{ validation.message | translate }}
+					</li>
+				</ng-container>
+			</ul>
+		</mat-card>
+	</div>
+</form>

@@ -1,126 +1,17 @@
-<!--<img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">-->
-<h1 class="mat-h1">Ngx-Form-Errors</h1> <h2 class="mat-h2">Validation messages in Reactive Forms made easy</h2>
-<app-language-selector></app-language-selector>
+<header class="container">
+	<h1 class="mat-display-3 app-title">Ngx-Form-Errors</h1>
+	<h2 class="mat-display-3 app-subtitle">Validation messages in Reactive Forms made easy</h2>
+</header>
+<!--<button mat-button (click)="sidenav.toggle()">Toggle Sidenav</button>-->
 
-<mat-card>
-	<form [formGroup]="formMatError" (ngSubmit)="onSubmitUserDetails(formMatError.value)" class="form-group">
-		<div class="mat-display-1">With plain Reactive Forms</div>
-
-		<mat-form-field class="full-width">
-			<input matInput placeholder="Full Name" formControlName="fullname" required />
-			<mat-error *ngFor="let validation of validationMessages.fullname">
-				<div
-					class="error-message"
-					*ngIf="
-						formMatError.get('fullname').hasError(validation.type) &&
-						(formMatError.get('fullname').dirty || formMatError.get('fullname').touched)
-					"
-				>
-					{{ validation.message | translate }}
-				</div>
-			</mat-error>
-		</mat-form-field>
-		<div formGroupName="matchingPasswords" class="matching-passwords">
-			<mat-form-field class="full-width">
-				<input matInput type="password" placeholder="Password" formControlName="password" required />
-				<mat-error *ngFor="let validation of validationMessages.password">
-					<div
-						class="error-message"
-						*ngIf="
-							formMatError
-								.get('matchingPasswords')
-								.get('password')
-								.hasError(validation.type) &&
-							(formMatError.get('matchingPasswords').get('password').dirty ||
-								formMatError.get('matchingPasswords').get('password').touched)
-						"
-					>
-						{{ validation.message | translate }}
-					</div>
-				</mat-error>
-			</mat-form-field>
-
-			<mat-form-field class="full-width">
-				<input
-					matInput
-					type="password"
-					placeholder="Confirm Password"
-					formControlName="confirmPassword"
-					[errorStateMatcher]="parentErrorStateMatcher"
-					required
-				/>
-				<mat-error *ngFor="let validation of validationMessages.confirmPassword">
-					<div
-						class="error-message"
-						*ngIf="
-							(formMatError
-								.get('matchingPasswords')
-								.get('confirmPassword')
-								.hasError(validation.type) ||
-								formMatError.get('matchingPasswords').hasError(validation.type)) &&
-							(formMatError.get('matchingPasswords').get('confirmPassword').dirty ||
-								formMatError.get('matchingPasswords').get('confirmPassword').touched)
-						"
-					>
-						{{ validation.message | translate }}
-					</div>
-				</mat-error>
-			</mat-form-field>
-		</div>
-		<div class="form-buttons">
-			<button color="primary" mat-raised-button type="submit" [disabled]="!formMatError.valid">Submit</button>
-			<button color="primary" mat-raised-button type="button" (click)="getFormStatus()">Get Form status</button>
-		</div>
-	</form>
-</mat-card>
-
-<br />
-
-<mat-card>
-	<form
-		[formGroup]="formNgxError"
-		(ngSubmit)="onSubmitUserDetails(formNgxError.value)"
-		ngxFormErrorsGroup="some-whatever-type"
-		class="form-group"
-	>
-		<div class="mat-display-1">With NgxFormErrors</div>
-
-		<mat-form-field class="full-width">
-			<input matInput placeholder="Full Name" formControlName="fullname" required />
-			<mat-error>
-				<ng-template
-					ngxFormErrors="fullname"
-					ngxFormErrorsFieldNameTranslation="blabla"
-					#fullNameField="ngxFormErrors"
-				></ng-template>
-			</mat-error>
-		</mat-form-field>
-
-		<div formGroupName="matchingPasswords" class="matching-passwords" ngxFormErrorsGroup="nested-dummy-type">
-			<mat-form-field class="full-width">
-				<input matInput type="password" placeholder="Password" formControlName="password" required />
-				<mat-error>
-					<ng-template ngxFormErrors="matchingPasswords.password" #passwordField="ngxFormErrors"></ng-template>
-				</mat-error>
-			</mat-form-field>
-
-			<mat-form-field class="full-width" ngxFormErrorsGroup="another-nested-dummy-type">
-				<input
-					matInput
-					type="password"
-					placeholder="Confirm Password"
-					formControlName="confirmPassword"
-					[errorStateMatcher]="parentErrorStateMatcher"
-					required
-				/>
-				<mat-error>
-					<ng-template ngxFormErrors="matchingPasswords.confirmPassword" #confirmPasswordField="ngxFormErrors"></ng-template>
-				</mat-error>
-			</mat-form-field>
-		</div>
-		<div class="form-buttons">
-			<button color="primary" mat-raised-button type="submit" [disabled]="!formNgxError.valid">Submit</button>
-			<button color="primary" mat-raised-button type="button" (click)="getFormStatus()">Get Form status</button>
-		</div>
-	</form>
-</mat-card>
+<mat-sidenav-container class="example-container">
+	<mat-sidenav #sidenav mode="side" opened>
+		<app-language-selector></app-language-selector>
+		<mat-list>
+			<mat-list-item routerLink="/template-driven-forms" routerLinkActive="active"> Template Driven Forms </mat-list-item>
+			<mat-list-item routerLink="/reactive-forms" routerLinkActive="active"> Reactive Forms </mat-list-item>
+			<mat-list-item routerLink="/ngx-form-errors" routerLinkActive="active"> Ngx Form Errors </mat-list-item>
+		</mat-list>
+	</mat-sidenav>
+	<mat-sidenav-content class="container"> <router-outlet></router-outlet> </mat-sidenav-content>
+</mat-sidenav-container>

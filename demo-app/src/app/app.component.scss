@@ -1,3 +1,4 @@
+/*
 .form-group {
   display: flex;
   align-items: start;
@@ -5,6 +6,7 @@
   flex-wrap: wrap;
 
   .matching-passwords {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,7 +26,7 @@
       min-width: 150px;
     }
   }
-}
+}œ
 
 .form-validation-info {
   display: flex;
@@ -34,7 +36,7 @@
 
   & .form-field-info {
     background-color: aliceblue;
-    border: 1px black solid;
+    border: 1px #000 solid;
     border-radius: 6px;
     width: 350px;
     margin: 20px;
@@ -45,6 +47,7 @@
 .form-validation-messages {
   margin: 20px;
   background-color: cornsilk;
-  border: 1px black solid;
+  border: 1px #000 solid;
   border-radius: 6px;
 }
+*/

@@ -1,0 +1,142 @@
+<div class="mat-display-1">Reactive Forms with NgxFormErrors</div>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmitUserDetails(formGroup)" class="form-group">
+	<div class="content">
+		<mat-card class="form-card">
+			<mat-card-content>
+				<mat-form-field class="full-width">
+					<input matInput [placeholder]="'DEMO.PLACEHOLDERS.USER_NAME' | translate" formControlName="username" required />
+					<mat-error> <ng-template ngxFormErrors="username" #usernameField="ngxFormErrors"> </ng-template> </mat-error>
+				</mat-form-field>
+
+				<div formGroupName="matchingPasswords" class="matching-passwords" ngxFormErrorsGroup="passwords-group">
+					<mat-form-field class="full-width">
+						<input
+							matInput
+							type="password"
+							[placeholder]="'DEMO.PLACEHOLDERS.PASSWORD' | translate"
+							formControlName="password"
+							required
+						/>
+						<mat-error>
+							<ng-template
+								ngxFormErrors="matchingPasswords.password"
+								ngxFormErrorsFieldName="DEMO.FIELDS.PASSWORD_ALIAS"
+								#passwordField="ngxFormErrors"
+							></ng-template>
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="full-width">
+						<input
+							matInput
+							type="password"
+							[placeholder]="'DEMO.PLACEHOLDERS.CONFIRM_PASSWORD' | translate"
+							formControlName="confirmPassword"
+							[errorStateMatcher]="parentErrorStateMatcher"
+							required
+						/>
+						<mat-error>
+							<ng-template
+								ngxFormErrors="matchingPasswords.confirmPassword"
+								#confirmPasswordField="ngxFormErrors"
+							></ng-template>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</mat-card-content>
+
+			<mat-card-actions>
+				<div class="form-buttons">
+					<button color="primary" mat-raised-button type="submit" [disabled]="!formGroup.valid">Submit</button>
+					<!--<button color="primary" mat-button type="button" (click)="getFormStatus()">Get Form status</button>-->
+					<button color="primary" mat-button type="button" (click)="toggleValidationDetails()">
+						{{ showValidationDetails ? "Hide validation details" : "Show validation details" }}
+					</button>
+					<button color="primary" mat-button type="button" (click)="toggleValidationSummary()">
+						{{ showValidationSummary ? "Hide validation summary" : "Show validation summary" }}
+					</button>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+
+		<div class="form-field-info-wrapper" *ngIf="showValidationDetails">
+			<div class="form-field-info-content">
+				<mat-card class="form-field-info">
+					<mat-card-title>Username</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ usernameField.hasErrors }}</div>
+						<div>Has 'required' error: {{ usernameField.hasError("required") }}</div>
+						<div>Is valid?: {{ usernameField.isValid() }}</div>
+						<div>Is touched? {{ usernameField.hasState("touched") }}</div>
+						<div>
+							'required' error:
+							<pre>{{ usernameField.getError("required") | json }}</pre>
+						</div>
+						<div *ngIf="usernameField.hasErrors">
+							Errors:
+							<pre>{{ usernameField.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</mat-card>
+
+				<mat-card class="form-field-info">
+					<mat-card-title>Password</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ passwordField.hasErrors }}</div>
+						<div>Has 'pattern' error: {{ passwordField.hasError("pattern") }}</div>
+						<div>Is pattern valid?: {{ passwordField.isValid("pattern") }}</div>
+						<div>Is touched? {{ passwordField.hasState("touched") }}</div>
+						<div>
+							'pattern' error:
+							<pre>{{ passwordField.getError("pattern") | json }}</pre>
+						</div>
+						<div *ngIf="passwordField.hasErrors">
+							Errors:
+							<pre>{{ passwordField.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</mat-card>
+
+				<mat-card class="form-field-info">
+					<mat-card-title>Confirm password</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ confirmPasswordField.hasErrors }}</div>
+						<div>Has 'required' error: {{ confirmPasswordField.hasError("required") }}</div>
+						<div>Is required valid?: {{ confirmPasswordField.isValid("required") }}</div>
+						<div>Is touched? {{ confirmPasswordField.hasState("touched") }}</div>
+						<div>
+							'required' error:
+							<pre>{{ confirmPasswordField.getError("required") | json }}</pre>
+						</div>
+						<div *ngIf="confirmPasswordField.hasErrors">
+							Errors:
+							<pre>{{ confirmPasswordField.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</mat-card>
+			</div>
+		</div>
+
+		<mat-card
+			class="form-validation-messages"
+			[ngClass]="{ 'no-errors': !usernameField.hasErrors && !passwordField.hasErrors && !confirmPasswordField.hasErrors }"
+			*ngIf="showValidationSummary"
+		>
+			<span *ngIf="!usernameField.hasErrors && !passwordField.hasErrors && !confirmPasswordField.hasErrors"
+				>No validation errors</span
+			>
+
+			<!-- TODO: IMPORTANT: the ngIf cannot be used here because it causes some issues with the ErrorComponent created by the ngxFormErrors -->
+			<ul [hidden]="!usernameField.hasErrors && !passwordField.hasErrors && !confirmPasswordField.hasErrors">
+				<li [hidden]="!usernameField.hasErrors"><ng-template ngxFormErrors="username"></ng-template></li>
+
+				<li [hidden]="!passwordField.hasErrors"><ng-template ngxFormErrors="matchingPasswords.password"></ng-template></li>
+
+				<li [hidden]="!confirmPasswordField.hasErrors">
+					<ng-template ngxFormErrors="matchingPasswords.confirmPassword"></ng-template>
+				</li>
+			</ul>
+		</mat-card>
+	</div>
+</form>
