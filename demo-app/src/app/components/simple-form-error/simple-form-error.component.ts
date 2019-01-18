@@ -17,7 +17,7 @@ export class SimpleFormErrorComponent implements NgxFormErrorComponent {
 		/* empty constructor */
 	}
 
-	public checkForErrors(): void {
+	public subscribeToErrors(): void {
 		this.errors$.subscribe((errors: NgxFormFieldError[]) => {
 			this.errors = errors;
 		});

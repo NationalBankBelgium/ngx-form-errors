@@ -93,7 +93,6 @@
 					<mat-card-content>
 						<div>Has errors: {{ !!formGroup.get("username").errors }}</div>
 						<div>Has 'required' error: {{ formGroup.get("username").hasError("required") }}</div>
-						<!--<div>Is valid?: {{ formGroup.get("username").isValid() }}</div>-->
 						<div>
 							'required' error: <pre>{{ formGroup.get("username").getError("required") | json }}</pre>
 						</div>
@@ -109,7 +108,6 @@
 					<mat-card-content>
 						<div>Has errors: {{ !!formGroup.get("matchingPasswords.password").errors }}</div>
 						<div>Has 'pattern' error: {{ formGroup.get("matchingPasswords.password").hasError("pattern") }}</div>
-						<!--<div>Is valid?: {{ formGroup.get("matchingPasswords.password").isValid() }}</div>-->
 						<div>Is touched? {{ formGroup.get("matchingPasswords.password").touched }}</div>
 						<div>
 							'pattern' error: <pre>{{ formGroup.get("matchingPasswords.password").getError("pattern") | json }}</pre>
@@ -125,7 +123,6 @@
 					<mat-card-content>
 						<div>Has errors: {{ !!formGroup.get("matchingPasswords.confirmPassword").errors }}</div>
 						<div>Has 'required' error: {{ formGroup.get("matchingPasswords.confirmPassword").hasError("required") }}</div>
-						<!--<div>Is valid?: {{ formGroup.get("matchingPasswords.confirmPassword").isValid() }}</div>-->
 						<div>Is touched? {{ formGroup.get("matchingPasswords.confirmPassword").touched }}</div>
 						<div>
 							'required' error:

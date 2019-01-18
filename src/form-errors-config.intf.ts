@@ -6,7 +6,7 @@ import { InjectionToken, Type } from "@angular/core";
 export const NGX_FORM_ERRORS_CONFIG: InjectionToken<NgxFormErrorsConfig> = new InjectionToken<NgxFormErrorsConfig>("NgxFormErrorsConfig");
 
 /**
- * Definition of the configuration object for the NgxFormErrors module
+ * Definition of the configuration object for the {@link NgxFormErrorsModule}
  */
 export interface NgxFormErrorsConfig {
 	/**

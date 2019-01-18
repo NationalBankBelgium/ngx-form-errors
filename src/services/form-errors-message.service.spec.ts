@@ -47,7 +47,7 @@ describe("NgxFormErrorsMessageService", () => {
 		});
 	});
 
-	describe("getMessageForError", () => {
+	describe("getErrorMessage", () => {
 		const anotherErrorKey: string = "another-error";
 		const anotherErrorMessage: string = "another message";
 
@@ -58,10 +58,10 @@ describe("NgxFormErrorsMessageService", () => {
 				[anotherErrorKey]: anotherErrorMessage
 			};
 
-			expect(formErrorMessageService.getMessageForError(initialErrorKey)).toBe(initialMessages[initialErrorKey]);
-			expect(formErrorMessageService.getMessageForError(dummyErrorKey)).toBe(dummyErrorMessage[dummyErrorKey]);
-			expect(formErrorMessageService.getMessageForError(anotherErrorKey)).toBe(anotherErrorMessage);
-			expect(formErrorMessageService.getMessageForError("any-other-error")).toBeUndefined();
+			expect(formErrorMessageService.getErrorMessage(initialErrorKey)).toBe(initialMessages[initialErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(dummyErrorKey)).toBe(dummyErrorMessage[dummyErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(anotherErrorKey)).toBe(anotherErrorMessage);
+			expect(formErrorMessageService.getErrorMessage("any-other-error")).toBeUndefined();
 		});
 
 		it("should return the right message for the given group.error tuple or for the given error only or undefined if nothing related to that error exists", () => {
@@ -71,12 +71,12 @@ describe("NgxFormErrorsMessageService", () => {
 				[anotherErrorKey]: anotherErrorMessage
 			};
 
-			expect(formErrorMessageService.getMessageForError(initialErrorKey)).toBeUndefined();
-			expect(formErrorMessageService.getMessageForError(initialErrorKey, "some-group")).toBe(initialMessages[initialErrorKey]);
-			expect(formErrorMessageService.getMessageForError(dummyErrorKey)).toBeUndefined();
-			expect(formErrorMessageService.getMessageForError(dummyErrorKey, "dummy-group")).toBe(dummyErrorMessage[dummyErrorKey]);
-			expect(formErrorMessageService.getMessageForError(anotherErrorKey)).toBe(anotherErrorMessage);
-			expect(formErrorMessageService.getMessageForError(anotherErrorKey, "another-group")).toBe(anotherErrorMessage); // returns the message for the generic error
+			expect(formErrorMessageService.getErrorMessage(initialErrorKey)).toBeUndefined();
+			expect(formErrorMessageService.getErrorMessage(initialErrorKey, "some-group")).toBe(initialMessages[initialErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(dummyErrorKey)).toBeUndefined();
+			expect(formErrorMessageService.getErrorMessage(dummyErrorKey, "dummy-group")).toBe(dummyErrorMessage[dummyErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(anotherErrorKey)).toBe(anotherErrorMessage);
+			expect(formErrorMessageService.getErrorMessage(anotherErrorKey, "another-group")).toBe(anotherErrorMessage); // returns the message for the generic error
 		});
 	});
 
@@ -128,7 +128,7 @@ describe("NgxFormErrorsMessageService", () => {
 			expect(formErrorMessageService.getFieldName("any-other-field")).toBeUndefined();
 		});
 
-		it("should return the right message for the given group.fieldName tuple or for the given fieldName only or undefined if nothing related to that fieldName exists", () => {
+		it("should return the right message for the given group.formControlName tuple or for the given formControlName only or undefined if nothing related to that formControlName exists", () => {
 			formErrorMessageService.fieldNames = {
 				["some-group." + initialErrorKey]: initialFieldNames[initialFieldName],
 				["dummy-group." + dummyFieldNameKey]: dummyFieldName[dummyFieldNameKey],
