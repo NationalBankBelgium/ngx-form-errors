@@ -17,7 +17,7 @@ export interface NgxValidationErrorFieldNames {
 }
 
 /**
- * Service to add and retrieve error messages for the different validation errors returned by the ngxFormErrors directive
+ * Service to add and retrieve error messages for the different validation errors returned by the {@link NgxFormErrorsDirective}
  */
 @Injectable()
 export class NgxFormErrorsMessageService {
@@ -52,7 +52,7 @@ export class NgxFormErrorsMessageService {
 	 * @param error - The validation error (Angular validator name)
 	 * @param group - The model group to find a match for (if any)
 	 */
-	public getMessageForError(error: string, group?: string): string | undefined {
+	public getErrorMessage(error: string, group?: string): string | undefined {
 		let errorKey: string = error;
 
 		if (group) {

@@ -99,7 +99,6 @@
 					<mat-card-content>
 						<div>Has errors: {{ !!usernameField.errors }}</div>
 						<div>Has 'required' error: {{ usernameField.hasError("required") }}</div>
-						<!--<div>Is valid?: {{ usernameField.isValid() }}</div>-->
 						<div>
 							'required' error: <pre>{{ usernameField.getError("required") | json }}</pre>
 						</div>
@@ -115,7 +114,6 @@
 					<mat-card-content>
 						<div>Has errors: {{ !!passwordField.errors }}</div>
 						<div>Has 'pattern' error: {{ passwordField.hasError("pattern") }}</div>
-						<!--<div>Is valid?: {{ passwordField.isValid() }}</div>-->
 						<div>Is touched? {{ passwordField.touched }}</div>
 						<div>
 							'pattern' error: <pre>{{ passwordField.getError("pattern") | json }}</pre>
@@ -131,7 +129,6 @@
 					<mat-card-content>
 						<div>Has errors: {{ !!confirmPasswordField.errors }}</div>
 						<div>Has 'required' error: {{ confirmPasswordField.hasError("required") }}</div>
-						<!--<div>Is valid?: {{ confirmPasswordField.isValid() }}</div>-->
 						<div>Is touched? {{ confirmPasswordField.touched }}</div>
 						<div>
 							'required' error: <pre>{{ confirmPasswordField.getError("required") | json }}</pre>

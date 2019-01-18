@@ -2,7 +2,8 @@ import { NgxFormFieldError } from "./form-error.intf";
 import { Observable } from "rxjs";
 
 /**
- * Describes an Error component to be dynamically created by the ngxFormErrors directive
+ * Describes an Error component to be dynamically created by the ngxFormErrors directive.
+ * `IMPORTANT:` The Error component should be provided in the {@link NgxFormErrorsModule}.forRoot() method and must implement this interface.
  */
 export interface NgxFormErrorComponent {
 	/**
@@ -14,5 +15,5 @@ export interface NgxFormErrorComponent {
 	 * Method to be called by the ngxFormErrors directive only. It subscribes to the errors$ observable to update
 	 * the current validation errors from the form control
 	 */
-	checkForErrors(): void;
+	subscribeToErrors(): void;
 }

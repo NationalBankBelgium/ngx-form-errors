@@ -23,7 +23,7 @@ export class TranslatedFormErrorComponent implements NgxFormErrorComponent, OnIn
 		});
 	}
 
-	public checkForErrors(): void {
+	public subscribeToErrors(): void {
 		this.errors$.subscribe((errors: NgxFormFieldError[]) => {
 			this.errors = errors;
 

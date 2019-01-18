@@ -23,21 +23,11 @@ import { NgxFormErrorsGroupDirective } from "./form-errors-group.directive";
 import { NGX_FORM_ERRORS_CONFIG, NgxFormErrorsConfig } from "../form-errors-config.intf";
 import { NgxFormFieldError } from "../form-error.intf";
 
-/**
- * Implicit context of the ngxFormErrors structural directive
- */
-interface NgxValidationErrorContext {
-	/**
-	 * The map of errors returned from failed Angular validation checks
-	 */
-	$implicit: ValidationErrors;
-}
-
 export type FormControlState = "untouched" | "touched" | "pristine" | "dirty" | string;
 
 /**
  * Directive that creates dynamically an Error component when there are validation errors in the form control bound to it.
- * The Error component should be defined via the forRoot() method of the NgxFormErrorsModule and it should be included in the
+ * The Error component should be provided via the {@link NgxFormErrorsModule}.forRoot() method and it should be included in the
  * entryComponents of your app/feature NgModule so that it can be dynamically created.
  */
 @Directive({
@@ -62,82 +52,76 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	/**
 	 * The form control bound to this directive
 	 */
-	public formControl: AbstractControl;
+	public _formControl: AbstractControl;
 
 	/**
 	 * Subject used as source to emit the validation errors from the form control
 	 */
-	public controlErrorsSubj: BehaviorSubject<NgxFormFieldError[]>;
+	private _controlErrorsSubj: BehaviorSubject<NgxFormFieldError[]>;
 
 	/**
 	 * Observable that the created Error component will subscribe to in order to get all the validation errors from the bound form control
 	 */
-	public controlErrors$: Observable<NgxFormFieldError[]>;
+	public _controlErrors$: Observable<NgxFormFieldError[]>;
 
 	/**
 	 * The factory to be used to dynamically create the specified Error component
 	 */
-	public componentFactory: ComponentFactory<NgxFormErrorComponent>;
+	private _componentFactory: ComponentFactory<NgxFormErrorComponent>;
 
 	/**
 	 * Represents a component created by a `ComponentFactory`.
 	 */
-	public componentRef: ComponentRef<NgxFormErrorComponent>;
+	public _componentRef: ComponentRef<NgxFormErrorComponent>;
 
 	/**
-	 * Context of the ngxFormErrors structural directive
+	 * Subscription to the changes observable of the form control bound to this directive
 	 */
-	public context: NgxValidationErrorContext;
-
-	/**
-	 * Subscripton to the changes observable of the form control bound to this directive
-	 */
-	public controlChangesSubscription: Subscription;
+	private _controlChangesSubscription: Subscription;
 
 	/**
 	 * Class constructor
-	 * @param form - The Angular formGroup that contains the form control bound to this directive
-	 * @param templateRef - The embedded template that can be used to instantiate embedded views
-	 * @param viewContainer - The container where the Error component view(s) can be attached
+	 * @param _form - The Angular formGroup that contains the form control bound to this directive
+	 * @param _templateRef - The embedded template that can be used to instantiate embedded views
+	 * @param _viewContainer - The container where the Error component view(s) can be attached
 	 * @param componentFactoryResolver - Resolver that returns Angular component factories
 	 * @param formErrorsGroup - The NgxFormErrorsGroupDirective that wraps (if any) the form control bound to this directive
-	 * @param formErrorsMessageService - The NgxFormErrorsMessageService to add and retrieve error messages for the different validation errors
+	 * @param _formErrorsMessageService - The NgxFormErrorsMessageService to add and retrieve error messages for the different validation errors
 	 * @param formErrorsConfig - Configuration object for the NgxFormErrors module
 	 */
 	public constructor(
-		public form: FormGroupDirective,
-		public templateRef: TemplateRef<any>,
-		public viewContainer: ViewContainerRef,
+		private _form: FormGroupDirective,
+		private _templateRef: TemplateRef<any>,
+		private _viewContainer: ViewContainerRef,
 		componentFactoryResolver: ComponentFactoryResolver,
 		@Optional() public formErrorsGroup: NgxFormErrorsGroupDirective,
-		private formErrorsMessageService: NgxFormErrorsMessageService,
-		@Inject(NGX_FORM_ERRORS_CONFIG) private formErrorsConfig: NgxFormErrorsConfig
+		private _formErrorsMessageService: NgxFormErrorsMessageService,
+		@Inject(NGX_FORM_ERRORS_CONFIG) formErrorsConfig: NgxFormErrorsConfig
 	) {
-		this.context = { $implicit: {} };
-		this.controlErrorsSubj = new BehaviorSubject<NgxFormFieldError[]>([]);
-		this.controlErrors$ = this.controlErrorsSubj.asObservable();
+		this._controlErrorsSubj = new BehaviorSubject<NgxFormFieldError[]>([]);
+		this._controlErrors$ = this._controlErrorsSubj.asObservable();
 		let component: Type<NgxFormErrorComponent>;
-		if (this.formErrorsConfig.formErrorComponent) {
-			component = this.formErrorsConfig.formErrorComponent;
+		if (formErrorsConfig.formErrorComponent) {
+			component = formErrorsConfig.formErrorComponent;
 		} else {
 			throw new Error("ngxFormErrors directive: no form error component provided");
 		}
-		this.componentFactory = componentFactoryResolver.resolveComponentFactory(component);
+		this._componentFactory = componentFactoryResolver.resolveComponentFactory(component);
 	}
 
 	/**
 	 * Directive's lifecycle hook
 	 */
 	public ngOnInit(): void {
-		this.viewContainer.createEmbeddedView(this.templateRef, this.context);
-		this.componentRef = this.viewContainer.createComponent(this.componentFactory);
-		/// this.componentRef = this.componentFactory.create(this.injector);
-		/// this.componentView = this.componentRef.hostView;
+		this._viewContainer.createEmbeddedView(this._templateRef);
+		this._componentRef = this._viewContainer.createComponent(this._componentFactory);
+		/// this._componentRef = this._componentFactory.create(this.injector);
+		/// this.componentView = this._componentRef.hostView;
 		/// this.viewContainer.insert(this.componentView);
 
-		this.componentRef.instance.errors$ = this.controlErrors$;
-		// TODO: how to avoid calling a function in the component so that it subscribes to the controlErrors$ observable?
-		this.componentRef.instance.checkForErrors();
+		this._componentRef.instance.errors$ = this._controlErrors$;
+		// TODO: how to avoid calling a function in the component so that it subscribes to the _controlErrors$ observable?
+		this._componentRef.instance.subscribeToErrors();
 	}
 
 	/**
@@ -145,36 +129,34 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * @param _changes - The changed inputs
 	 */
 	public ngOnChanges(_changes: SimpleChanges): void {
-		const control: AbstractControl | undefined = this.form.control.get(this.formControlName) || undefined;
+		const control: AbstractControl | undefined = this._form.control.get(this.formControlName) || undefined;
 
 		if (control) {
-			if (this.formControl) {
-				this.controlChangesSubscription.unsubscribe();
+			if (this._formControl) {
+				this._controlChangesSubscription.unsubscribe();
 			}
-			this.formControl = control;
+			this._formControl = control;
 		} else {
 			throw new Error(`Control '${this.formControlName}' not found in Form`);
 		}
 
-		this.controlChangesSubscription = this.formControl.statusChanges
-			.pipe(map<ValidationErrors | null, ValidationErrors>(() => this.formControl.errors || {}))
+		this._controlChangesSubscription = this._formControl.statusChanges
+			.pipe(map<ValidationErrors | null, ValidationErrors>(() => this._formControl.errors || {}))
 			.subscribe((errors: ValidationErrors) => {
 				const fieldErrors: NgxFormFieldError[] = [];
-				this.context.$implicit = {}; // clean all errors
 
 				/* tslint:disable-next-line:forin */
 				for (const errorKey in errors) {
 					const formError: NgxFormFieldError = this.constructFieldError(errorKey, errors[errorKey]);
-					this.context.$implicit[errorKey] = formError;
 					fieldErrors.push(formError);
 				}
 
-				this.controlErrorsSubj.next(fieldErrors);
+				this._controlErrorsSubj.next(fieldErrors);
 			});
 
 		// trigger initial validation in case the field is untouched
-		if (this.formControl.untouched) {
-			this.formControl.updateValueAndValidity({ onlySelf: true, emitEvent: true });
+		if (this._formControl.untouched) {
+			this._formControl.updateValueAndValidity({ onlySelf: true, emitEvent: true });
 		}
 	}
 
@@ -182,9 +164,9 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * Directive's lifecycle hook
 	 */
 	public ngOnDestroy(): void {
-		this.controlErrorsSubj.complete();
-		if (this.controlChangesSubscription) {
-			this.controlChangesSubscription.unsubscribe();
+		this._controlErrorsSubj.complete();
+		if (this._controlChangesSubscription) {
+			this._controlChangesSubscription.unsubscribe();
 		}
 	}
 
@@ -195,8 +177,8 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	private constructFieldError(errorKey: string, error: any): NgxFormFieldError {
 		const errorGroup: string | undefined = this.formErrorsGroup && this.formErrorsGroup.group ? this.formErrorsGroup.group : undefined;
-		const validationMessage: string | undefined = this.formErrorsMessageService.getMessageForError(errorKey, errorGroup);
-		let fieldName: string | undefined = this.formErrorsMessageService.getFieldName(this.formControlName, errorGroup);
+		const validationMessage: string | undefined = this._formErrorsMessageService.getErrorMessage(errorKey, errorGroup);
+		let fieldName: string | undefined = this._formErrorsMessageService.getFieldName(this.formControlName, errorGroup);
 
 		// the alias provided via the directive will always take precedence
 		if (this.fieldName) {
@@ -205,10 +187,10 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 
 		return {
 			error: errorKey, // TODO: already implicit in the property name of the errorObj object... remove?
-			fieldName: this.formControlName, // FIXME trim path or not?
+			formControlName: this.formControlName, // TODO trim path or not?
 			message: typeof validationMessage !== "undefined" ? validationMessage : errorKey, // the errorKey is used as default message if no message defined
 			params: {
-				fieldName: typeof fieldName !== "undefined" ? fieldName : this.formControlName, // the formControlName is uses as default fieldName if no custom name defined
+				fieldName: typeof fieldName !== "undefined" ? fieldName : this.formControlName, // the formControlName is used as default fieldName if no custom fieldName is defined
 				...error
 			}
 		};
@@ -218,10 +200,10 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * An object containing any errors generated by failing validation, or null if there are no errors
 	 */
 	public get errors(): ValidationErrors | null {
-		if (!this.formControl) {
+		if (!this._formControl) {
 			return null;
 		}
-		return this.formControl.errors;
+		return this._formControl.errors;
 	}
 
 	/**
@@ -236,21 +218,10 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * @param name - The name of the validation error to be checked
 	 */
 	public hasError(name: string): boolean {
-		if (!this.formControl) {
+		if (!this._formControl) {
 			return false; // false by default
 		}
-		return this.formControl.hasError(name);
-	}
-
-	/**
-	 * Whether the form control has no errors for the given validation
-	 * @param name - The name of the validation error to be checked
-	 */
-	public isValid(name: string): boolean {
-		if (!this.formControl) {
-			return true; // true by default
-		}
-		return !this.formControl.hasError(name);
+		return this._formControl.hasError(name);
 	}
 
 	/**
@@ -258,10 +229,10 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * @param name - The name of the validation error to be returned
 	 */
 	public getError(name: string): any | null {
-		if (!this.formControl) {
+		if (!this._formControl) {
 			return null;
 		}
-		return this.formControl.getError(name);
+		return this._formControl.getError(name);
 	}
 
 	/**
@@ -269,12 +240,12 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * @param state - The state of the form control to be checked
 	 */
 	public hasState(state: FormControlState): boolean {
-		if (!this.formControl) {
+		if (!this._formControl) {
 			return false; // false by default
 		}
-		if (typeof this.formControl[state] === "undefined") {
+		if (typeof this._formControl[state] === "undefined") {
 			throw new Error("ngxFormErrors directive: form control has no '" + state + "' state defined");
 		}
-		return this.formControl[state];
+		return this._formControl[state];
 	}
 }

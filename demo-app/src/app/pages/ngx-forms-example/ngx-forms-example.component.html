@@ -67,15 +67,12 @@
 					<mat-card-content>
 						<div>Has errors: {{ usernameField.hasErrors }}</div>
 						<div>Has 'required' error: {{ usernameField.hasError("required") }}</div>
-						<div>Is valid?: {{ usernameField.isValid() }}</div>
 						<div>Is touched? {{ usernameField.hasState("touched") }}</div>
 						<div>
-							'required' error:
-							<pre>{{ usernameField.getError("required") | json }}</pre>
+							'required' error: <pre>{{ usernameField.getError("required") | json }}</pre>
 						</div>
 						<div *ngIf="usernameField.hasErrors">
-							Errors:
-							<pre>{{ usernameField.errors | json }}</pre>
+							Errors: <pre>{{ usernameField.errors | json }}</pre>
 						</div>
 					</mat-card-content>
 				</mat-card>
@@ -85,15 +82,12 @@
 					<mat-card-content>
 						<div>Has errors: {{ passwordField.hasErrors }}</div>
 						<div>Has 'pattern' error: {{ passwordField.hasError("pattern") }}</div>
-						<div>Is pattern valid?: {{ passwordField.isValid("pattern") }}</div>
 						<div>Is touched? {{ passwordField.hasState("touched") }}</div>
 						<div>
-							'pattern' error:
-							<pre>{{ passwordField.getError("pattern") | json }}</pre>
+							'pattern' error: <pre>{{ passwordField.getError("pattern") | json }}</pre>
 						</div>
 						<div *ngIf="passwordField.hasErrors">
-							Errors:
-							<pre>{{ passwordField.errors | json }}</pre>
+							Errors: <pre>{{ passwordField.errors | json }}</pre>
 						</div>
 					</mat-card-content>
 				</mat-card>
@@ -103,15 +97,12 @@
 					<mat-card-content>
 						<div>Has errors: {{ confirmPasswordField.hasErrors }}</div>
 						<div>Has 'required' error: {{ confirmPasswordField.hasError("required") }}</div>
-						<div>Is required valid?: {{ confirmPasswordField.isValid("required") }}</div>
 						<div>Is touched? {{ confirmPasswordField.hasState("touched") }}</div>
 						<div>
-							'required' error:
-							<pre>{{ confirmPasswordField.getError("required") | json }}</pre>
+							'required' error: <pre>{{ confirmPasswordField.getError("required") | json }}</pre>
 						</div>
 						<div *ngIf="confirmPasswordField.hasErrors">
-							Errors:
-							<pre>{{ confirmPasswordField.errors | json }}</pre>
+							Errors: <pre>{{ confirmPasswordField.errors | json }}</pre>
 						</div>
 					</mat-card-content>
 				</mat-card>
@@ -131,7 +122,12 @@
 			<ul [hidden]="!usernameField.hasErrors && !passwordField.hasErrors && !confirmPasswordField.hasErrors">
 				<li [hidden]="!usernameField.hasErrors"><ng-template ngxFormErrors="username"></ng-template></li>
 
-				<li [hidden]="!passwordField.hasErrors"><ng-template ngxFormErrors="matchingPasswords.password"></ng-template></li>
+				<li [hidden]="!passwordField.hasErrors">
+					<ng-template
+						ngxFormErrors="matchingPasswords.password"
+						ngxFormErrorsFieldName="DEMO.FIELDS.PASSWORD_ALIAS"
+					></ng-template>
+				</li>
 
 				<li [hidden]="!confirmPasswordField.hasErrors">
 					<ng-template ngxFormErrors="matchingPasswords.confirmPassword"></ng-template>

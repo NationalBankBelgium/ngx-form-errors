@@ -8,9 +8,9 @@ export interface NgxFormFieldError {
 	error: string;
 
 	/**
-	 * The name of the field whose validation has failed
+	 * The name of the FormControl whose validation has failed
 	 */
-	fieldName: string;
+	formControlName: string;
 
 	/**
 	 * The validation error message
@@ -22,11 +22,12 @@ export interface NgxFormFieldError {
 	 */
 	params: {
 		/**
-		 * Name of the validated field
+		 * Alias of the validated field. Defined via the "ngxFormErrorsFieldName" attribute of the {@link NgxFormErrorsDirective}
+		 * If no alias is defined for the field then this is the FormControl's name
 		 */
 		fieldName: string;
 		/**
-		 * Parameters passed to the actual Angular validator
+		 * Any parameters passed to the actual Angular validator
 		 */
 		[p: string]: any;
 	};

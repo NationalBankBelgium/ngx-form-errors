@@ -2,7 +2,7 @@ import { Directive, Input, OnInit } from "@angular/core";
 
 /**
  * Directive that defines the group of the form model to be validated.
- * The directive exposes the group through the controller to allow access to it by wrapped ngxFormErrors directives.
+ * The directive exposes the group through the controller to allow access to it by wrapped {@link NgxFormErrorsDirective}(s).
  */
 @Directive({
 	selector: "[ngxFormErrorsGroup]"
@@ -10,7 +10,6 @@ import { Directive, Input, OnInit } from "@angular/core";
 export class NgxFormErrorsGroupDirective implements OnInit {
 	/**
 	 * The group of the form model
-	 * @param value - The group name
 	 */
 	@Input("ngxFormErrorsGroup")
 	public set group(value: string) {
