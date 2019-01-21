@@ -1,4 +1,4 @@
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, DomSanitizer } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -11,12 +11,17 @@ import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatGridListModule } from "@angular/material/grid-list";
+import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgxFormErrorsMessageService, NgxFormErrorsModule } from "@nationalbankbelgium/ngx-form-errors";
 import { AppComponent } from "./app.component";
 import { initializeTranslation } from "./translation.config";
 import { AppRoutingModule } from "./app-routing.module";
 import { LanguageSelectorComponent, SimpleFormErrorComponent, TranslatedFormErrorComponent } from "./components";
 import { ReactiveFormsExampleComponent, NgxFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
+import { NavigationComponent } from "./components/navigation/navigation.component";
+import { CardComponent } from "./components/card/card.component";
+import { HttpClientModule } from "@angular/common/http";
 
 /* tslint:disable:no-hardcoded-credentials */
 @NgModule({
@@ -27,21 +32,26 @@ import { ReactiveFormsExampleComponent, NgxFormsExampleComponent, TemplateDriven
 		TranslatedFormErrorComponent,
 		ReactiveFormsExampleComponent,
 		NgxFormsExampleComponent,
-		TemplateDrivenFormsExampleComponent
+		TemplateDrivenFormsExampleComponent,
+		NavigationComponent,
+		CardComponent
 	],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
 		FormsModule,
+		HttpClientModule,
 		MatButtonModule,
 		MatButtonToggleModule,
 		MatCardModule,
 		MatFormFieldModule,
 		MatGridListModule,
 		MatInputModule,
+		MatToolbarModule,
 		MatListModule,
 		MatSidenavModule,
+		MatIconModule,
 		ReactiveFormsModule,
 		TranslateModule.forRoot(),
 		NgxFormErrorsModule.forRoot({
@@ -54,8 +64,15 @@ import { ReactiveFormsExampleComponent, NgxFormsExampleComponent, TemplateDriven
 	bootstrap: [AppComponent]
 })
 export class AppModule {
-	public constructor(private translateService: TranslateService, private errorMessageService: NgxFormErrorsMessageService) {
+	public constructor(
+		private translateService: TranslateService,
+		private errorMessageService: NgxFormErrorsMessageService,
+		iconRegistry: MatIconRegistry,
+		sanitizer: DomSanitizer
+	) {
 		initializeTranslation(this.translateService);
+
+		iconRegistry.addSvgIcon("github", sanitizer.bypassSecurityTrustResourceUrl("assets/img/github-icon.svg"));
 
 		errorMessageService.addErrorMessages({
 			required: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.REQUIRED",
@@ -67,7 +84,7 @@ export class AppModule {
 
 		errorMessageService.addFieldNames({
 			username: "DEMO.FIELDS.USER_NAME",
-			"matchingPasswords.password": "DEMO.FIELDS.PASSWORD",
+			"matchingPasswords.password": "DEMO.FIELDS.PASSWORD_ALIAS",
 			"matchingPasswords.confirmPassword": "DEMO.FIELDS.CONFIRM_PASSWORD"
 		});
 	}

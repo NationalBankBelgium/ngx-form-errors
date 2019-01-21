@@ -1,17 +1,21 @@
-<header class="container">
-	<h1 class="mat-display-3 app-title">Ngx-Form-Errors</h1>
-	<h2 class="mat-display-3 app-subtitle">Validation messages in Reactive Forms made easy</h2>
-</header>
-<!--<button mat-button (click)="sidenav.toggle()">Toggle Sidenav</button>-->
+<mat-toolbar color="primary">
+	<button *ngIf="mobileQueryMatches" mat-icon-button (click)="sidenav.toggle()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<h1>Ngx-Form-Errors</h1>
+	<h4 *ngIf="!mobileQueryMatches" class="slogan">&nbsp;- Validation messages in Reactive Forms made easy</h4>
+	<div class="spacer"></div>
+	<a mat-icon-button href="https://github.com/NationalBankBelgium/ngx-form-errors" target="_blank" rel="noopener noreferrer">
+		<mat-icon svgIcon="github"></mat-icon>
+	</a>
+</mat-toolbar>
 
-<mat-sidenav-container class="example-container">
-	<mat-sidenav #sidenav mode="side" opened>
+<mat-sidenav-container>
+	<mat-sidenav #sidenav [mode]="mobileQueryMatches ? 'over' : 'side'" [opened]="!mobileQueryMatches">
 		<app-language-selector></app-language-selector>
-		<mat-list>
-			<mat-list-item routerLink="/template-driven-forms" routerLinkActive="active"> Template Driven Forms </mat-list-item>
-			<mat-list-item routerLink="/reactive-forms" routerLinkActive="active"> Reactive Forms </mat-list-item>
-			<mat-list-item routerLink="/ngx-form-errors" routerLinkActive="active"> Ngx Form Errors </mat-list-item>
-		</mat-list>
+		<app-navigation></app-navigation>
 	</mat-sidenav>
-	<mat-sidenav-content class="container"> <router-outlet></router-outlet> </mat-sidenav-content>
+	<mat-sidenav-content>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
 </mat-sidenav-container>

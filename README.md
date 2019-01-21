@@ -67,7 +67,7 @@ You decide how to display the messages by defining your own Error component:
 
 <!-- or you can use the error's data/properties to do something fancy -->
 <div *ngFor="let error of errors" [ngClass]="getErrorClass(error)">
-	{{ constructDisplayedErrorMMessage(error) }}
+	{{ constructDisplayedErrorMessage(error) }}
 </div>
 ```
 

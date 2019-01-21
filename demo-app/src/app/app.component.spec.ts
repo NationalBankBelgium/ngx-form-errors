@@ -5,21 +5,27 @@ import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/t
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { TranslateModule } from "@ngx-translate/core";
 import { NgxFormErrorsModule } from "@nationalbankbelgium/ngx-form-errors";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { LanguageSelectorComponent, SimpleFormErrorComponent } from "./components";
+import { CardComponent, LanguageSelectorComponent, NavigationComponent, SimpleFormErrorComponent } from "./components";
 import { ReactiveFormsExampleComponent, TemplateDrivenFormsExampleComponent, NgxFormsExampleComponent } from "./pages";
 
 describe("AppComponent", () => {
+	let fixture: ComponentFixture<AppComponent>;
+
 	beforeEach(async(() => {
 		return TestBed.configureTestingModule({
 			declarations: [
 				AppComponent,
+				CardComponent,
+				NavigationComponent,
 				LanguageSelectorComponent,
 				NgxFormsExampleComponent,
 				ReactiveFormsExampleComponent,
@@ -32,9 +38,11 @@ describe("AppComponent", () => {
 				MatButtonToggleModule,
 				MatCardModule,
 				MatFormFieldModule,
+				MatIconModule,
 				MatInputModule,
 				MatListModule,
 				MatSidenavModule,
+				MatToolbarModule,
 				AppRoutingModule,
 				NoopAnimationsModule,
 				NgxFormErrorsModule.forRoot({
@@ -51,14 +59,17 @@ describe("AppComponent", () => {
 			.compileComponents();
 	}));
 
+	beforeEach(() => {
+		fixture = TestBed.createComponent(AppComponent);
+		fixture.detectChanges();
+	});
+
 	it("should create the app", () => {
-		const fixture: ComponentFixture<AppComponent> = TestBed.createComponent(AppComponent);
 		const app: AppComponent = fixture.debugElement.componentInstance;
 		expect(app).toBeTruthy();
 	});
 
 	it("should render title in a h1 tag", () => {
-		const fixture: ComponentFixture<AppComponent> = TestBed.createComponent(AppComponent);
 		fixture.detectChanges();
 		const compiled: HTMLElement = fixture.debugElement.nativeElement;
 		expect(compiled.querySelector("h1").textContent).toContain("Ngx-Form-Errors");
