@@ -1,6 +1,6 @@
 /*tslint:disable:trackBy-function template-cyclomatic-complexity*/
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
 import { PasswordValidator } from "../../password-validator";

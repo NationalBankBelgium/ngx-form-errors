@@ -421,7 +421,10 @@ describe("NgxFormErrorsDirective", () => {
 					// reset the fieldName to the form control name
 					const expectedValidationError: NgxFormFieldError = {
 						...expectedValidationErrors[idx],
-						params: { ...expectedValidationErrorParams, fieldName: expectedValidationErrors[idx]["formControlName"] }
+						params: {
+							...expectedValidationErrorParams,
+							fieldName: expectedValidationErrors[idx]["formControlName"]
+						}
 					};
 
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx)[0];
@@ -578,7 +581,10 @@ describe("NgxFormErrorsDirective", () => {
 					// reset the fieldName to the form control name
 					const expectedValidationError: NgxFormFieldError = {
 						...expectedValidationErrors[idx],
-						params: { ...expectedValidationErrorParams, fieldName: expectedValidationErrors[idx]["formControlName"] }
+						params: {
+							...expectedValidationErrorParams,
+							fieldName: expectedValidationErrors[idx]["formControlName"]
+						}
 					};
 
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx)[0];

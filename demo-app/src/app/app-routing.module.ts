@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { ReactiveFormsExampleComponent, NgxFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
+import { RouterModule, Routes } from "@angular/router";
+import { NgxFormsExampleComponent, ReactiveFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/template-driven-forms", pathMatch: "full" },

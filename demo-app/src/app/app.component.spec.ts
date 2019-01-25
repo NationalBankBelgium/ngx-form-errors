@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
@@ -15,7 +15,7 @@ import { NgxFormErrorsModule } from "@nationalbankbelgium/ngx-form-errors";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { CardComponent, LanguageSelectorComponent, NavigationComponent, SimpleFormErrorComponent } from "./components";
-import { ReactiveFormsExampleComponent, TemplateDrivenFormsExampleComponent, NgxFormsExampleComponent } from "./pages";
+import { NgxFormsExampleComponent, ReactiveFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
 
 describe("AppComponent", () => {
 	let fixture: ComponentFixture<AppComponent>;

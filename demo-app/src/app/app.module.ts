@@ -18,7 +18,7 @@ import { AppComponent } from "./app.component";
 import { initializeTranslation } from "./translation.config";
 import { AppRoutingModule } from "./app-routing.module";
 import { LanguageSelectorComponent, SimpleFormErrorComponent, TranslatedFormErrorComponent } from "./components";
-import { ReactiveFormsExampleComponent, NgxFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
+import { NgxFormsExampleComponent, ReactiveFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { CardComponent } from "./components/card/card.component";
 import { HttpClientModule } from "@angular/common/http";

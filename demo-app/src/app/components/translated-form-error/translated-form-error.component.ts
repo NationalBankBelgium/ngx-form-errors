@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from "@angular/core";
-import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
+import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import { NgxFormErrorComponent, NgxFormFieldError } from "@nationalbankbelgium/ngx-form-errors";
 
