@@ -43,7 +43,8 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	public formControlName: string;
 
 	/**
-	 * The name to be displayed for the form control bound to this directive
+	 * The field name or alias to be displayed in the validation messages instead of the form control's name.
+	 * This alias will be sent in the `params.fieldName` property of the {@link NgxFormFieldError}(s) emitted by this directive
 	 */
 	/* tslint:disable-next-line:no-input-rename */
 	@Input("ngxFormErrorsFieldName")

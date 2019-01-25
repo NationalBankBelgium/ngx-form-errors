@@ -42,20 +42,22 @@ Let's just have a look at the following example:
 </div>
 ```
 
-This easily becomes messy and cumbersome as soon as you have multiple fields. And... it is definitely not DRY.
+This easily becomes messy and cumbersome as soon as you have multiple fields. And... it is definitely not DRY :-1:
 
 ### NgxFormErrors approach
 
-Your component template is cleaner:
+Your component template is cleaner :wink:
 
 ```html
 <input type="text" formControlName="foo" />
+<!--or-->
+<input type="text" [formControl]="formGroup.get('foo')" />
 
 <!-- ngxFormErrors creates dynamically an Error component (that you define) displaying all the different validation errors -->
 <ng-template ngxFormErrors="foo"></ng-template>
 ```
 
-You decide how to display the messages by defining your own Error component:
+You decide how to display the messages by defining your own Error component :sunglasses:
 
 ```html
 <!-- Error component's template -->
@@ -71,7 +73,7 @@ You decide how to display the messages by defining your own Error component:
 </div>
 ```
 
-And the messages are centralized in a service:
+And the messages are centralized in a service :astonished:
 
 ```typescript
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -80,7 +82,7 @@ import { NgxFormErrorsMessageService, NgxFormErrorsModule } from "@nationalbankb
 @NgModule({
 	declarations: [AppComponent, YourCustomErrorComponent],
 	imports: [
-		...FormsModule,
+		FormsModule,
 		ReactiveFormsModule,
 		NgxFormErrorsModule.forRoot({
 			formErrorComponent: YourCustomErrorComponent // your own Error component
@@ -105,6 +107,14 @@ export class AppModule {
 		});
 	}
 }
+```
+
+## Installation
+
+Install NgxFormErrors from npm:
+
+```
+npm install @nationalbankbelgium/ngx-form-errors
 ```
 
 ## NgxFormErrors packaging
@@ -141,7 +151,7 @@ This project and all associated source code is licensed under the terms of the [
 
 ## Documentation
 
-TODO
+-   [Developer Guide](/docs/DEV_GUIDE.md)
 
 ## Thank you notes :)
 
