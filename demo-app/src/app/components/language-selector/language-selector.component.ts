@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostBinding } from "@angular/core";
+import { Component, HostBinding, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
 

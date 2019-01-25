@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { NavigationEnd, Router, Event } from "@angular/router";
+import { Event, NavigationEnd, Router } from "@angular/router";
 import { MatSidenav } from "@angular/material/sidenav";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { of, Subscription } from "rxjs";
