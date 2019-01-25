@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, HostBinding } from "@angular/core";
+import { Component, OnInit, OnDestroy, HostBinding } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
 
@@ -13,7 +13,7 @@ const componentName: string = "language-selector";
 @Component({
 	selector: "app-language-selector",
 	templateUrl: "./language-selector.component.html",
-	encapsulation: ViewEncapsulation.None
+	styleUrls: ["./language-selector.component.scss"]
 })
 export class LanguageSelectorComponent implements OnInit, OnDestroy {
 	@HostBinding("class")

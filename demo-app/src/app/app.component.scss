@@ -1,53 +1,25 @@
-/*
-.form-group {
-  display: flex;
-  align-items: start;
-  flex-direction: column;
-  flex-wrap: wrap;
-
-  .matching-passwords {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    mat-form-field {
-      width: 45%;
-    }
+mat-toolbar {
+  .slogan {
+    font-size: 16px;
+    font-style: italic;
+    line-height: normal;
   }
 
-  .form-buttons {
-    margin-top: 25px;
-
-    button:first-child {
-      margin-right: 20px;
-    }
-    button {
-      min-width: 150px;
-    }
-  }
-}œ
-
-.form-validation-info {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-  & .form-field-info {
-    background-color: aliceblue;
-    border: 1px #000 solid;
-    border-radius: 6px;
-    width: 350px;
-    margin: 20px;
-    margin-right: 20px;
+  .spacer {
+    flex: 1 1 auto;
   }
 }
 
-.form-validation-messages {
-  margin: 20px;
-  background-color: cornsilk;
-  border: 1px #000 solid;
-  border-radius: 6px;
+mat-sidenav-container {
+  flex: 100% 1;
+
+  mat-sidenav {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  mat-sidenav-content {
+    max-height: 100%;
+    overflow-y: auto;
+  }
 }
-*/

@@ -65,3 +65,5 @@ import "zone.js/dist/zone"; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+// FixMe: Remove when NBB upgrades chrome browser (https://caniuse.com/#search=grid)
+import "./polyfills/css-grid-layout-polyfill";
