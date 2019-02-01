@@ -65,10 +65,10 @@ export class TemplateDrivenFormsExampleComponent implements OnInit {
 	}
 
 	public onSubmitUserDetails(ngForm: NgForm): void {
-		console.log("CCR==========> onSubmitUserDetails value", ngForm.value);
+		console.log("Submitted form:", ngForm.value);
 	}
 
 	public getFormStatus(ngForm: NgForm): void {
-		console.log("CCR==========> form status", ngForm);
+		console.log("Form status", ngForm);
 	}
 }
