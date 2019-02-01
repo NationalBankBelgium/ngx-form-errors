@@ -53,10 +53,10 @@ export class NgxFormsExampleComponent implements OnInit {
 	}
 
 	public onSubmitUserDetails(formGroup: FormGroup): void {
-		console.log("CCR==========> onSubmitUserDetails value", formGroup.value);
+		console.log("Submitted form:", formGroup.value);
 	}
 
 	public getFormStatus(): void {
-		console.log("CCR==========> form status", this.formGroup);
+		console.log("Form status", this.formGroup);
 	}
 }

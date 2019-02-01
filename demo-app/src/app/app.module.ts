@@ -2,6 +2,7 @@ import { BrowserModule, DomSanitizer } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
@@ -17,11 +18,14 @@ import { NgxFormErrorsMessageService, NgxFormErrorsModule } from "@nationalbankb
 import { AppComponent } from "./app.component";
 import { initializeTranslation } from "./translation.config";
 import { AppRoutingModule } from "./app-routing.module";
-import { LanguageSelectorComponent, SimpleFormErrorComponent, TranslatedFormErrorComponent } from "./components";
+import {
+	CardComponent,
+	LanguageSelectorComponent,
+	NavigationComponent,
+	SimpleFormErrorComponent,
+	TranslatedFormErrorComponent
+} from "./components";
 import { NgxFormsExampleComponent, ReactiveFormsExampleComponent, TemplateDrivenFormsExampleComponent } from "./pages";
-import { NavigationComponent } from "./components/navigation/navigation.component";
-import { CardComponent } from "./components/card/card.component";
-import { HttpClientModule } from "@angular/common/http";
 
 /* tslint:disable:no-hardcoded-credentials */
 @NgModule({
