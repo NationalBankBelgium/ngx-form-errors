@@ -45,6 +45,8 @@ describe("NgxFormErrorsDirective", () => {
 
 	const formControlName: string = "fullName";
 	const formControlAlias: string = "complete name";
+	const minlengthErrorMessage: string = "the value should not contain less than X chars";
+	const requiredErrorMessage: string = "the field is mandatory";
 
 	@Component({
 		selector: "test-component",
@@ -295,14 +297,17 @@ describe("NgxFormErrorsDirective", () => {
 				formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 				const errorMessages: object = {
-					minlength: "the value should not contain less than X chars",
-					required: "the field is mandatory"
+					minlength: minlengthErrorMessage,
+					required: requiredErrorMessage
 				};
 
-				mockFormErrorsMessageService.getErrorMessage.and.callFake((errorKey: string, errorGroup: string) => {
-					expect(errorGroup).toBeUndefined();
-					return errorMessages[errorKey] || undefined;
-				});
+				mockFormErrorsMessageService.getErrorMessage.and.callFake(
+					(errorKey: string, _formControlName: string, errorGroup: string) => {
+						expect(errorGroup).toBeUndefined();
+						expect(_formControlName).toBe(formControlName);
+						return errorMessages[errorKey] || undefined;
+					}
+				);
 
 				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
@@ -319,6 +324,71 @@ describe("NgxFormErrorsDirective", () => {
 						error: "minlength",
 						formControlName: formControlName,
 						message: errorMessages["minlength"],
+						params: { fieldName: formControlName, requiredLength: 3, actualLength: 2 }
+					},
+					{
+						error: "maxlength",
+						formControlName: formControlName,
+						message: "maxlength", // no message defined via the service
+						params: { fieldName: formControlName, requiredLength: 8, actualLength: 14 }
+					},
+					{
+						error: "required",
+						formControlName: formControlName,
+						message: errorMessages["required"],
+						params: { fieldName: formControlName }
+					},
+					{
+						error: "required",
+						formControlName: formControlName,
+						message: errorMessages["required"],
+						params: { fieldName: formControlName }
+					}
+				];
+
+				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+					expect(emittedValidationErrors.length).toBe(1);
+					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
+				}
+
+				expect(mockObserver.error).not.toHaveBeenCalled();
+				expect(mockObserver.complete).not.toHaveBeenCalled(); // the changes observable should never complete!
+			});
+
+			it("should contain the message defined via the NgxFormErrorsMessageService for that specific validation under that specific formControlName or just the validation name if no message defined", () => {
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				formErrorsDirective._controlErrors$.subscribe(mockObserver);
+
+				const errorMessages: object = {
+					[`${formControlName}.minlength`]: minlengthErrorMessage,
+					required: requiredErrorMessage
+				};
+
+				// tslint:disable-next-line:no-identical-functions
+				mockFormErrorsMessageService.getErrorMessage.and.callFake(
+					(errorKey: string, _formControlName: string, errorGroup: string) => {
+						expect(errorGroup).toBeUndefined();
+						expect(_formControlName).toBe(formControlName);
+						return errorMessages[`${_formControlName}.${errorKey}`] || errorMessages[errorKey] || undefined;
+					}
+				);
+
+				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+				const valueChanges: any[] = [...invalidValues]; // just invalid values
+
+				for (const value of valueChanges) {
+					formControl.setValue(value);
+				}
+
+				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
+				expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+
+				const expectedValidationErrors: NgxFormFieldError[] = [
+					{
+						error: "minlength",
+						formControlName: formControlName,
+						message: errorMessages[`${formControlName}.minlength`],
 						params: { fieldName: formControlName, requiredLength: 3, actualLength: 2 }
 					},
 					{
@@ -455,14 +525,17 @@ describe("NgxFormErrorsDirective", () => {
 				const formErrorGroup: string = "test-form-group";
 				const errorMessages: object = {
 					minlength: "should not be used",
-					required: "the field is mandatory",
-					[formErrorGroup + ".minlength"]: "the value should not contain less than X chars"
+					required: requiredErrorMessage,
+					[`${formErrorGroup}.minlength`]: minlengthErrorMessage
 				};
 
-				mockFormErrorsMessageService.getErrorMessage.and.callFake((errorKey: string, errorGroup: string) => {
-					expect(errorGroup).toBeDefined();
-					return errorMessages[errorGroup + "." + errorKey] || errorMessages[errorKey] || undefined;
-				});
+				mockFormErrorsMessageService.getErrorMessage.and.callFake(
+					(errorKey: string, _formControlName: string, errorGroup: string) => {
+						expect(errorGroup).toBeDefined();
+						expect(_formControlName).toBe(formControlName);
+						return errorMessages[`${errorGroup}.${errorKey}`] || errorMessages[errorKey] || undefined;
+					}
+				);
 
 				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
@@ -478,7 +551,7 @@ describe("NgxFormErrorsDirective", () => {
 					{
 						error: "minlength",
 						formControlName: formControlName,
-						message: errorMessages[formErrorGroup + ".minlength"],
+						message: errorMessages[`${formErrorGroup}.minlength`],
 						params: { fieldName: formControlName, requiredLength: 3, actualLength: 2 }
 					},
 					{

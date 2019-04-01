@@ -178,7 +178,11 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	private constructFieldError(errorKey: string, error: any): NgxFormFieldError {
 		const errorGroup: string | undefined = this.formErrorsGroup && this.formErrorsGroup.group ? this.formErrorsGroup.group : undefined;
-		const validationMessage: string | undefined = this._formErrorsMessageService.getErrorMessage(errorKey, errorGroup);
+		const validationMessage: string | undefined = this._formErrorsMessageService.getErrorMessage(
+			errorKey,
+			this.formControlName,
+			errorGroup
+		);
 		let fieldName: string | undefined = this._formErrorsMessageService.getFieldName(this.formControlName, errorGroup);
 
 		// the alias provided via the directive will always take precedence

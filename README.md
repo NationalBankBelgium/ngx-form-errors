@@ -31,12 +31,8 @@ Let's just have a look at the following example:
 <input type="text" formControlName="foo" />
 
 <!-- You need to add an element for each and every error to display a different message -->
-<div *ngIf="form.get('foo').hasError('required') && form.get('foo').touched">
-	Field is required
-</div>
-<div *ngIf="form.get('foo').hasError('minlength') && form.get('foo').dirty">
-	Min length is 5
-</div>
+<div *ngIf="form.get('foo').hasError('required') && form.get('foo').touched"> Field is required </div>
+<div *ngIf="form.get('foo').hasError('minlength') && form.get('foo').dirty"> Min length is 5 </div>
 <div *ngIf="form.get('foo').hasError('pattern') && form.get('foo').dirty">
 	Field must contain at least one uppercase, one lowercase, and one number
 </div>
@@ -63,14 +59,10 @@ You decide how to display the messages by defining your own Error component :sun
 <!-- Error component's template -->
 
 <!-- you can simply display the message 'as is' -->
-<div *ngFor="let error of errors" class="awesome-error-message">
-	{{ error.message }}
-</div>
+<div *ngFor="let error of errors" class="awesome-error-message"> {{ error.message }} </div>
 
 <!-- or you can use the error's data/properties to do something fancy -->
-<div *ngFor="let error of errors" [ngClass]="getErrorClass(error)">
-	{{ constructDisplayedErrorMessage(error) }}
-</div>
+<div *ngFor="let error of errors" [ngClass]="getErrorClass(error)"> {{ constructDisplayedErrorMessage(error) }} </div>
 ```
 
 And the messages are centralized in a service :astonished:
@@ -97,7 +89,7 @@ export class AppModule {
 		formErrorsMessageService.addErrorMessages({
 			required: "Field is required",
 			minlength: "Min length is 5",
-			pattern: "Field must contain at least one uppercase, one lowercase, and one number"
+			"foo.pattern": "Field must contain at least one uppercase, one lowercase, and one number"
 		});
 
 		// optionally, add the field names to the NgxFormErrorsMessageService
@@ -144,6 +136,10 @@ To know how to release NgxFormErrors, refer to [this page](/RELEASE.md).
 ### Christopher Cortes
 
 -   [@GitHub](https://github.com/christophercr)
+
+### Alexis Georges
+
+-   [@GitHub](https://github.com/SuperITMan)
 
 ## License
 

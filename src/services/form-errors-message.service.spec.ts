@@ -58,25 +58,46 @@ describe("NgxFormErrorsMessageService", () => {
 				[anotherErrorKey]: anotherErrorMessage
 			};
 
-			expect(formErrorMessageService.getErrorMessage(initialErrorKey)).toBe(initialMessages[initialErrorKey]);
-			expect(formErrorMessageService.getErrorMessage(dummyErrorKey)).toBe(dummyErrorMessage[dummyErrorKey]);
-			expect(formErrorMessageService.getErrorMessage(anotherErrorKey)).toBe(anotherErrorMessage);
-			expect(formErrorMessageService.getErrorMessage("any-other-error")).toBeUndefined();
+			expect(formErrorMessageService.getErrorMessage(initialErrorKey, "test")).toBe(initialMessages[initialErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(dummyErrorKey, "test")).toBe(dummyErrorMessage[dummyErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(anotherErrorKey, "test")).toBe(anotherErrorMessage);
+			expect(formErrorMessageService.getErrorMessage("any-other-error", "test")).toBeUndefined();
 		});
 
-		it("should return the right message for the given group.error tuple or for the given error only or undefined if nothing related to that error exists", () => {
+		it("should return the right message for the given group.controlName.error tuple or for the given controlName.error tuple or for the given group.error tuple or for the given error only or undefined if nothing related to that error exists", () => {
+			const customRequiredErrorMessage: string = "some required message";
+			const customGroupRequiredErrorMessage: string = "some required group message";
+			const customControlNameRequiredErrorMessage: string = "some required controlName message";
+			const customGroupControlNameRequiredErrorMessage: string = "some required group controlName message";
+			const groupName: string = "custom-group";
+			const controlName: string = "custom-control-name";
+			const controlNameNoMsg: string = "control-name-without-linked-message";
+			const requiredErrorKey: string = "required";
+
 			formErrorMessageService.errorMessages = {
 				["some-group." + initialErrorKey]: initialMessages[initialErrorKey],
 				["dummy-group." + dummyErrorKey]: dummyErrorMessage[dummyErrorKey],
-				[anotherErrorKey]: anotherErrorMessage
+				[anotherErrorKey]: anotherErrorMessage,
+				[requiredErrorKey]: customRequiredErrorMessage,
+				[`${controlName}.${requiredErrorKey}`]: customControlNameRequiredErrorMessage,
+				[`${groupName}.${requiredErrorKey}`]: customGroupRequiredErrorMessage,
+				[`${groupName}.${controlName}.${requiredErrorKey}`]: customGroupControlNameRequiredErrorMessage
 			};
 
-			expect(formErrorMessageService.getErrorMessage(initialErrorKey)).toBeUndefined();
-			expect(formErrorMessageService.getErrorMessage(initialErrorKey, "some-group")).toBe(initialMessages[initialErrorKey]);
-			expect(formErrorMessageService.getErrorMessage(dummyErrorKey)).toBeUndefined();
-			expect(formErrorMessageService.getErrorMessage(dummyErrorKey, "dummy-group")).toBe(dummyErrorMessage[dummyErrorKey]);
-			expect(formErrorMessageService.getErrorMessage(anotherErrorKey)).toBe(anotherErrorMessage);
-			expect(formErrorMessageService.getErrorMessage(anotherErrorKey, "another-group")).toBe(anotherErrorMessage); // returns the message for the generic error
+			expect(formErrorMessageService.getErrorMessage(initialErrorKey, "test")).toBeUndefined();
+			expect(formErrorMessageService.getErrorMessage(initialErrorKey, "test", "some-group")).toBe(initialMessages[initialErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(requiredErrorKey, controlName)).toBe(customControlNameRequiredErrorMessage);
+			expect(formErrorMessageService.getErrorMessage(requiredErrorKey, controlName, groupName)).toBe(
+				customGroupControlNameRequiredErrorMessage
+			);
+			expect(formErrorMessageService.getErrorMessage(requiredErrorKey, controlNameNoMsg)).toBe(customRequiredErrorMessage);
+			expect(formErrorMessageService.getErrorMessage(requiredErrorKey, controlNameNoMsg, groupName)).toBe(
+				customGroupRequiredErrorMessage
+			);
+			expect(formErrorMessageService.getErrorMessage(dummyErrorKey, "test")).toBeUndefined();
+			expect(formErrorMessageService.getErrorMessage(dummyErrorKey, "test", "dummy-group")).toBe(dummyErrorMessage[dummyErrorKey]);
+			expect(formErrorMessageService.getErrorMessage(anotherErrorKey, "test")).toBe(anotherErrorMessage);
+			expect(formErrorMessageService.getErrorMessage(anotherErrorKey, "test", "another-group")).toBe(anotherErrorMessage); // returns the message for the generic error
 		});
 	});
 

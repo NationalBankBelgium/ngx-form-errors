@@ -50,17 +50,25 @@ export class NgxFormErrorsMessageService {
 	 * the error message matching that group and the validation error. If no validation error matches both, then it returns the one matching the validation error.
 	 * Otherwise it returns undefined.
 	 * @param error - The validation error (Angular validator name)
+	 * @param formControlName - The FormControl name
 	 * @param group - The model group to find a match for (if any)
 	 */
-	public getErrorMessage(error: string, group?: string): string | undefined {
-		let errorKey: string = error;
+	public getErrorMessage(error: string, formControlName: string, group?: string): string | undefined {
+		const controlNameErrorKey: string = `${formControlName}.${error}`;
+		let groupControlNameErrorKey: string | undefined;
+		let groupErrorKey: string | undefined;
 
 		if (group) {
-			errorKey = `${group}.${error}`; // concatenating group + error with a "."
+			groupErrorKey = `${group}.${error}`; // concatenating group + error with a "."
+			groupControlNameErrorKey = `${group}.${controlNameErrorKey}`; // concatenating group + error with a "."
 		}
 
-		if (this.errorMessages.hasOwnProperty(errorKey)) {
-			return this.errorMessages[errorKey];
+		if (groupControlNameErrorKey && this.errorMessages.hasOwnProperty(groupControlNameErrorKey)) {
+			return this.errorMessages[groupControlNameErrorKey];
+		} else if (this.errorMessages.hasOwnProperty(controlNameErrorKey)) {
+			return this.errorMessages[controlNameErrorKey];
+		} else if (groupErrorKey && this.errorMessages.hasOwnProperty(groupErrorKey)) {
+			return this.errorMessages[groupErrorKey];
 		} else if (this.errorMessages.hasOwnProperty(error)) {
 			return this.errorMessages[error];
 		} else {

@@ -191,9 +191,7 @@ Just wrap the `ngxFormErrors` directive inside a `<mat-error>` element and that'
 	<mat-form-field>
 		<input matInput type="text" formControlName="foo" placeholder="Foo" />
 
-		<mat-error>
-			<ng-template ngxFormErrors="foo"></ng-template>
-		</mat-error>
+		<mat-error> <ng-template ngxFormErrors="foo"></ng-template> </mat-error>
 	</mat-form-field>
 </form>
 ```
@@ -357,9 +355,7 @@ For example, you can use [ngx-translate](https://github.com/ngx-translate/core) 
 
 ```html
 <!-- You can translate the message and also pass the error params to have even more flexible translations -->
-<span *ngFor="let error of errors; trackBy: trackError" [ngClass]="getErrorClass()">
-	{{ error.message | translate: error.params }}
-</span>
+<span *ngFor="let error of errors; trackBy: trackError" [ngClass]="getErrorClass()"> {{ error.message | translate: error.params }} </span>
 ```
 
 Then in your translations you can use the params passed to the `translate` pipe:
@@ -405,6 +401,7 @@ For example, in this case we will add messages for the `required` and the `patte
 // inject the NgxFormErrorsMessageService to define the messages
 
 formErrorsMessageService.addErrorMessages({
+	"foo.required": "The foo field is obviously required!",
 	required: "This field is required",
 	pattern: "Your password must contain at least one uppercase, one lowercase, and one number"
 });
@@ -416,10 +413,9 @@ In this example the form control definition would be something like this:
 
 ```typescript
 this.formGroup = this.formBuilder.group({
-	foo: ["", Validators.compose([
-		Validators.required,
-		Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$")
-	])]
+	foo: ["", Validators.compose([Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$")])],
+	bar: ["", Validators.required],
+	bob: ["", Validators.required]
 });
 ```
 
