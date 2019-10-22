@@ -8,6 +8,11 @@
       "email": "christophercr@gmail.com",
       "name": "Christopher Cortes",
       "url": "https://github.com/christophercr"
+    },
+    {
+      "email": "alexis.georges@nbb.be",
+      "name": "Alexis Georges",
+      "url": "https://github.com/SuperITMan"
     }
   ],
   "main": "index.js",

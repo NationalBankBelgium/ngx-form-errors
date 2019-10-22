@@ -46,26 +46,27 @@ export class NgxFormErrorsMessageService {
 	}
 
 	/**
-	 * Returns the error message matching the given validation error. Additionally, the model group can be specified to return
-	 * the error message matching that group and the validation error. If no validation error matches both, then it returns the one matching the validation error.
-	 * Otherwise it returns undefined.
+	 * Tries to find the error message matching the given validation error. Additionally, the form control name and/or the model group
+	 * can be specified to return the error message matching those as well as the validation error.
+	 * This method does its best to find the message that fulfills all or some of the given parameters with the following precedence:
+	 *
+	 * 1.- errorMessages[groupName.formControlName.errorKey]
+	 * 2.- errorMessages[formControlName.errorKey]
+	 * 3.- errorMessages[groupName.errorKey]
+	 * 4.- errorMessages[errorKey]
+	 *
+	 * It returns `undefined` if no message matching any of those params is found.
 	 * @param error - The validation error (Angular validator name)
+	 * @param formControlName - The name of the FormControl
 	 * @param group - The model group to find a match for (if any)
 	 */
-	public getErrorMessage(error: string, group?: string): string | undefined {
-		let errorKey: string = error;
-
-		if (group) {
-			errorKey = `${group}.${error}`; // concatenating group + error with a "."
-		}
-
-		if (this.errorMessages.hasOwnProperty(errorKey)) {
-			return this.errorMessages[errorKey];
-		} else if (this.errorMessages.hasOwnProperty(error)) {
-			return this.errorMessages[error];
-		} else {
-			return undefined;
-		}
+	public findErrorMessage(error: string, formControlName?: string, group?: string): string | undefined {
+		return (
+			(group && formControlName && this.errorMessages[`${group}.${formControlName}.${error}`]) ||
+			(formControlName && this.errorMessages[`${formControlName}.${error}`]) ||
+			(group && this.errorMessages[`${group}.${error}`]) ||
+			this.errorMessages[error]
+		);
 	}
 
 	/**

@@ -97,13 +97,13 @@ export class AppModule {
 		formErrorsMessageService.addErrorMessages({
 			required: "Field is required",
 			minlength: "Min length is 5",
-			pattern: "Field must contain at least one uppercase, one lowercase, and one number"
+			"fooField.pattern": "Field must contain at least one uppercase, one lowercase, and one number"
 		});
 
 		// optionally, add the field names to the NgxFormErrorsMessageService
 		// so you can display this name in the validation message instead of the real field name!
 		formErrorsMessageService.addFieldNames({
-			foo: "Dummy foo field"
+			fooField: "Dummy foo field"
 		});
 	}
 }
@@ -144,6 +144,10 @@ To know how to release NgxFormErrors, refer to [this page](/RELEASE.md).
 ### Christopher Cortes
 
 -   [@GitHub](https://github.com/christophercr)
+
+### Alexis Georges
+
+-   [@GitHub](https://github.com/SuperITMan)
 
 ## License
 
