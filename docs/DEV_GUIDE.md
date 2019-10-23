@@ -405,10 +405,13 @@ For example, in this case we will add messages for the `required` and the `patte
 // inject the NgxFormErrorsMessageService to define the messages
 
 formErrorsMessageService.addErrorMessages({
+	"foo.required": "Please provide the foo field",
 	required: "This field is required",
 	pattern: "Your password must contain at least one uppercase, one lowercase, and one number"
 });
 ```
+
+**IMPORTANT:** Notice how we have also defined a different message for the `required` error of the `foo` form control.
 
 Make sure that the errors you add messages for correspond to the validators that you added to the FormControl.
 
@@ -419,11 +422,14 @@ this.formGroup = this.formBuilder.group({
 	foo: ["", Validators.compose([
 		Validators.required,
 		Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$")
-	])]
+	])],
+	bar: ["", Validators.required]
 });
 ```
 
-From then on, whenever the field has a `required` or `pattern` validation error, the messages you added via the `NgxFormErrorsMessageService` will be displayed :muscle:
+From then on, whenever the fields have a `required` or `pattern` validation error, the messages you added via the `NgxFormErrorsMessageService` will be displayed :muscle:
+
+Moreover, in the `bar` field the generic `required` error message will be displayed, whereas in the `foo` field the specific `required` error message (`foo.required`) will be displayed!
 
 In case you have defined messages for the wrong validation errors, don't worry, you will notice it right away since the validation message that will be displayed
 will be completely different from what you have defined :wink:
@@ -442,13 +448,21 @@ However, in case you want to get those messages yourself too, you can call one o
 getErrorMessages(): NgxValidationErrorMessages;
 
 /**
- * Returns the error message matching the given validation error. Additionally, the model group can be specified to return
- * the error message matching that group and the validation error. If no validation error matches both, then it returns the one matching the validation error.
- * Otherwise it returns undefined.
+ * Tries to find the error message matching the given validation error. Additionally, the form control name and/or the model group
+ * can be specified to return the error message matching those as well as the validation error.
+ * This method does its best to find the message that fulfills all or some of the given parameters with the following precedence:
+ *
+ * 1.- errorMessages[groupName.formControlName.errorKey]
+ * 2.- errorMessages[formControlName.errorKey]
+ * 3.- errorMessages[groupName.errorKey]
+ * 4.- errorMessages[errorKey]
+ *
+ * It returns `undefined` if no message matching any of those params is found.
  * @param error - The validation error (Angular validator name)
+ * @param formControlName - The name of the FormControl
  * @param group - The model group to find a match for (if any)
  */
-getErrorMessage(error: string, group?: string): string | undefined;
+findErrorMessage(error: string, formControlName?: string, group?: string): string | undefined;
 ```
 
 ### <a name="adding-alias-globally-for-form-controls">Adding field names or alias globally
