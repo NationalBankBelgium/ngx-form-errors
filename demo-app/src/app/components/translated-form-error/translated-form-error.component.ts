@@ -9,7 +9,7 @@ import { NgxFormErrorComponent, NgxFormFieldError } from "@nationalbankbelgium/n
 })
 export class TranslatedFormErrorComponent implements NgxFormErrorComponent, OnInit {
 	@HostBinding("class")
-	public cssClass: string = "translated-form-error";
+	public cssClass = "translated-form-error";
 
 	public errors: NgxFormFieldError[] = [];
 	public errors$: Observable<NgxFormFieldError[]>;

@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
 import { NgxFormErrorsGroupDirective } from "./form-errors-group.directive";
 
 describe("NgxFormErrorsGroupDirective", () => {
-	const groupName: string = "dummy-group";
+	const groupName = "dummy-group";
 
 	@Component({
 		selector: "test-component",

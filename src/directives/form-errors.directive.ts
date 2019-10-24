@@ -206,6 +206,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	public get errors(): ValidationErrors | null {
 		if (!this._formControl) {
+			/* tslint:disable-next-line:no-null-keyword */
 			return null;
 		}
 		return this._formControl.errors;
@@ -235,6 +236,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	public getError(name: string): any | null {
 		if (!this._formControl) {
+			/* tslint:disable-next-line:no-null-keyword */
 			return null;
 		}
 		return this._formControl.getError(name);

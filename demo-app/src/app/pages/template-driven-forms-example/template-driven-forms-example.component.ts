@@ -15,10 +15,10 @@ export class TemplateDrivenFormsExampleComponent implements OnInit {
 	public confirmPassword: string;
 
 	public parentErrorStateMatcher: ErrorStateMatcher = new ParentErrorStateMatcher();
-	public passwordPattern: string = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$";
+	public passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$";
 	public validationMessages: { [key: string]: { type: string; message: string }[] };
-	public showValidationDetails: boolean = false;
-	public showValidationSummary: boolean = true;
+	public showValidationDetails = false;
+	public showValidationSummary = true;
 
 	public constructor() {
 		/*empty*/

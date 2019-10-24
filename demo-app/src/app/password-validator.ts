@@ -4,7 +4,7 @@ export class PasswordValidator {
 	// Inspired on: http://plnkr.co/edit/Zcbg2T3tOxYmhxs7vaAm?p=preview
 	public static areEqual(formGroup: FormGroup): ValidationErrors | null {
 		let value: string | undefined;
-		let valid: boolean = true;
+		let valid = true;
 		for (const key in formGroup.controls) {
 			if (formGroup.controls.hasOwnProperty(key)) {
 				const control: FormControl = <FormControl>formGroup.controls[key];
@@ -21,6 +21,7 @@ export class PasswordValidator {
 		}
 
 		if (valid) {
+			/* tslint:disable-next-line:no-null-keyword */
 			return null;
 		}
 

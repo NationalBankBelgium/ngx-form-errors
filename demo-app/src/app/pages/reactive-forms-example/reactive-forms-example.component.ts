@@ -1,6 +1,6 @@
 /*tslint:disable:trackBy-function template-cyclomatic-complexity*/
 import { Component, OnInit } from "@angular/core";
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { PasswordValidator } from "../../password-validator";
 import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
@@ -14,9 +14,9 @@ export class ReactiveFormsExampleComponent implements OnInit {
 	public formGroup: FormGroup;
 	public validationMessages: { [key: string]: { type: string; message: string }[] };
 	public parentErrorStateMatcher: ErrorStateMatcher = new ParentErrorStateMatcher();
-	public passwordPattern: string = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$";
-	public showValidationDetails: boolean = false;
-	public showValidationSummary: boolean = true;
+	public passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$";
+	public showValidationDetails = false;
+	public showValidationSummary = true;
 
 	public constructor(private formBuilder: FormBuilder) {}
 
@@ -37,7 +37,7 @@ export class ReactiveFormsExampleComponent implements OnInit {
 					confirmPassword: new FormControl("", Validators.required)
 				},
 				{
-					validators: (formGroup: AbstractControl) => {
+					validators: (formGroup: AbstractControl): ValidationErrors | null => {
 						return PasswordValidator.areEqual(<FormGroup>formGroup);
 					}
 				}

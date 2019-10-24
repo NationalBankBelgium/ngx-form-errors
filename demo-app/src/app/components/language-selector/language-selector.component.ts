@@ -5,7 +5,7 @@ import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
 /**
  * Name of the component
  */
-const componentName: string = "language-selector";
+const componentName = "language-selector";
 
 /**
  * Component to select the application's language from a list of available languages passed as parameter.
