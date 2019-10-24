@@ -39,6 +39,9 @@ export class NgxFormErrorsGroupDirective implements OnInit {
 		// }
 	}
 
+	/**
+	 * Directive's lifecycle hook
+	 */
 	public ngOnInit(): void {
 		if (!this.group) {
 			throw new Error("NgxFormErrorsGroupDirective: no group provided.");
