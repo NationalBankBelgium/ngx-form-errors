@@ -3,13 +3,13 @@ import { NgxFormErrorsMessageService, NgxValidationErrorFieldNames, NgxValidatio
 
 describe("NgxFormErrorsMessageService", () => {
 	let formErrorMessageService: NgxFormErrorsMessageServiceHelper;
-	const initialErrorKey: string = "some-error";
+	const initialErrorKey = "some-error";
 	const initialMessages: NgxValidationErrorMessages = { [initialErrorKey]: "some message" };
-	const dummyErrorKey: string = "dummy-error";
+	const dummyErrorKey = "dummy-error";
 	const dummyErrorMessage: NgxValidationErrorMessages = { [dummyErrorKey]: "dummy error message" };
-	const initialFieldName: string = "some-field";
+	const initialFieldName = "some-field";
 	const initialFieldNames: NgxValidationErrorFieldNames = { [initialFieldName]: "some field alias" };
-	const dummyFieldNameKey: string = "dummy-field";
+	const dummyFieldNameKey = "dummy-field";
 	const dummyFieldName: NgxValidationErrorFieldNames = { [dummyFieldNameKey]: "dummy field alias" };
 
 	beforeEach(() => {
@@ -48,8 +48,8 @@ describe("NgxFormErrorsMessageService", () => {
 	});
 
 	describe("getErrorMessage", () => {
-		const anotherErrorKey: string = "another-error";
-		const anotherErrorMessage: string = "another message";
+		const anotherErrorKey = "another-error";
+		const anotherErrorMessage = "another message";
 
 		it("should return the right message for the given error or undefined if the error does not exist", () => {
 			formErrorMessageService.errorMessages = {
@@ -65,14 +65,14 @@ describe("NgxFormErrorsMessageService", () => {
 		});
 
 		it("should return the right message matching any of the given params or undefined if nothing is found related to that error", () => {
-			const customRequiredErrorMessage: string = "some required message";
-			const customGroupRequiredErrorMessage: string = "some required group message";
-			const customControlNameRequiredErrorMessage: string = "some required controlName message";
-			const customGroupControlNameRequiredErrorMessage: string = "some required group controlName message";
-			const groupName: string = "custom-group";
-			const controlName: string = "custom-control-name";
-			const controlNameNoMsg: string = "control-name-without-linked-message";
-			const requiredErrorKey: string = "required";
+			const customRequiredErrorMessage = "some required message";
+			const customGroupRequiredErrorMessage = "some required group message";
+			const customControlNameRequiredErrorMessage = "some required controlName message";
+			const customGroupControlNameRequiredErrorMessage = "some required group controlName message";
+			const groupName = "custom-group";
+			const controlName = "custom-control-name";
+			const controlNameNoMsg = "control-name-without-linked-message";
+			const requiredErrorKey = "required";
 
 			formErrorMessageService.errorMessages = {
 				["some-group." + initialErrorKey]: initialMessages[initialErrorKey],
@@ -137,8 +137,8 @@ describe("NgxFormErrorsMessageService", () => {
 	});
 
 	describe("getFieldName", () => {
-		const anotherFieldKey: string = "another-field";
-		const anotherFieldAlias: string = "another field alias";
+		const anotherFieldKey = "another-field";
+		const anotherFieldAlias = "another field alias";
 
 		it("should return the right field name for the given field or undefined if the field does not exist", () => {
 			formErrorMessageService.fieldNames = {

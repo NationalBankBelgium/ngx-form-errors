@@ -8,7 +8,7 @@ import { NgxFormErrorComponent, NgxFormFieldError } from "@nationalbankbelgium/n
 })
 export class SimpleFormErrorComponent implements NgxFormErrorComponent {
 	@HostBinding("class")
-	public cssClass: string = "simple-form-error";
+	public cssClass = "simple-form-error";
 
 	public errors: NgxFormFieldError[] = [];
 	public errors$: Observable<NgxFormFieldError[]>;

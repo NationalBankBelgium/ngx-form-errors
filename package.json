@@ -48,6 +48,7 @@
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
     "@compodoc/compodoc": "^1.1.7",
+    "@nationalbankbelgium/code-style": "^1.0.1",
     "@nationalbankbelgium/stark-testing": "^10.0.0-beta.1-653be81",
     "codelyzer": "^4.5.0",
     "commitizen": "^4.0.0",

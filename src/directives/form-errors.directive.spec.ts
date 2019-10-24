@@ -15,38 +15,38 @@ import SpyObj = jasmine.SpyObj;
 import Spy = jasmine.Spy;
 
 describe("NgxFormErrorsDirective", () => {
-	const templateWithFormControl: string = `
+	const templateWithFormControl = `
 			<form [formGroup]="formNgxError" class="form-group">
 				<input matInput placeholder="Full Name" [formControlName]="formControlName"/>
 				<ng-template [ngxFormErrors]="formControlName"></ng-template>
 			</form>
 		`;
 
-	const templateWithInvalidFormControlName: string = `
+	const templateWithInvalidFormControlName = `
 			<form [formGroup]="formNgxError" class="form-group">
 				<input matInput placeholder="Full Name" [formControlName]="formControlName"/>
 				<ng-template ngxFormErrors="whatever"></ng-template>
 			</form>
 		`;
 
-	const templateWithFormControlAndAlias: string = `
+	const templateWithFormControlAndAlias = `
 			<form [formGroup]="formNgxError" class="form-group">
 				<input matInput placeholder="Full Name" [formControlName]="formControlName"/>
 				<ng-template [ngxFormErrors]="formControlName" [ngxFormErrorsFieldName]="formControlAlias"></ng-template>
 			</form>
 		`;
 
-	const templateWithFormControlAndFormGroup: string = `
+	const templateWithFormControlAndFormGroup = `
 			<form [formGroup]="formNgxError" class="form-group" ngxFormErrorsGroup="test-form-group">
 				<input matInput placeholder="Full Name" [formControlName]="formControlName"/>
 				<ng-template [ngxFormErrors]="formControlName"></ng-template>
 			</form>
 		`;
 
-	const formControlName: string = "fullName";
-	const formControlAlias: string = "complete name";
-	const minlengthErrorMessage: string = "the value should not contain less than X chars";
-	const requiredErrorMessage: string = "the field is mandatory";
+	const formControlName = "fullName";
+	const formControlAlias = "complete name";
+	const minlengthErrorMessage = "the value should not contain less than X chars";
+	const requiredErrorMessage = "the field is mandatory";
 
 	@Component({
 		selector: "test-component",
@@ -216,7 +216,7 @@ describe("NgxFormErrorsDirective", () => {
 
 			expect(mockObserver.next).toHaveBeenCalledTimes(7); // initial emit + 6 value changes
 			expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
-			for (let idx: number = 0; idx < valueChanges.length; idx++) {
+			for (let idx = 0; idx < valueChanges.length; idx++) {
 				const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
 				if (invalidValues.indexOf(valueChanges[idx]) !== -1) {
 					expect(emittedValidationErrors.length).toBeGreaterThan(0);
@@ -270,7 +270,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 			];
 
-			for (let idx: number = 0; idx < valueChanges.length; idx++) {
+			for (let idx = 0; idx < valueChanges.length; idx++) {
 				const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
 				expect(emittedValidationErrors.length).toBe(1);
 				expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
@@ -344,7 +344,7 @@ describe("NgxFormErrorsDirective", () => {
 					}
 				];
 
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
@@ -404,7 +404,7 @@ describe("NgxFormErrorsDirective", () => {
 					}
 				];
 
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
@@ -419,7 +419,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(4); // 4 value changes
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const expectedValidationErrorParams: object = expectedValidationErrors[idx].params;
 					// reset the fieldName to the form control name
 					const expectedValidationError: NgxFormFieldError = {
@@ -441,7 +441,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		describe("when error group is defined", () => {
-			const formErrorGroup: string = "test-form-group";
+			const formErrorGroup = "test-form-group";
 
 			beforeEach(fakeAsync(() => {
 				TestBed.overrideTemplate(TestComponent, templateWithFormControlAndFormGroup);
@@ -506,7 +506,7 @@ describe("NgxFormErrorsDirective", () => {
 					}
 				];
 
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
@@ -566,7 +566,7 @@ describe("NgxFormErrorsDirective", () => {
 					}
 				];
 
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
@@ -581,7 +581,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(4); // 4 value changes
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const expectedValidationErrorParams: object = expectedValidationErrors[idx].params;
 					// reset the fieldName to the form control name
 					const expectedValidationError: NgxFormFieldError = {
@@ -663,7 +663,7 @@ describe("NgxFormErrorsDirective", () => {
 					}
 				];
 
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
@@ -679,7 +679,7 @@ describe("NgxFormErrorsDirective", () => {
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(4); // 4 value changes
 				// the field name should still be the alias defined via the directive
-				for (let idx: number = 0; idx < valueChanges.length; idx++) {
+				for (let idx = 0; idx < valueChanges.length; idx++) {
 					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
@@ -807,7 +807,7 @@ describe("NgxFormErrorsDirective", () => {
 			];
 			const invalidValuesArray: any[] = invalidValuesObj.map((valueObj: object) => Object.values(valueObj)[0]);
 			const valueChanges: any[] = ["first", "second", ...invalidValuesArray];
-			let idx: number = 0;
+			let idx = 0;
 
 			for (const value of valueChanges) {
 				(<Spy>mockObserver.next).calls.reset();
@@ -870,7 +870,7 @@ describe("NgxFormErrorsDirective", () => {
 			];
 			const invalidValuesArray: any[] = invalidValuesObj.map((valueObj: object) => Object.values(valueObj)[0]);
 			const valueChanges: any[] = ["first", "second", ...invalidValuesArray];
-			let idx: number = 0;
+			let idx = 0;
 
 			for (const value of valueChanges) {
 				formControl.setValue(value);

@@ -4,7 +4,7 @@ import { MatSidenav } from "@angular/material/sidenav";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { of, Subscription } from "rxjs";
 
-const MEDIA_MATCH: string = "(max-width: 600px)";
+const MEDIA_MATCH = "(max-width: 600px)";
 
 @Component({
 	selector: "app-root",
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	@ViewChild("sidenav")
 	private _sidenav: MatSidenav;
 
-	public mobileQueryMatches: boolean = false;
+	public mobileQueryMatches = false;
 
 	private _routerSubscription: Subscription;
 	private _mediaQuerySubscription: Subscription;

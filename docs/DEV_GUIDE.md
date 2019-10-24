@@ -417,6 +417,7 @@ Make sure that the errors you add messages for correspond to the validators that
 
 In this example the form control definition would be something like this:
 
+<!-- prettier-ignore -->
 ```typescript
 this.formGroup = this.formBuilder.group({
 	foo: ["", Validators.compose([

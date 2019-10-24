@@ -1,6 +1,6 @@
 import { Component, HostBinding } from "@angular/core";
 
-const componentName: string = "navigation";
+const componentName = "navigation";
 
 @Component({
 	selector: "app-navigation",
