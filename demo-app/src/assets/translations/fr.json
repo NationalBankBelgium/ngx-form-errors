@@ -29,10 +29,12 @@
       },
       "WITH_NGX_FORM_ERRORS": {
         "REQUIRED": "{{fieldName}} est nécessaire",
+        "PASSWORD_REQUIRED": "{{fieldName}} doit être fourni",
         "USER_NAME": {
           "UNIQUE": "Votre nom d'utilisateur a déjà été pris"
         },
         "PASSWORD": {
+          "MAX_LENGTH": "Mot de passe ne peut pas y avoir plus de {{requiredLength}} caractères",
           "MIN_LENGTH": "Mot de passe doit comporter au moins {{requiredLength}} caractères",
           "PATTERN": "Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre."
         },

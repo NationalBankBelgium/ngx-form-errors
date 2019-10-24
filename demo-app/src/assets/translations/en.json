@@ -29,10 +29,12 @@
       },
       "WITH_NGX_FORM_ERRORS": {
         "REQUIRED": "{{fieldName}} is required",
+        "PASSWORD_REQUIRED": "{{fieldName}} must be provided",
         "USER_NAME": {
           "UNIQUE": "Your username has already been taken"
         },
         "PASSWORD": {
+          "MAX_LENGTH": "Password cannot be more than {{requiredLength}} characters long",
           "MIN_LENGTH": "Password must be at least {{requiredLength}} characters long",
           "PATTERN": "Your password must contain at least one uppercase, one lowercase, and one number"
         },

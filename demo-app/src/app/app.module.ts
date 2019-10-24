@@ -80,7 +80,7 @@ export class AppModule {
 
 		errorMessageService.addErrorMessages({
 			required: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.REQUIRED",
-			// "matchingPasswords.password.required": "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.REQUIRED",
+			"matchingPasswords.password.required": "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD_REQUIRED",
 			minlength: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.MIN_LENGTH",
 			maxlength: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.MAX_LENGTH",
 			pattern: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.PATTERN"
@@ -88,7 +88,7 @@ export class AppModule {
 
 		errorMessageService.addFieldNames({
 			username: "DEMO.FIELDS.USER_NAME",
-			"matchingPasswords.password": "DEMO.FIELDS.PASSWORD_ALIAS",
+			"matchingPasswords.password": "not used, the alias defined via the directive takes precedence over this",
 			"matchingPasswords.confirmPassword": "DEMO.FIELDS.CONFIRM_PASSWORD"
 		});
 	}

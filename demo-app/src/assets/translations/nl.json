@@ -29,10 +29,12 @@
       },
       "WITH_NGX_FORM_ERRORS": {
         "REQUIRED": "{{fieldName}} is verplicht",
+        "PASSWORD_REQUIRED": "{{fieldName}} moet worden gegeven",
         "USER_NAME": {
           "UNIQUE": "Uw gebruikersnaam is al in gebruik"
         },
         "PASSWORD": {
+          "MAX_LENGTH": "Wachtwoord mag niet meer dan {{requiredLength}} tekens lang zijn",
           "MIN_LENGTH": "Wachtwoord moet minimaal {{requiredLength}} tekens lang zijn",
           "PATTERN": "Uw Wachtwoord moet minimaal één hoofdletter, één kleine letter en één cijfer bevatten"
         },
