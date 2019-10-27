@@ -72,6 +72,8 @@ describe("AppComponent", () => {
 	it("should render title in a h1 tag", () => {
 		fixture.detectChanges();
 		const compiled: HTMLElement = fixture.debugElement.nativeElement;
-		expect(compiled.querySelector("h1").textContent).toContain("Ngx-Form-Errors");
+		const h1Element = compiled.querySelector("h1") as HTMLHeadingElement;
+		expect(h1Element).toBeTruthy();
+		expect(h1Element.textContent).toContain("Ngx-Form-Errors");
 	});
 });

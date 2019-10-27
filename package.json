@@ -104,7 +104,7 @@
     "lint": "npm run lint-ts && npm run lint-css",
     "lint:all": "npm run lint && npm run lint:demo",
     "lint:demo": "cd demo-app && npm run lint && cd ..",
-    "lint-ts": "tslint --config ./tslint.json --project ./tsconfig.json --format codeFrame",
+    "lint-ts": "tslint --config ./tslint.json --project ./tsconfig.lib.json --format codeFrame",
     "lint-css": "stylelint \"./src/**/*.?(pc|sc|c|sa)ss\" --formatter \"string\" --allow-empty-input",
     "ngc": "ngc",
     "node": "node",

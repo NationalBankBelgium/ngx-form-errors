@@ -3,10 +3,10 @@ import { browser, by, element } from "protractor";
 
 export class AppPage {
 	public navigateTo() {
-		return browser.get("/");
+		return browser.get("/") as Promise<string>;
 	}
 
-	public getTitleText(): string {
-		return element(by.css("app-root h1")).getText();
+	public getTitleText() {
+		return element(by.css("app-root h1")).getText() as Promise<string>;
 	}
 }
