@@ -6,8 +6,6 @@
     "typeRoots": ["./node_modules/@types"],
     "lib": ["dom", "dom.iterable", "es2017"],
     "paths": {},
-    // FIXME set this to true asap we have a newer version of IntelliJ
-    "strictPropertyInitialization": false,
     "outDir": "./dist"
   }
 }

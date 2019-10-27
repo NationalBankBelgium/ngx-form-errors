@@ -1,5 +1,5 @@
 /*tslint:disable:trackBy-function template-cyclomatic-complexity*/
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
@@ -9,10 +9,10 @@ import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
 	templateUrl: "./template-driven-forms-example.component.html",
 	styleUrls: ["./template-driven-forms-example.component.scss"]
 })
-export class TemplateDrivenFormsExampleComponent implements OnInit {
-	public username: string;
-	public password: string;
-	public confirmPassword: string;
+export class TemplateDrivenFormsExampleComponent {
+	public username = "";
+	public password = "";
+	public confirmPassword = "";
 
 	public parentErrorStateMatcher: ErrorStateMatcher = new ParentErrorStateMatcher();
 	public passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$";
@@ -21,10 +21,6 @@ export class TemplateDrivenFormsExampleComponent implements OnInit {
 	public showValidationSummary = true;
 
 	public constructor() {
-		/*empty*/
-	}
-
-	public ngOnInit(): void {
 		this.validationMessages = {
 			username: [
 				{

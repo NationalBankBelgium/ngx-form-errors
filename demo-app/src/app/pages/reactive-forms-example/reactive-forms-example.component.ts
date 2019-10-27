@@ -1,5 +1,5 @@
 /*tslint:disable:trackBy-function template-cyclomatic-complexity*/
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { PasswordValidator } from "../../password-validator";
@@ -10,7 +10,7 @@ import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
 	templateUrl: "./reactive-forms-example.component.html",
 	styleUrls: ["./reactive-forms-example.component.scss"]
 })
-export class ReactiveFormsExampleComponent implements OnInit {
+export class ReactiveFormsExampleComponent {
 	public formGroup: FormGroup;
 	public validationMessages: { [key: string]: { type: string; message: string }[] };
 	public parentErrorStateMatcher: ErrorStateMatcher = new ParentErrorStateMatcher();
@@ -18,9 +18,7 @@ export class ReactiveFormsExampleComponent implements OnInit {
 	public showValidationDetails = false;
 	public showValidationSummary = true;
 
-	public constructor(private formBuilder: FormBuilder) {}
-
-	public ngOnInit(): void {
+	public constructor(private formBuilder: FormBuilder) {
 		this.formGroup = this.formBuilder.group({
 			username: [undefined, Validators.required],
 			matchingPasswords: new FormGroup(

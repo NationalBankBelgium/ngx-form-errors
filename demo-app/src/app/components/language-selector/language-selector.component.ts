@@ -35,20 +35,20 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
 	 * Class constructor
 	 * @param translateService - the translation service of the application
 	 */
-	public constructor(protected translateService: TranslateService) {}
-
-	/**
-	 * Component lifecycle hook
-	 */
-	public ngOnInit(): void {
-		console.log(componentName + ": controller initialized");
-
+	public constructor(protected translateService: TranslateService) {
 		this.selectedLanguage = this.translateService.currentLang;
 
 		this.languageChangeSubscription = this.translateService.onLangChange.subscribe(
 			(event: LangChangeEvent) => (this.selectedLanguage = event.lang),
 			() => console.error(componentName + ": an error occurred getting the current language.")
 		);
+	}
+
+	/**
+	 * Component lifecycle hook
+	 */
+	public ngOnInit(): void {
+		console.log(componentName + ": controller initialized");
 	}
 
 	/**

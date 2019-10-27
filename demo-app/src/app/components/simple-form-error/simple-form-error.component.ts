@@ -11,7 +11,7 @@ export class SimpleFormErrorComponent implements NgxFormErrorComponent {
 	public cssClass = "simple-form-error";
 
 	public errors: NgxFormFieldError[] = [];
-	public errors$: Observable<NgxFormFieldError[]>;
+	public errors$!: Observable<NgxFormFieldError[]>;
 
 	public constructor() {
 		/* empty constructor */

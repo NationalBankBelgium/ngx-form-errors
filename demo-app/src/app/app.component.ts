@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, ViewChild } from "@angular/core";
 import { Event, NavigationEnd, Router } from "@angular/router";
 import { MatSidenav } from "@angular/material/sidenav";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
@@ -11,18 +11,16 @@ const MEDIA_MATCH = "(max-width: 600px)";
 	templateUrl: "./app.component.html",
 	styleUrls: ["./app.component.scss"]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
 	@ViewChild("sidenav")
-	private _sidenav: MatSidenav;
+	private _sidenav!: MatSidenav;
 
 	public mobileQueryMatches = false;
 
 	private _routerSubscription: Subscription;
 	private _mediaQuerySubscription: Subscription;
 
-	public constructor(private _router: Router, public breakpointObserver: BreakpointObserver) {}
-
-	public ngOnInit(): void {
+	public constructor(private _router: Router, public breakpointObserver: BreakpointObserver) {
 		this.mobileQueryMatches = this.breakpointObserver.isMatched(MEDIA_MATCH);
 
 		this._mediaQuerySubscription = this.breakpointObserver.observe([MEDIA_MATCH]).subscribe((state: BreakpointState) => {
