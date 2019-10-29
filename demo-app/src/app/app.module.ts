@@ -78,7 +78,7 @@ export class AppModule {
 
 		iconRegistry.addSvgIcon("github", sanitizer.bypassSecurityTrustResourceUrl("assets/img/github-icon.svg"));
 
-		errorMessageService.addErrorMessages({
+		this.errorMessageService.addErrorMessages({
 			required: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.REQUIRED",
 			"matchingPasswords.password.required": "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD_REQUIRED",
 			minlength: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.MIN_LENGTH",
@@ -86,7 +86,7 @@ export class AppModule {
 			pattern: "DEMO.FORM_VALIDATION.WITH_NGX_FORM_ERRORS.PASSWORD.PATTERN"
 		});
 
-		errorMessageService.addFieldNames({
+		this.errorMessageService.addFieldNames({
 			username: "DEMO.FIELDS.USER_NAME",
 			"matchingPasswords.password": "not used, the alias defined via the directive takes precedence over this",
 			"matchingPasswords.confirmPassword": "DEMO.FIELDS.CONFIRM_PASSWORD"

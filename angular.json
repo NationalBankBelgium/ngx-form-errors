@@ -9,11 +9,26 @@
       "projectType": "library",
       "prefix": "ngx-form-errors",
       "architect": {
-        "test": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "main": "base.spec.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": ""
+            "tsConfig": "./tsconfig.lib.json",
+            "project": "./ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "./base.spec.ts",
+            "tsConfig": "./tsconfig.spec.json",
+            "karmaConfig": "./karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["./tsconfig.lib.json", "./tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
