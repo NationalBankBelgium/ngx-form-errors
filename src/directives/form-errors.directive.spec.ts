@@ -1,5 +1,5 @@
 /* tslint:disable:no-big-function completed-docs */
-import { Component, OnInit, QueryList, ViewChildren } from "@angular/core";
+import { Component, QueryList, ViewChildren } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
@@ -52,17 +52,15 @@ describe("NgxFormErrorsDirective", () => {
 		selector: "test-component",
 		template: templateWithFormControl
 	})
-	class TestComponent implements OnInit {
+	class TestComponent {
 		public formNgxError: FormGroup;
 		public formControlName: string = formControlName;
 		public formControlAlias: string = formControlAlias;
 
 		@ViewChildren(NgxFormErrorsDirective)
-		public formErrorsDirectives: QueryList<NgxFormErrorsDirective>;
+		public formErrorsDirectives!: QueryList<NgxFormErrorsDirective>;
 
-		public constructor(public formBuilder: FormBuilder) {}
-
-		public ngOnInit(): void {
+		public constructor(public formBuilder: FormBuilder) {
 			this.formNgxError = this.formBuilder.group({
 				[this.formControlName]: [
 					"John Doe",
@@ -79,7 +77,7 @@ describe("NgxFormErrorsDirective", () => {
 		`
 	})
 	class FormErrorComponent implements NgxFormErrorComponent {
-		public errors$: Observable<NgxFormFieldError[]>;
+		public errors$!: Observable<NgxFormFieldError[]>;
 
 		public subscribeToErrors(): void {
 			/*empty*/

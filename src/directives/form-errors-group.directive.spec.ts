@@ -14,7 +14,7 @@ describe("NgxFormErrorsGroupDirective", () => {
 		public dummyGroup: string = groupName;
 
 		@ViewChild(NgxFormErrorsGroupDirective)
-		public formErrorGroup: NgxFormErrorsGroupDirective;
+		public formErrorGroup!: NgxFormErrorsGroupDirective;
 	}
 
 	let fixture: ComponentFixture<TestComponent>;

@@ -23,7 +23,7 @@ export class NgxFormErrorsGroupDirective implements OnInit {
 	/**
 	 * @ignore
 	 */
-	private _formErrorsGroup: string;
+	private _formErrorsGroup!: string;
 
 	/**
 	 * Class constructor

@@ -40,7 +40,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	/* tslint:disable-next-line:no-input-rename */
 	@Input("ngxFormErrors")
-	public formControlName: string;
+	public formControlName!: string;
 
 	/**
 	 * The field name or alias to be displayed in the validation messages instead of the form control's name.
@@ -48,12 +48,12 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	/* tslint:disable-next-line:no-input-rename */
 	@Input("ngxFormErrorsFieldName")
-	public fieldName: string;
+	public fieldName?: string;
 
 	/**
 	 * The form control bound to this directive
 	 */
-	public _formControl: AbstractControl;
+	public _formControl!: AbstractControl;
 
 	/**
 	 * Subject used as source to emit the validation errors from the form control
@@ -73,12 +73,12 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	/**
 	 * Represents a component created by a `ComponentFactory`.
 	 */
-	public _componentRef: ComponentRef<NgxFormErrorComponent>;
+	public _componentRef!: ComponentRef<NgxFormErrorComponent>;
 
 	/**
 	 * Subscription to the changes observable of the form control bound to this directive
 	 */
-	private _controlChangesSubscription: Subscription;
+	private _controlChangesSubscription!: Subscription;
 
 	/**
 	 * Class constructor

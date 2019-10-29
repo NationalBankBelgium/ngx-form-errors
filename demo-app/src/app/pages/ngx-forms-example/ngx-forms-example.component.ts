@@ -1,5 +1,5 @@
 /*tslint:disable:trackBy-function template-cyclomatic-complexity*/
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
@@ -10,16 +10,14 @@ import { PasswordValidator } from "../../password-validator";
 	templateUrl: "./ngx-forms-example.component.html",
 	styleUrls: ["./ngx-forms-example.component.scss"]
 })
-export class NgxFormsExampleComponent implements OnInit {
+export class NgxFormsExampleComponent {
 	public formGroup: FormGroup;
 	public parentErrorStateMatcher: ErrorStateMatcher = new ParentErrorStateMatcher();
 	public passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$";
 	public showValidationDetails = false;
 	public showValidationSummary = true;
 
-	public constructor(private formBuilder: FormBuilder) {}
-
-	public ngOnInit(): void {
+	public constructor(private formBuilder: FormBuilder) {
 		this.formGroup = this.formBuilder.group({
 			username: [undefined, Validators.required],
 			matchingPasswords: new FormGroup(

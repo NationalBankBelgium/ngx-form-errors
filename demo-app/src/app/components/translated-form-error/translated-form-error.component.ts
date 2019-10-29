@@ -12,8 +12,8 @@ export class TranslatedFormErrorComponent implements NgxFormErrorComponent, OnIn
 	public cssClass = "translated-form-error";
 
 	public errors: NgxFormFieldError[] = [];
-	public errors$: Observable<NgxFormFieldError[]>;
-	public fieldName: string;
+	public errors$!: Observable<NgxFormFieldError[]>;
+	public fieldName = "undefined";
 
 	public constructor(public translateService: TranslateService) {}
 

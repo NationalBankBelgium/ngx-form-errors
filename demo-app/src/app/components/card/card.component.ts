@@ -7,13 +7,13 @@ import { Component, HostBinding, Input } from "@angular/core";
 })
 export class CardComponent {
 	@HostBinding("class.app-color-primary")
-	public primaryColor: boolean;
+	public primaryColor = false;
 	@HostBinding("class.app-color-accent")
-	public accentColor: boolean;
+	public accentColor = false;
 	@HostBinding("class.app-color-warning")
-	public warningColor: boolean;
+	public warningColor = false;
 	@HostBinding("class.app-color-success")
-	public successColor: boolean;
+	public successColor = false;
 
 	@Input()
 	public set color(color: "primary" | "accent" | "warning" | "success") {
