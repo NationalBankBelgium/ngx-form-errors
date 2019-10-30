@@ -1,0 +1,25 @@
+mat-toolbar {
+  .slogan {
+    font-size: 16px;
+    font-style: italic;
+    line-height: normal;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+mat-sidenav-container {
+  flex: 100% 1;
+
+  mat-sidenav {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  mat-sidenav-content {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+}

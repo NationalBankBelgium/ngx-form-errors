@@ -1,0 +1,15 @@
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "app.theme";
+
+app-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  margin: 20px auto;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 1200px;
+}

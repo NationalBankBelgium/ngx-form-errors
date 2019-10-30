@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+	<button *ngIf="mobileQueryMatches" mat-icon-button (click)="sidenav.toggle()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<h1>Ngx-Form-Errors</h1>
+	<h4 *ngIf="!mobileQueryMatches" class="slogan">&nbsp;- Validation messages in Reactive Forms made easy</h4>
+	<div class="spacer"></div>
+	<a mat-icon-button href="https://github.com/NationalBankBelgium/ngx-form-errors" target="_blank" rel="noopener noreferrer">
+		<mat-icon svgIcon="github"></mat-icon>
+	</a>
+</mat-toolbar>
+
+<mat-sidenav-container>
+	<mat-sidenav #sidenav [mode]="mobileQueryMatches ? 'over' : 'side'" [opened]="!mobileQueryMatches">
+		<app-language-selector></app-language-selector>
+		<app-navigation></app-navigation>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>

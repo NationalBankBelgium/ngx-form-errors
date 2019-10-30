@@ -62,7 +62,7 @@ Finally, Travis executes `npm run release:publish`.
 That script makes some checks then, if all succeed it publishes the different packages on npm.
 Checks that are performed:
 
--   node version: should be "8"
+-   node version: should be "10"
 -   NPM_TOKEN environment variable should be defined
 -   TRAVIS_REPO_SLUG should be "NationalBankBelgium/ngx-form-errors"
 -   TRAVIS_TAG should be defined and not empty (this is the case when Travis builds for a tag)

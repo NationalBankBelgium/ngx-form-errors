@@ -1,0 +1,9 @@
+:host mat-button-toggle-group {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 0;
+
+  mat-button-toggle.accent {
+    flex: 1;
+  }
+}
