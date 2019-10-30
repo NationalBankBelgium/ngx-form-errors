@@ -23,6 +23,7 @@
   "keywords": [
     "angular6",
     "angular7",
+    "angular8",
     "reactive forms",
     "typescript"
   ],
@@ -76,9 +77,9 @@
     "zone.js": "~0.9.0"
   },
   "peerDependencies": {
-    "@angular/common": "6.x || 7.x",
-    "@angular/core": "6.x || 7.x",
-    "@angular/forms": "6.x || 7.x",
+    "@angular/common": "6.x || 7.x || 8.x",
+    "@angular/core": "6.x || 7.x || 8.x",
+    "@angular/forms": "6.x || 7.x || 8.x",
     "rxjs": "6.x"
   },
   "scripts": {
