@@ -1,7 +1,8 @@
 /* tslint:disable:no-big-function completed-docs */
-import { Component, QueryList, ViewChildren } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
 import { Observable, Observer } from "rxjs";
 import { NgxFormErrorsGroupDirective } from "./form-errors-group.directive";
@@ -12,13 +13,20 @@ import { NgxFormErrorComponent } from "../form-error-component.intf";
 import { NgxFormFieldError } from "../form-error.intf";
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
-import Spy = jasmine.Spy;
 
 describe("NgxFormErrorsDirective", () => {
 	const templateWithFormControl = `
 			<form [formGroup]="formNgxError" class="form-group">
 				<input matInput placeholder="Full Name" [formControlName]="formControlName"/>
 				<ng-template [ngxFormErrors]="formControlName"></ng-template>
+			</form>
+		`;
+
+	const templateWithLazyFormErrorDirective = `
+			<form [formGroup]="formNgxError" class="form-group">
+				<input matInput placeholder="Full Name" [formControlName]="formControlName"/>
+				<ng-template [ngxFormErrors]="formControlName"></ng-template>
+				<ng-template [ngxFormErrors]="formControlName" *ngIf="instantiateLazyFormErrorDirective"></ng-template>
 			</form>
 		`;
 
@@ -56,9 +64,10 @@ describe("NgxFormErrorsDirective", () => {
 		public formNgxError: FormGroup;
 		public formControlName: string = formControlName;
 		public formControlAlias: string = formControlAlias;
+		public instantiateLazyFormErrorDirective = false;
 
-		@ViewChildren(NgxFormErrorsDirective)
-		public formErrorsDirectives!: QueryList<NgxFormErrorsDirective>;
+		@ViewChild(NgxFormErrorsDirective)
+		public formErrorsDirective!: NgxFormErrorsDirective;
 
 		public constructor(public formBuilder: FormBuilder) {
 			this.formNgxError = this.formBuilder.group({
@@ -88,7 +97,7 @@ describe("NgxFormErrorsDirective", () => {
 	let component: TestComponent;
 	let mockFormErrorsMessageService: SpyObj<NgxFormErrorsMessageService>;
 	let mockFormErrorsConfig: NgxFormErrorsConfig;
-	let mockObserver: Observer<any>;
+	let mockObserver: SpyObj<Observer<any>>;
 
 	/* tslint:disable-next-line:no-duplicate-string */
 	const invalidValues: any[] = ["na", "too long value", "", undefined];
@@ -140,24 +149,23 @@ describe("NgxFormErrorsDirective", () => {
 
 			it("should bind the form group correctly", () => {
 				expect(component.formNgxError).toBeDefined();
-				expect(component.formErrorsDirectives).toBeDefined();
-				expect(component.formErrorsDirectives.length).toBe(1);
+				expect(component.formErrorsDirective).toBeDefined();
 
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 
 				expect(formErrorsDirective._formControl).toBeDefined();
 				expect(formErrorsDirective._formControl).toBe(component.formNgxError.controls[formControlName]);
 			});
 
 			it("should dynamically create the formErrorComponent", () => {
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 				expect(formErrorsDirective._componentRef).toBeDefined();
 				expect(formErrorsDirective._componentRef.instance).toBeDefined();
 				expect(formErrorsDirective._componentRef.instance instanceof FormErrorComponent).toBe(true);
 			});
 
 			it("should make the formErrorComponent to subscribe to the controlErrors observable", () => {
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 
 				expect(formErrorsDirective._componentRef.instance.errors$).toBe(formErrorsDirective._controlErrors$);
 				// TODO: how to check whether the component has subscribed to the observable?
@@ -202,7 +210,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should emit the validation errors every time the value of the form control changes", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName]; /// or <FormControl>formErrorsDirective.formControl;
@@ -213,9 +221,9 @@ describe("NgxFormErrorsDirective", () => {
 			}
 
 			expect(mockObserver.next).toHaveBeenCalledTimes(7); // initial emit + 6 value changes
-			expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+			expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
 			for (let idx = 0; idx < valueChanges.length; idx++) {
-				const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+				const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
 				if (invalidValues.indexOf(valueChanges[idx]) !== -1) {
 					expect(emittedValidationErrors.length).toBeGreaterThan(0);
 				} else {
@@ -228,7 +236,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should emit the validation errors array containing NgxFormFieldError objects", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
@@ -239,7 +247,7 @@ describe("NgxFormErrorsDirective", () => {
 			}
 
 			expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
-			expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+			expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
 
 			const expectedValidationErrors: NgxFormFieldError[] = [
 				{
@@ -269,7 +277,7 @@ describe("NgxFormErrorsDirective", () => {
 			];
 
 			for (let idx = 0; idx < valueChanges.length; idx++) {
-				const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+				const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
 				expect(emittedValidationErrors.length).toBe(1);
 				expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
 			}
@@ -291,7 +299,7 @@ describe("NgxFormErrorsDirective", () => {
 			});
 
 			it("should contain the message defined via the NgxFormErrorsMessageService for that specific validation or just the validation name if no message defined", () => {
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 				formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 				const errorMessages: object = {
@@ -313,7 +321,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
-				expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+				expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
 
 				const expectedValidationErrors: NgxFormFieldError[] = [
 					{
@@ -343,7 +351,7 @@ describe("NgxFormErrorsDirective", () => {
 				];
 
 				for (let idx = 0; idx < valueChanges.length; idx++) {
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
 				}
@@ -353,7 +361,7 @@ describe("NgxFormErrorsDirective", () => {
 			});
 
 			it("should contain the field name (alias) defined via the NgxFormErrorsMessageService for the form control or just the control name if no alias defined", () => {
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 				formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 				const fieldNames: object = {
@@ -373,7 +381,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
-				expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+				expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
 
 				const expectedValidationErrors: NgxFormFieldError[] = [
 					{
@@ -403,14 +411,14 @@ describe("NgxFormErrorsDirective", () => {
 				];
 
 				for (let idx = 0; idx < valueChanges.length; idx++) {
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
 				}
 
 				delete fieldNames[formControlName]; // deleting the existing field name
 				formControl.reset();
-				(<Spy>mockObserver.next).calls.reset();
+				mockObserver.next.calls.reset();
 
 				for (const value of valueChanges) {
 					formControl.setValue(value);
@@ -428,7 +436,7 @@ describe("NgxFormErrorsDirective", () => {
 						}
 					};
 
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationError);
 				}
@@ -452,7 +460,7 @@ describe("NgxFormErrorsDirective", () => {
 			});
 
 			it("should contain the message defined via the NgxFormErrorsMessageService for that specific validation or just the validation name if no message defined", () => {
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 				formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 				const errorMessages: object = {
@@ -475,7 +483,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
-				expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+				expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
 
 				const expectedValidationErrors: NgxFormFieldError[] = [
 					{
@@ -505,7 +513,7 @@ describe("NgxFormErrorsDirective", () => {
 				];
 
 				for (let idx = 0; idx < valueChanges.length; idx++) {
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
 				}
@@ -515,7 +523,7 @@ describe("NgxFormErrorsDirective", () => {
 			});
 
 			it("should contain the field name (alias) defined via the NgxFormErrorsMessageService for the form control or just the control name if no alias defined", () => {
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 				formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 				const fieldNames: object = {
@@ -535,7 +543,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
-				expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+				expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
 
 				const expectedValidationErrors: NgxFormFieldError[] = [
 					{
@@ -565,14 +573,14 @@ describe("NgxFormErrorsDirective", () => {
 				];
 
 				for (let idx = 0; idx < valueChanges.length; idx++) {
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
 				}
 
 				delete fieldNames[formControlName]; // deleting the existing field name
 				formControl.reset();
-				(<Spy>mockObserver.next).calls.reset();
+				mockObserver.next.calls.reset();
 
 				for (const value of valueChanges) {
 					formControl.setValue(value);
@@ -590,7 +598,7 @@ describe("NgxFormErrorsDirective", () => {
 						}
 					};
 
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationError);
 				}
@@ -612,7 +620,7 @@ describe("NgxFormErrorsDirective", () => {
 			});
 
 			it("should take precedence over the alias provided via the NgxFormErrorsMessageService", () => {
-				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+				const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 				formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 				const fieldNames: object = {
@@ -632,7 +640,7 @@ describe("NgxFormErrorsDirective", () => {
 				}
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
-				expect((<Spy>mockObserver.next).calls.argsFor(0)[0]).toEqual([]); // initial emit
+				expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
 
 				const expectedValidationErrors: NgxFormFieldError[] = [
 					{
@@ -662,14 +670,14 @@ describe("NgxFormErrorsDirective", () => {
 				];
 
 				for (let idx = 0; idx < valueChanges.length; idx++) {
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx + 1)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
 				}
 
 				delete fieldNames[formControlName]; // deleting the existing field name
 				formControl.reset();
-				(<Spy>mockObserver.next).calls.reset();
+				mockObserver.next.calls.reset();
 
 				for (const value of valueChanges) {
 					formControl.setValue(value);
@@ -678,7 +686,7 @@ describe("NgxFormErrorsDirective", () => {
 				expect(mockObserver.next).toHaveBeenCalledTimes(4); // 4 value changes
 				// the field name should still be the alias defined via the directive
 				for (let idx = 0; idx < valueChanges.length; idx++) {
-					const emittedValidationErrors: NgxFormFieldError[] = (<Spy>mockObserver.next).calls.argsFor(idx)[0];
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx)[0];
 					expect(emittedValidationErrors.length).toBe(1);
 					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
 				}
@@ -691,6 +699,7 @@ describe("NgxFormErrorsDirective", () => {
 
 	describe("errors", () => {
 		beforeEach(fakeAsync(() => {
+			TestBed.overrideTemplate(TestComponent, templateWithLazyFormErrorDirective);
 			// compile template and css
 			return TestBed.compileComponents();
 		}));
@@ -700,14 +709,14 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return all the Angular validation errors 'as is' from the form control", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
 			const valueChanges: any[] = ["first", "second", ...invalidValues];
 
 			for (const value of valueChanges) {
-				(<Spy>mockObserver.next).calls.reset();
+				mockObserver.next.calls.reset();
 				formControl.setValue(value);
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(1);
@@ -724,8 +733,54 @@ describe("NgxFormErrorsDirective", () => {
 			expect(mockObserver.complete).not.toHaveBeenCalled(); // the changes observable should never complete!
 		});
 
+		it("should return all the Angular validation errors from the form control even if when the directive is instantiated after the form control has already validation errors", () => {
+			let formErrorComponentElements = fixture.debugElement.queryAll(By.directive(FormErrorComponent));
+			expect(formErrorComponentElements.length).toBe(1);
+
+			const expectedValidationErrors: NgxFormFieldError[] = [
+				{
+					error: "minlength",
+					formControlName: formControlName,
+					message: "minlength",
+					params: { fieldName: formControlName, requiredLength: 3, actualLength: 2 }
+				}
+			];
+
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
+			formErrorsDirective._controlErrors$.subscribe(mockObserver);
+
+			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			formControl.setValue(invalidValues[0]);
+			formControl.markAsTouched(); // simulate the form control has been touched (although it does not really matter)
+
+			expect(mockObserver.next).toHaveBeenCalledTimes(2);
+			expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]);
+			expect(mockObserver.next.calls.argsFor(1)[0]).toEqual(expectedValidationErrors);
+			expect(mockObserver.error).not.toHaveBeenCalled();
+			expect(mockObserver.complete).not.toHaveBeenCalled(); // the changes observable should never complete!
+
+			component.instantiateLazyFormErrorDirective = true;
+			fixture.detectChanges();
+
+			formErrorComponentElements = fixture.debugElement.queryAll(By.directive(FormErrorComponent));
+			expect(formErrorComponentElements.length).toBe(2);
+			expect(formErrorComponentElements[0].componentInstance).toBe(formErrorsDirective._componentRef.instance);
+			expect(formErrorComponentElements[1].componentInstance).not.toBe(formErrorsDirective._componentRef.instance);
+
+			const errorComponent: FormErrorComponent = formErrorComponentElements[1].componentInstance;
+			expect(errorComponent.errors$).toBeDefined();
+
+			mockObserver.next.calls.reset();
+			errorComponent.errors$.subscribe(mockObserver);
+
+			expect(mockObserver.next).toHaveBeenCalledTimes(1);
+			expect(mockObserver.next).toHaveBeenCalledWith(expectedValidationErrors);
+			expect(mockObserver.error).not.toHaveBeenCalled();
+			expect(mockObserver.complete).not.toHaveBeenCalled(); // the changes observable should never complete!
+		});
+
 		it("should return null when the form control is not defined", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			expect(formErrorsDirective._formControl).toBeDefined();
 			expect(formErrorsDirective.errors).toBeNull(); // initially the form control passes all validations
 
@@ -747,14 +802,14 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return true only when the form control has any Angular validation error", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
 			const valueChanges: any[] = ["first", "second", ...invalidValues];
 
 			for (const value of valueChanges) {
-				(<Spy>mockObserver.next).calls.reset();
+				mockObserver.next.calls.reset();
 				formControl.setValue(value);
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(1);
@@ -771,7 +826,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return false if the form control is not defined", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			expect(formErrorsDirective._formControl).toBeDefined();
 			expect(formErrorsDirective.hasErrors).toBe(false); // initially the form control passes all validations
 
@@ -793,7 +848,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return true only when the form control has any error for the given validation", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
 			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
@@ -808,7 +863,7 @@ describe("NgxFormErrorsDirective", () => {
 			let idx = 0;
 
 			for (const value of valueChanges) {
-				(<Spy>mockObserver.next).calls.reset();
+				mockObserver.next.calls.reset();
 				formControl.setValue(value);
 
 				expect(mockObserver.next).toHaveBeenCalledTimes(1);
@@ -829,7 +884,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return false when the form control is not defined", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			expect(formErrorsDirective._formControl).toBeDefined();
 
 			const validationErrors: string[] = ["minlength", "maxlength", "required"];
@@ -858,7 +913,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return the Angular validation error for the given validation or null if the form control doesn't have such error", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
 			const invalidValuesObj: object[] = [
 				{ minlength: "na" },
@@ -887,7 +942,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return null when the form control is not defined", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			expect(formErrorsDirective._formControl).toBeDefined();
 
 			const validationErrors: string[] = ["minlength", "maxlength", "required"];
@@ -916,7 +971,7 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should return true only when the form control has the given state", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 
 			expect(formErrorsDirective.hasState("pristine")).toBe(true); // right after initialization
 			expect(formErrorsDirective.hasState("untouched")).toBe(true); // right after initialization
@@ -951,14 +1006,14 @@ describe("NgxFormErrorsDirective", () => {
 		});
 
 		it("should throw an error when the requested state is not a valid Angular state", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			expect(formErrorsDirective._formControl).toBeDefined();
 
 			expect(() => formErrorsDirective.hasState("whatever-state")).toThrowError(/has no .* state defined/);
 		});
 
 		it("should return false when the form control is not defined", () => {
-			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirectives.toArray()[0];
+			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			expect(formErrorsDirective._formControl).toBeDefined();
 
 			const controlStates: string[] = ["dirty", "touched", "pristine", "untouched"];

@@ -142,7 +142,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 		}
 
 		this._controlChangesSubscription = this._formControl.statusChanges
-			.pipe(map<ValidationErrors | null, ValidationErrors>(() => this._formControl.errors || {}))
+			.pipe(map<string, ValidationErrors>(() => this._formControl.errors || {}))
 			.subscribe((errors: ValidationErrors) => {
 				const fieldErrors: NgxFormFieldError[] = [];
 
@@ -155,8 +155,8 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 				this._controlErrorsSubj.next(fieldErrors);
 			});
 
-		// trigger initial validation in case the field is untouched
-		if (this._formControl.untouched) {
+		// trigger initial validation in case the field is already invalid
+		if (this._formControl.invalid) {
 			this._formControl.updateValueAndValidity({ onlySelf: true, emitEvent: true });
 		}
 	}
