@@ -28,11 +28,11 @@
 
 ---
 
-## <a name="ngx-form-errors">ngxFormErrors directive
+## <a name="ngx-form-errors"></a>ngxFormErrors directive
 
 This directive creates an Error component dynamically where the validation messages will be displayed. See [Defining the Error component to use](#defining-error-component).
 
-### <a name="binding-form-control">Binding to a FormControl
+### <a name="binding-form-control"></a>Binding to a FormControl
 
 Let's start by defining the Angular form group:
 
@@ -60,7 +60,7 @@ At runtime, the validation messages are displayed by the Error component that is
 
 Remember that you need to provide the Error component that will be created by this directive. See [Defining the Error component to use](#defining-error-component).
 
-### <a name="validation-errors">Validation errors emitted
+### <a name="validation-errors"></a>Validation errors emitted
 
 In order to display the validation messages in the Error component, the `ngxFormErrors` directive emits an array of error objects containing the following information:
 
@@ -198,7 +198,7 @@ Just wrap the `ngxFormErrors` directive inside a `<mat-error>` element and that'
 </form>
 ```
 
-In fact, we have integrated [Angular Material](https://material.angular.io) in our [demo app](../demo-app). Check it out!
+In fact, we have integrated [Angular Material](https://material.angular.io) in our [demo app](https://github.com/NationalBankBelgium/ngx-form-errors/tree/master/demo-app). Check it out!
 
 You can also integrate the directive with other UI libraries. This is really simple since you just need to use an `<ng-template>` element to use the `ngxFormErrors` directive so you can place it anywhere in the template according to your needs :wink:
 
@@ -385,7 +385,7 @@ formErrorsMessageService.addErrorMessages({
 });
 ```
 
-In fact, we have integrated [ngx-translate](https://github.com/ngx-translate/core) in our [demo app](../demo-app). Check it out!
+In fact, we have integrated [ngx-translate](https://github.com/ngx-translate/core) in our [demo app](https://github.com/NationalBankBelgium/ngx-form-errors/tree/master/demo-app). Check it out!
 
 The same functionality can be achieved with any other i18n library, you just need to integrate it in your Error component :wink:
 
@@ -466,7 +466,7 @@ getErrorMessages(): NgxValidationErrorMessages;
 findErrorMessage(error: string, formControlName?: string, group?: string): string | undefined;
 ```
 
-### <a name="adding-alias-globally-for-form-controls">Adding field names or alias globally
+### <a name="adding-alias-globally-for-form-controls"></a>Adding field names or alias globally
 
 Sometimes the names of the fields in your model (and therefore in your form) are not really descriptive for the end user,
 in those cases you might want to display better error messages with meaningful field names.

@@ -95,7 +95,7 @@
     "docs": "npm run docs:clean && npm run docs:generate",
     "docs:clean": "npx rimraf reports/api-docs",
     "docs:coverage": "npm run docs:generate -- --coverageTest 85 --coverageTestThresholdFail true",
-    "docs:generate": "node ./node_modules/@compodoc/compodoc/bin/index-cli src --theme material --tsconfig ./tsconfig.json --output ./reports/api-docs/ngx-form-errors",
+    "docs:generate": "node ./node_modules/@compodoc/compodoc/bin/index-cli src",
     "docs:serve": "npm run docs:generate -- --watch --serve --port 4321",
     "docs:publish": "bash ./gh-deploy.sh --trace",
     "generate:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
