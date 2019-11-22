@@ -5,7 +5,7 @@
     "clean": "npx rimraf ./dist ./reports",
     "clean:modules": "npx rimraf ./node_modules package-lock.json",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --disableHostCheck=true",
     "build": "ng build",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
