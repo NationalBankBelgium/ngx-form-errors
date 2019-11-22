@@ -18,7 +18,7 @@ DRY_RUN=false
 PACKAGE=ngx-form-errors
 
 EXPECTED_REPO_SLUG="NationalBankBelgium/ngx-form-errors"
-EXPECTED_NODE_VERSION="8"
+EXPECTED_NODE_VERSION="10"
 
 #----------------------------------------------
 # Uncomment block below to test locally
@@ -29,7 +29,7 @@ EXPECTED_NODE_VERSION="8"
 #NPM_TOKEN="dummy"
 #TRAVIS=true
 #TRAVIS_REPO_SLUG="NationalBankBelgium/ngx-form-errors"
-#TRAVIS_NODE_VERSION="8"
+#TRAVIS_NODE_VERSION="10"
 #TRAVIS_PULL_REQUEST=false
 
 # For normal builds:

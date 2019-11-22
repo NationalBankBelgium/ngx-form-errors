@@ -1,0 +1,47 @@
+{
+  "DEMO": {
+    "PLACEHOLDERS": {
+      "USER_NAME": "Username",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm password"
+    },
+    "FIELDS": {
+      "USER_NAME": "Your name",
+      "PASSWORD_ALIAS": "A valid passcode",
+      "CONFIRM_PASSWORD": "Password confirmation"
+    },
+    "FORM_VALIDATION": {
+      "WITHOUT_NGX_FORM_ERRORS": {
+        "REQUIRED": "This field is required",
+        "USER_NAME": {
+          "REQUIRED": "Username is required",
+          "UNIQUE": "Your username has already been taken"
+        },
+        "PASSWORD": {
+          "REQUIRED": "Password is required",
+          "MIN_LENGTH": "Password must be at least 3 characters long",
+          "PATTERN": "Your password must contain at least one uppercase, one lowercase, and one number"
+        },
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Confirm password is required",
+          "ARE_EQUAL": "Password mismatch"
+        }
+      },
+      "WITH_NGX_FORM_ERRORS": {
+        "REQUIRED": "{{fieldName}} is required",
+        "PASSWORD_REQUIRED": "{{fieldName}} must be provided",
+        "USER_NAME": {
+          "UNIQUE": "Your username has already been taken"
+        },
+        "PASSWORD": {
+          "MAX_LENGTH": "Password cannot be more than {{requiredLength}} characters long",
+          "MIN_LENGTH": "Password must be at least {{requiredLength}} characters long",
+          "PATTERN": "Your password must contain at least one uppercase, one lowercase, and one number"
+        },
+        "CONFIRM_PASSWORD": {
+          "ARE_EQUAL": "Password mismatch"
+        }
+      }
+    }
+  }
+}

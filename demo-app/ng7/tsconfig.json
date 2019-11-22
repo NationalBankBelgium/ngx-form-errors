@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "buildOnSave": false,
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "declaration": false,
+    "typeRoots": ["node_modules/@types"],
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"]
+    }
+  }
+}

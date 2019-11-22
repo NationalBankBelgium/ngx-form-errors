@@ -1,0 +1,47 @@
+{
+  "DEMO": {
+    "PLACEHOLDERS": {
+      "USER_NAME": "Gebruikersnaam",
+      "PASSWORD": "Wachtwoord",
+      "CONFIRM_PASSWORD": "Bevestig wachtwoord"
+    },
+    "FIELDS": {
+      "USER_NAME": "Uw gebruikersnaam",
+      "PASSWORD_ALIAS": "Een geldig wachtwoord",
+      "CONFIRM_PASSWORD": "Wachtwoordbevestiging"
+    },
+    "FORM_VALIDATION": {
+      "WITHOUT_NGX_FORM_ERRORS": {
+        "REQUIRED": "Dit veld is verplicht",
+        "USER_NAME": {
+          "REQUIRED": "Gebruikersnaam is verplicht",
+          "UNIQUE": "Uw gebruikersnaam is al in gebruik"
+        },
+        "PASSWORD": {
+          "REQUIRED": "Wachtwoord is verplicht",
+          "MIN_LENGTH": "Wachtwoord moet minimaal 3 tekens lang zijn",
+          "PATTERN": "Uw wachtwoord moet minimaal één hoofdletter, één kleine letter en één cijfer bevatten"
+        },
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Bevestig wachtwoord is verplicht",
+          "ARE_EQUAL": "Wachtwoord komt niet overeen"
+        }
+      },
+      "WITH_NGX_FORM_ERRORS": {
+        "REQUIRED": "{{fieldName}} is verplicht",
+        "PASSWORD_REQUIRED": "{{fieldName}} moet worden gegeven",
+        "USER_NAME": {
+          "UNIQUE": "Uw gebruikersnaam is al in gebruik"
+        },
+        "PASSWORD": {
+          "MAX_LENGTH": "Wachtwoord mag niet meer dan {{requiredLength}} tekens lang zijn",
+          "MIN_LENGTH": "Wachtwoord moet minimaal {{requiredLength}} tekens lang zijn",
+          "PATTERN": "Uw Wachtwoord moet minimaal één hoofdletter, één kleine letter en één cijfer bevatten"
+        },
+        "CONFIRM_PASSWORD": {
+          "ARE_EQUAL": "Wachtwoord komt niet overeen"
+        }
+      }
+    }
+  }
+}

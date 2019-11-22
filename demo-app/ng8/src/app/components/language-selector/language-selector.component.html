@@ -1,0 +1,12 @@
+<mat-button-toggle-group name="languageSelector" [value]="selectedLanguage">
+	<mat-button-toggle
+		*ngFor="let language of supportedLanguages; trackBy: trackLanguage"
+		id="language-selector"
+		[class.active]="language === selectedLanguage"
+		[class.accent]="true"
+		[value]="language"
+		(click)="changeLanguage(language)"
+	>
+		{{ language | uppercase }}
+	</mat-button-toggle>
+</mat-button-toggle-group>
