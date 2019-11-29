@@ -1,3 +1,19 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/NationalBankBelgium/ngx-form-errors/compare/1.0.0-rc.0...1.0.0) (2019-11-29)
+
+
+### Bug Fixes
+
+* **demo:** enable 'disableHostCheck' option in 'ng serve' command to prevent 'Invalid Host/Origin header' error in IE ([48606e0](https://github.com/NationalBankBelgium/ngx-form-errors/commit/48606e0)), closes [/github.com/webpack/webpack-dev-server/issues/1604#issuecomment-453137871](https://github.com//github.com/webpack/webpack-dev-server/issues/1604/issues/issuecomment-453137871)
+* **release:** add 'rc' branches in .travis.yml to make Travis trigger release builds also in those ([d937808](https://github.com/NationalBankBelgium/ngx-form-errors/commit/d937808))
+
+
+### Features
+
+* **all:** add support for Angular 8 ([77f20ca](https://github.com/NationalBankBelgium/ngx-form-errors/commit/77f20ca)), closes [#31](https://github.com/NationalBankBelgium/ngx-form-errors/issues/31)
+
+
+
 <a name="1.0.0-rc.0"></a>
 # [1.0.0-rc.0](https://github.com/NationalBankBelgium/ngx-form-errors/compare/1.0.0-beta.1...1.0.0-rc.0) (2019-10-31)
 
