@@ -7,11 +7,11 @@
 On your local machine, you must configure the `GITHUB_TOKEN` environment variable.
 It will be used by release-it to push to and create the release page on GitHub (cfr release:prepare section below).
 
-### Travis
+### GitHub Actions
 
-On Travis, the following should be configured:
+On GitHub Actions, the following should be configured:
 
--   NPM_TOKEN environment variable
+-   NPM_TOKEN secret variable
     -   if 2FA is enabled for the account the only auth-only level can be used: https://docs.npmjs.com/getting-started/using-two-factor-authentication#levels-of-authentication
     -   that variable MUST NEVER be logged/exposed. If exposed then the token MUST be revoked and the account password changed ASAP
 
@@ -35,7 +35,7 @@ Enjoy the show.
 
 ## Publishing the release on npm
 
-Once you have pushed the tag, Travis will handle things from there.
+Once you have pushed the tag, GitHub Actions will handle things from there.
 
 Once done, you must make sure that the tags are adapted so that the "latest" tag still points to what we consider the latest (i.e., next major/minor)!
 Refer to the "Adapting tags of published packages" section below.
@@ -57,15 +57,13 @@ After this, the release is tagged and visible on github
 
 ### npm packages publish
 
-Finally, Travis executes `npm run release:publish`.
+Finally, GitHub Actions executes `npm run release:publish`.
 
 That script makes some checks then, if all succeed it publishes the different packages on npm.
 Checks that are performed:
 
--   node version: should be "10"
 -   NPM_TOKEN environment variable should be defined
--   TRAVIS_REPO_SLUG should be "NationalBankBelgium/ngx-form-errors"
--   TRAVIS_TAG should be defined and not empty (this is the case when Travis builds for a tag)
+-   GITHUB_REPOSITORY should be "NationalBankBelgium/ngx-form-errors"
 
 ## Adapting tags of published packages
 
