@@ -6,7 +6,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/@nationalbankbelgium/ngx-form-errors.svg)](https://www.npmjs.com/package/@nationalbankbelgium/ngx-form-errors)
 [![npm](https://img.shields.io/npm/dm/@nationalbankbelgium/ngx-form-errors.svg)](https://www.npmjs.com/package/@nationalbankbelgium/ngx-form-errors)
-[![Build Status](https://travis-ci.org/NationalBankBelgium/ngx-form-errors.svg?branch=master)](https://travis-ci.org/NationalBankBelgium/ngx-form-errors)
+[![Build Status](https://github.com/NationalBankBelgium/ngx-form-errors/workflows/ci/badge.svg)](https://github.com/NationalBankBelgium/ngx-form-errors/actions?query=workflow%3Aci)
 [![Coverage Status](https://coveralls.io/repos/github/NationalBankBelgium/ngx-form-errors/badge.svg?branch=master)](https://coveralls.io/github/NationalBankBelgium/ngx-form-errors?branch=master)
 [![Dependency Status](https://david-dm.org/NationalBankBelgium/ngx-form-errors.svg)](https://david-dm.org/NationalBankBelgium/ngx-form-errors)
 [![devDependency Status](https://david-dm.org/NationalBankBelgium/ngx-form-errors/dev-status.svg)](https://david-dm.org/NationalBankBelgium/ngx-form-errors#info=devDependencies)
@@ -167,8 +167,8 @@ We're supported by [Jetbrains](https://www.jetbrains.com) and their awesome [sup
 
 <a href="https://www.jetbrains.com"><img src="http://www.underconsideration.com/brandnew/archives/jetbrains_logo_detail.jpg" width="144px"></a>
 
-### Travis
+### GitHub Actions
 
-We're supported by [Travis](https://travis-ci.org/)
+We're supported by [GitHub Actions](https://github.com/features/actions)
 
-<a href="https://travis-ci.org/"><img src="https://travis-ci.com/images/logos/TravisCI-Full-Color.png" width="144px"></a>
+<a href="https://github.com/features/actions"><img src="https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg" width="144px"></a>

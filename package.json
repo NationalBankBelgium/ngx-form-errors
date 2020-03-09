@@ -83,7 +83,7 @@
     "rxjs": "6.x"
   },
   "scripts": {
-    "build": "ng build && cd dist && npm pack ./ --silent",
+    "build": "ng build && cd dist && npm pack ./ --silent && cd ..",
     "clean": "npx rimraf ./dist ./reports",
     "clean:all": "npm run clean && npm run clean:demo:ng-previous && npm run clean:demo:ng-latest",
     "clean:demo:ng-previous": "cd demo-app/ng7 && npm run clean && cd ..",
@@ -109,8 +109,6 @@
     "install:demo:ng-latest": "cd demo-app/ng8 && npm install && cd ..",
     "install:ci:demo:ng-previous": "npm run build && cd demo-app/ng7 && npm ci && cd ..",
     "install:ci:demo:ng-latest": "npm run build && cd demo-app/ng8 && npm ci && cd ..",
-    "install:travis:demo:ng-previous": "npm run build && npm run install:demo:ng-previous",
-    "install:travis:demo:ng-latest": "npm run build && npm run install:demo:ng-latest",
     "lint": "npm run lint-ts && npm run lint-css",
     "lint:all": "npm run lint && npm run lint:demo:ng-previous && npm run lint:demo:ng-latest",
     "lint:demo:ng-previous": "cd demo-app/ng7 && npm run lint && cd ..",

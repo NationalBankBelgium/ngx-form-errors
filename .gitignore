@@ -1,7 +1,7 @@
 # Build
 dist/
+/dist/
 .awcache/
-dist/
 .tmp/
 /.tmp/
 tmp/
