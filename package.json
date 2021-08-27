@@ -58,9 +58,10 @@
     "conventional-changelog-cli": "^2.1.1",
     "core-js": "^2.6.0",
     "cz-customizable": "^6.3.0",
-    "husky": "^3.0.0",
+    "husky": "^7.0.4",
     "lint-staged": "^11.1.2",
     "ng-packagr": "^5.7.0",
+    "pinst": "^2.1.6",
     "prettier": "^2.3.2",
     "release-it": "^14.11.5",
     "rimraf": "^3.0.2",
@@ -117,6 +118,11 @@
     "ng": "ng",
     "ngc": "ngc",
     "node": "node",
+    "prepack": "pinst --disable",
+    "prepublishOnly": "pinst --disable",
+    "postinstall": "husky install",
+    "postpack": "pinst --enable",
+    "postpublish": "pinst --enable",
     "prettier-check": "prettier \"**/*.{css,html,js,json,md,pcss,scss,ts,yml}\" --write --html-whitespace-sensitivity strict",
     "release": "release-it",
     "release:publish": "bash ./release-publish.sh --trace",
@@ -136,16 +142,9 @@
     "update:demo:ng-previous": "npm run clean:demo:ng-previous && npx rimraf ./node_modules/@nationalbankbelgium && npm run install:demo:ng-previous",
     "update:demo:ng-latest": "npm run clean:demo:ng-latest && npx rimraf ./node_modules/@nationalbankbelgium && npm run install:demo:ng-latest"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged && npm run docs:coverage"
-    }
-  },
   "lint-staged": {
     "*.{css,html,js,json,md,pcss,scss,ts,yml}": [
-      "prettier --write --html-whitespace-sensitivity strict",
-      "git add"
+      "prettier --write --html-whitespace-sensitivity strict"
     ]
   },
   "config": {
