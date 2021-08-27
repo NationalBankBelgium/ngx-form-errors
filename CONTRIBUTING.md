@@ -315,7 +315,7 @@ Compodoc provides some documentation about the supported JSDoc tags:
 -   https://compodoc.app/guides/jsdoc-tags.html
 -   https://compodoc.app/guides/comments.html
 
-With each release of NgxFormErrors (including nightly builds), we will also publish our API documentation.
+With each release of NgxFormErrors, we will also publish our API documentation.
 
 ### Developer guide and examples
 
