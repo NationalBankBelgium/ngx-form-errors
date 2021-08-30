@@ -39,8 +39,4 @@ export class CardComponent {
 				break;
 		}
 	}
-
-	public constructor() {
-		/*Do Nothing*/
-	}
 }
