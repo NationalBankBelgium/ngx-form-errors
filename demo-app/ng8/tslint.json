@@ -1,71 +1,15 @@
 {
-  //"extends": ["../../tslint.json"],
   "extends": [
     "tslint:latest",
     "tslint-sonarts",
-    //"@nationalbankbelgium/code-style/codelyzer/4.5.x",
-    "codelyzer",
-    "@nationalbankbelgium/code-style/tslint/4.3.x",
+    "@nationalbankbelgium/code-style/codelyzer/6.0.x",
+    "@nationalbankbelgium/code-style/tslint/6.1.x",
     "tslint-config-prettier"
   ],
   "defaultSeverity": "error",
   "rules": {
     "completed-docs": false,
     "directive-selector": [true, "attribute", "app", "camelCase"],
-    "component-selector": [true, "element", "app", "kebab-case"],
-    "max-union-size": [true, 4],
-    "member-ordering": [
-      true,
-      {
-        "order": ["static-field", "instance-field", "static-method", "instance-method"]
-      }
-    ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      }
-    ],
-    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type"],
-
-    "use-view-encapsulation": false,
-
-    // Codelyzer recommended rules
-    "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
-    "no-inputs-metadata-property": true,
-    "no-outputs-metadata-property": true,
-    "no-host-metadata-property": true,
-    "no-attribute-decorator": true,
-    "no-input-rename": true,
-    "no-output-on-prefix": true,
-    "no-output-rename": true,
-    "no-forward-ref": true,
-    "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true,
-    "no-output-native": true,
-    "component-max-inline-declarations": true,
-    "no-life-cycle-call": true,
-    "prefer-output-readonly": true,
-    "no-conflicting-lifecycle": true,
-    "use-component-selector": true,
-    "no-queries-metadata-property": true,
-    "component-class-suffix": [true, "Component"],
-    "directive-class-suffix": [true, "Directive"],
-
-    // Codelyzer rules
-    "template-banana-in-box": true,
-    "contextual-lifecycle": true,
-    "contextual-decorator": true,
-    "no-pipe-impure": true,
-    "template-no-negated-async": true,
-    "use-pipe-decorator": true,
-    "template-use-track-by-function": true,
-    "no-unused-css": true,
-    "template-cyclomatic-complexity": [true, 10],
-    "template-conditional-complexity": [true, 4]
+    "component-selector": [true, "element", "app", "kebab-case"]
   }
 }

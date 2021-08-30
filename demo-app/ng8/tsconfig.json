@@ -1,21 +1,11 @@
 {
+  "extends": "@nationalbankbelgium/code-style/tsconfig/3.5.x/ng8",
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "rootDir": "../",
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["dom", "dom.iterable", "es2017"]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "typeRoots": ["node_modules/@types"]
   }
 }
