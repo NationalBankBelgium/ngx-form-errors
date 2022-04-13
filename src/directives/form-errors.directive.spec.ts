@@ -53,6 +53,7 @@ describe("NgxFormErrorsDirective", () => {
 
 	const formControlName = "fullName";
 	const formControlAlias = "complete name";
+	const subFormGroupName = "person";
 	const minlengthErrorMessage = "the value should not contain less than X chars";
 	const requiredErrorMessage = "the field is mandatory";
 
@@ -75,6 +76,37 @@ describe("NgxFormErrorsDirective", () => {
 					"John Doe",
 					Validators.compose([Validators.minLength(3), Validators.maxLength(8), Validators.required])
 				]
+			});
+		}
+	}
+
+	@Component({
+		selector: "test-with-sub-formgroup-component",
+		template: `
+			<form [formGroup]="formNgxError" class="form-group">
+				<form [formGroupName]="subFormGroupName" [ngxFormErrorsGroup]="subFormGroupName">
+					<input matInput placeholder="Full Name" [formControlName]="formControlName" />
+					<ng-template [ngxFormErrors]="formControlName"></ng-template>
+				</form>
+			</form>
+		`
+	})
+	class TestWithSubFormGroupComponent {
+		public formNgxError: FormGroup;
+		public formControlName: string = formControlName;
+		public subFormGroupName: string = subFormGroupName;
+
+		@ViewChild(NgxFormErrorsDirective)
+		public formErrorsDirective!: NgxFormErrorsDirective;
+
+		public constructor(public formBuilder: FormBuilder) {
+			this.formNgxError = this.formBuilder.group({
+				[this.subFormGroupName]: this.formBuilder.group({
+					[this.formControlName]: [
+						"John Doe",
+						Validators.compose([Validators.minLength(3), Validators.maxLength(8), Validators.required])
+					]
+				})
 			});
 		}
 	}
@@ -124,7 +156,13 @@ describe("NgxFormErrorsDirective", () => {
 		mockObserver = createSpyObj<Observer<any>>("observerSpy", ["next", "error", "complete"]);
 
 		return TestBed.configureTestingModule({
-			declarations: [NgxFormErrorsDirective, NgxFormErrorsGroupDirective, TestComponent, FormErrorComponent],
+			declarations: [
+				NgxFormErrorsDirective,
+				NgxFormErrorsGroupDirective,
+				TestComponent,
+				TestWithSubFormGroupComponent,
+				FormErrorComponent
+			],
 			imports: [FormsModule, ReactiveFormsModule],
 			providers: [
 				{ provide: NgxFormErrorsMessageService, useValue: mockFormErrorsMessageService },
@@ -536,6 +574,166 @@ describe("NgxFormErrorsDirective", () => {
 				});
 
 				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+				const valueChanges: any[] = [...invalidValues]; // just invalid values
+
+				for (const value of valueChanges) {
+					formControl.setValue(value);
+				}
+
+				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
+				expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
+
+				const expectedValidationErrors: NgxFormFieldError[] = [
+					{
+						error: "minlength",
+						formControlName: formControlName,
+						message: "minlength",
+						params: { fieldName: fieldNames[formControlName], requiredLength: 3, actualLength: 2 }
+					},
+					{
+						error: "maxlength",
+						formControlName: formControlName,
+						message: "maxlength",
+						params: { fieldName: fieldNames[formControlName], requiredLength: 8, actualLength: 14 }
+					},
+					{
+						error: "required",
+						formControlName: formControlName,
+						message: "required",
+						params: { fieldName: fieldNames[formControlName] }
+					},
+					{
+						error: "required",
+						formControlName: formControlName,
+						message: "required",
+						params: { fieldName: fieldNames[formControlName] }
+					}
+				];
+
+				for (let idx = 0; idx < valueChanges.length; idx++) {
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
+					expect(emittedValidationErrors.length).toBe(1);
+					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
+				}
+
+				delete fieldNames[formControlName]; // deleting the existing field name
+				formControl.reset();
+				mockObserver.next.calls.reset();
+
+				for (const value of valueChanges) {
+					formControl.setValue(value);
+				}
+
+				expect(mockObserver.next).toHaveBeenCalledTimes(4); // 4 value changes
+				for (let idx = 0; idx < valueChanges.length; idx++) {
+					const expectedValidationErrorParams: object = expectedValidationErrors[idx].params;
+					// reset the fieldName to the form control name
+					const expectedValidationError: NgxFormFieldError = {
+						...expectedValidationErrors[idx],
+						params: {
+							...expectedValidationErrorParams,
+							fieldName: expectedValidationErrors[idx].formControlName
+						}
+					};
+
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx)[0];
+					expect(emittedValidationErrors.length).toBe(1);
+					expect(emittedValidationErrors[0]).toEqual(expectedValidationError);
+				}
+
+				expect(mockObserver.error).not.toHaveBeenCalled();
+				expect(mockObserver.complete).not.toHaveBeenCalled(); // the changes observable should never complete!
+			});
+		});
+
+		describe("when sub-formGroup is defined", () => {
+			let fixtureWithSubFormGroup: ComponentFixture<TestWithSubFormGroupComponent>;
+			let componentWithSubFormGroup: TestWithSubFormGroupComponent;
+
+			beforeEach(() => {
+				fixtureWithSubFormGroup = TestBed.createComponent(TestWithSubFormGroupComponent);
+				componentWithSubFormGroup = fixtureWithSubFormGroup.componentInstance;
+				// trigger initial data binding
+				fixtureWithSubFormGroup.detectChanges();
+			});
+
+			it("should contain the message defined via the NgxFormErrorsMessageService for that specific validation or just the validation name if no message defined", () => {
+				const formErrorsDirective: NgxFormErrorsDirective = componentWithSubFormGroup.formErrorsDirective;
+				formErrorsDirective._controlErrors$.subscribe(mockObserver);
+
+				const errorMessages: object = {
+					minlength: "should not be used",
+					required: requiredErrorMessage,
+					[`${subFormGroupName}.minlength`]: minlengthErrorMessage
+				};
+
+				mockFormErrorsMessageService.findErrorMessage.and.callFake((errorKey: string, formCtrlName: string, errorGroup: string) => {
+					expect(errorGroup).toBe(subFormGroupName);
+					expect(formCtrlName).toBe(formControlName);
+					return errorMessages[`${errorGroup}.${errorKey}`] || errorMessages[errorKey] || undefined;
+				});
+
+				const formControl: FormControl = <FormControl>componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`);
+				const valueChanges: any[] = [...invalidValues]; // just invalid values
+
+				for (const value of valueChanges) {
+					formControl.setValue(value);
+				}
+
+				expect(mockObserver.next).toHaveBeenCalledTimes(5); // initial emit + 4 value changes
+				expect(mockObserver.next.calls.argsFor(0)[0]).toEqual([]); // initial emit
+
+				const expectedValidationErrors: NgxFormFieldError[] = [
+					{
+						error: "minlength",
+						formControlName: formControlName,
+						message: errorMessages[`${subFormGroupName}.minlength`],
+						params: { fieldName: formControlName, requiredLength: 3, actualLength: 2 }
+					},
+					{
+						error: "maxlength",
+						formControlName: formControlName,
+						message: "maxlength", // no message defined via the service
+						params: { fieldName: formControlName, requiredLength: 8, actualLength: 14 }
+					},
+					{
+						error: "required",
+						formControlName: formControlName,
+						message: errorMessages["required"], // generic message (not group specific)
+						params: { fieldName: formControlName }
+					},
+					{
+						error: "required",
+						formControlName: formControlName,
+						message: errorMessages["required"], // generic message (not group specific)
+						params: { fieldName: formControlName }
+					}
+				];
+
+				for (let idx = 0; idx < valueChanges.length; idx++) {
+					const emittedValidationErrors: NgxFormFieldError[] = mockObserver.next.calls.argsFor(idx + 1)[0];
+					expect(emittedValidationErrors.length).toBe(1);
+					expect(emittedValidationErrors[0]).toEqual(expectedValidationErrors[idx]);
+				}
+
+				expect(mockObserver.error).not.toHaveBeenCalled();
+				expect(mockObserver.complete).not.toHaveBeenCalled(); // the changes observable should never complete!
+			});
+
+			it("should contain the field name (alias) defined via the NgxFormErrorsMessageService for the form control or just the control name if no alias defined", () => {
+				const formErrorsDirective: NgxFormErrorsDirective = componentWithSubFormGroup.formErrorsDirective;
+				formErrorsDirective._controlErrors$.subscribe(mockObserver);
+
+				const fieldNames: object = {
+					[formControlName]: formControlAlias
+				};
+
+				mockFormErrorsMessageService.getFieldName.and.callFake((fieldName: string, errorGroup: string) => {
+					expect(errorGroup).toBe(subFormGroupName);
+					return fieldNames[fieldName] || undefined;
+				});
+
+				const formControl: FormControl = <FormControl>componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`);
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {

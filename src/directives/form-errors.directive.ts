@@ -14,7 +14,7 @@ import {
 	Type,
 	ViewContainerRef
 } from "@angular/core";
-import { AbstractControl, FormGroupDirective, ValidationErrors } from "@angular/forms";
+import { AbstractControl, ControlContainer, ValidationErrors } from "@angular/forms";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { NgxFormErrorComponent } from "../form-error-component.intf";
@@ -82,7 +82,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 
 	/**
 	 * Class constructor
-	 * @param _form - The Angular formGroup that contains the form control bound to this directive
+	 * @param _form - The Angular control container that contains the form control bound to this directive
 	 * @param _templateRef - The embedded template that can be used to instantiate embedded views
 	 * @param _viewContainer - The container where the Error component view(s) can be attached
 	 * @param componentFactoryResolver - Resolver that returns Angular component factories
@@ -91,7 +91,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * @param formErrorsConfig - Configuration object for the NgxFormErrors module
 	 */
 	public constructor(
-		private _form: FormGroupDirective,
+		private _form: ControlContainer,
 		private _templateRef: TemplateRef<any>,
 		private _viewContainer: ViewContainerRef,
 		componentFactoryResolver: ComponentFactoryResolver,
@@ -130,7 +130,10 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * @param _changes - The changed inputs
 	 */
 	public ngOnChanges(_changes: SimpleChanges): void {
-		const control: AbstractControl | undefined = this._form.control.get(this.formControlName) || undefined;
+		let control: AbstractControl | undefined;
+		if (!!this._form.control) {
+			control = this._form.control.get(this.formControlName) || undefined;
+		}
 
 		if (control) {
 			if (this._formControl) {
