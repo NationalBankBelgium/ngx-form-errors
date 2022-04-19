@@ -1,6 +1,6 @@
 {
   "name": "@nationalbankbelgium/ngx-form-errors",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Display validation errors for Angular Reactive forms",
   "author": "Stark Team <National Bank of Belgium>",
   "contributors": [

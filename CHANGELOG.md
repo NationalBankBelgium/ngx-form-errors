@@ -1,3 +1,14 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/NationalBankBelgium/ngx-form-errors/compare/1.0.0...1.1.0) (2022-04-19)
+
+
+### Features
+
+* **directive:** add support for nested formGroupNames ([8c18ee3](https://github.com/NationalBankBelgium/ngx-form-errors/commit/8c18ee3)), closes [#41](https://github.com/NationalBankBelgium/ngx-form-errors/issues/41)
+* **qa:** improve issue templating (new GitHub issues templates) ([802ce34](https://github.com/NationalBankBelgium/ngx-form-errors/commit/802ce34)), closes [#37](https://github.com/NationalBankBelgium/ngx-form-errors/issues/37)
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/NationalBankBelgium/ngx-form-errors/compare/1.0.0-rc.0...1.0.0) (2019-11-29)
 
