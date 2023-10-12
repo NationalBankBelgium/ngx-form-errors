@@ -23,7 +23,7 @@
 							/>
 							<mat-error>
 								<ng-template
-									ngxFormErrors="matchingPasswords.password"
+									ngxFormErrors="password"
 									ngxFormErrorsFieldName="DEMO.FIELDS.PASSWORD_ALIAS"
 									#passwordField="ngxFormErrors"
 								></ng-template>
@@ -40,10 +40,7 @@
 								required
 							/>
 							<mat-error>
-								<ng-template
-									ngxFormErrors="matchingPasswords.confirmPassword"
-									#confirmPasswordField="ngxFormErrors"
-								></ng-template>
+								<ng-template ngxFormErrors="confirmPassword" #confirmPasswordField="ngxFormErrors"></ng-template>
 							</mat-error>
 						</mat-form-field>
 					</div>

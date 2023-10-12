@@ -5,8 +5,8 @@ import { FormControl, FormGroupDirective, NgForm } from "@angular/forms";
 export class ParentErrorStateMatcher implements ErrorStateMatcher {
 	public isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
 		const isSubmitted: boolean = !!(form && form.submitted);
-		const formGroupValid: boolean = !!(form && form.valid);
+		const formGroupInvalid: boolean = !!(form && form.invalid);
 
-		return !!((control && control.invalid && (control.dirty || control.touched)) || isSubmitted || formGroupValid);
+		return !!(control && (control.invalid || formGroupInvalid) && (control.dirty || control.touched || isSubmitted));
 	}
 }
