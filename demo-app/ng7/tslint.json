@@ -1,26 +1,18 @@
 {
-  "extends": ["../../tslint.json"],
+  "extends": [
+    "tslint:latest",
+    "tslint-sonarts",
+    "@nationalbankbelgium/code-style/codelyzer/5.2.x",
+    "@nationalbankbelgium/code-style/tslint/5.20.x",
+    "tslint-config-prettier"
+  ],
   "rules": {
     "completed-docs": false,
     "directive-selector": [true, "attribute", "app", "camelCase"],
     "component-selector": [true, "element", "app", "kebab-case"],
-    "max-union-size": [true, 4],
-    "member-ordering": [
-      true,
-      {
-        "order": ["static-field", "instance-field", "static-method", "instance-method"]
-      }
-    ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      }
-    ],
-    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type"]
+
+    // custom rules for this project
+    "template-use-track-by-function": false,
+    "max-union-size": false
   }
 }

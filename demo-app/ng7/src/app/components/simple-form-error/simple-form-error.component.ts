@@ -13,10 +13,6 @@ export class SimpleFormErrorComponent implements NgxFormErrorComponent {
 	public errors: NgxFormFieldError[] = [];
 	public errors$!: Observable<NgxFormFieldError[]>;
 
-	public constructor() {
-		/* empty constructor */
-	}
-
 	public subscribeToErrors(): void {
 		this.errors$.subscribe((errors: NgxFormFieldError[]) => {
 			this.errors = errors;

@@ -74,6 +74,7 @@ describe("AppComponent", () => {
 		const compiled: HTMLElement = fixture.debugElement.nativeElement;
 		const h1Element = compiled.querySelector("h1");
 		expect(h1Element).toBeTruthy();
-		expect(h1Element.textContent).toContain("Ngx-Form-Errors");
+		// tslint:disable-next-line:no-non-null-assertion
+		expect(h1Element!.textContent).toContain("Ngx-Form-Errors");
 	});
 });
