@@ -93,7 +93,7 @@
     "clean:modules:demo:ng-previous": "cd demo-app/ng7 && npm run clean:modules && cd ..",
     "clean:modules:demo:ng-latest": "cd demo-app/ng8 && npm run clean:modules && cd ..",
     "clean:slate": "npm run clean:all && npm run clean:modules:all && npm run install:all",
-    "commit": "./node_modules/.bin/git-cz",
+    "commit": "git-cz",
     "demo:ng-previous": "cd demo-app/ng7 && npm start && cd ..",
     "demo:ng-latest": "cd demo-app/ng8 && npm start && cd ..",
     "docs": "npm run docs:clean && npm run docs:generate",
