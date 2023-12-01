@@ -35,15 +35,15 @@
     "npm": ">=7.12.1"
   },
   "devDependencies": {
-    "@angular/cli": "^11.2.19",
-    "@angular/common": "^11.2.14",
-    "@angular/compiler": "^11.2.14",
-    "@angular/compiler-cli": "^11.2.14",
-    "@angular/core": "^11.2.14",
-    "@angular/forms": "^11.2.14",
-    "@angular/platform-browser": "^11.2.14",
-    "@angular/platform-browser-dynamic": "^11.2.14",
-    "@angular-devkit/build-angular": "~0.1102.18",
+    "@angular/cli": "^12.2.18",
+    "@angular/common": "^12.2.17",
+    "@angular/compiler": "^12.2.17",
+    "@angular/compiler-cli": "^12.2.17",
+    "@angular/core": "^12.2.17",
+    "@angular/forms": "^12.2.17",
+    "@angular/platform-browser": "^12.2.17",
+    "@angular/platform-browser-dynamic": "^12.2.17",
+    "@angular-devkit/build-angular": "^12.2.14",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@compodoc/compodoc": "1.1.13",
@@ -57,7 +57,7 @@
     "cz-customizable": "^6.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^11.1.2",
-    "ng-packagr": "^11.2.4",
+    "ng-packagr": "^12.2.7",
     "pinst": "^2.1.6",
     "prettier": "^2.3.2",
     "release-it": "^14.11.5",
@@ -69,13 +69,13 @@
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "tslint-sonarts": "^1.9.0",
-    "typescript": "~4.1.0",
-    "zone.js": "~0.10.2"
+    "typescript": "~4.3.5",
+    "zone.js": "~0.11.4"
   },
   "peerDependencies": {
-    "@angular/common": "11.x",
-    "@angular/core": "11.x",
-    "@angular/forms": "11.x",
+    "@angular/common": "12.x",
+    "@angular/core": "12.x",
+    "@angular/forms": "12.x",
     "rxjs": "6.x"
   },
   "scripts": {
