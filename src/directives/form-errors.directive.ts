@@ -3,13 +3,12 @@ import {
 	ComponentFactoryResolver,
 	ComponentRef,
 	Directive,
+	DoCheck,
 	Inject,
 	Input,
-	OnChanges,
 	OnDestroy,
 	OnInit,
 	Optional,
-	SimpleChanges,
 	TemplateRef,
 	Type,
 	ViewContainerRef
@@ -34,7 +33,7 @@ export type FormControlState = "untouched" | "touched" | "pristine" | "dirty" | 
 	selector: "[ngxFormErrors]",
 	exportAs: "ngxFormErrors"
 })
-export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
+export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 	/**
 	 * The name of the form control to be bound to this directive
 	 */
@@ -127,9 +126,8 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 
 	/**
 	 * Directive's lifecycle hook
-	 * @param _changes - The changed inputs
 	 */
-	public ngOnChanges(_changes: SimpleChanges): void {
+	public ngDoCheck(): void {
 		let control: AbstractControl | undefined;
 		if (!!this._form.control) {
 			control = this._form.control.get(this.formControlName) || undefined;

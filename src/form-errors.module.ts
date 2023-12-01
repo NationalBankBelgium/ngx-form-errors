@@ -18,7 +18,7 @@ export class NgxFormErrorsModule {
 	 * @param formErrorsConfig - Object containing the configuration (if any) for the {@link NgxFormErrorsDirective}
 	 * @returns a module with providers
 	 */
-	public static forRoot(formErrorsConfig: NgxFormErrorsConfig): ModuleWithProviders {
+	public static forRoot(formErrorsConfig: NgxFormErrorsConfig): ModuleWithProviders<NgxFormErrorsModule> {
 		return {
 			ngModule: NgxFormErrorsModule,
 			providers: [NgxFormErrorsMessageService, { provide: NGX_FORM_ERRORS_CONFIG, useValue: formErrorsConfig }]
