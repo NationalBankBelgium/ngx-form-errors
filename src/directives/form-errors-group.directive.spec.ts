@@ -13,7 +13,7 @@ describe("NgxFormErrorsGroupDirective", () => {
 	class TestComponent {
 		public dummyGroup: string = groupName;
 
-		@ViewChild(NgxFormErrorsGroupDirective)
+		@ViewChild(NgxFormErrorsGroupDirective, {  static: false  })
 		public formErrorGroup!: NgxFormErrorsGroupDirective;
 	}
 

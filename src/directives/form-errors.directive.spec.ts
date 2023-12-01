@@ -67,7 +67,7 @@ describe("NgxFormErrorsDirective", () => {
 		public formControlAlias: string = formControlAlias;
 		public instantiateLazyFormErrorDirective = false;
 
-		@ViewChild(NgxFormErrorsDirective)
+		@ViewChild(NgxFormErrorsDirective, { static: false })
 		public formErrorsDirective!: NgxFormErrorsDirective;
 
 		public constructor(public formBuilder: FormBuilder) {
@@ -96,7 +96,7 @@ describe("NgxFormErrorsDirective", () => {
 		public formControlName: string = formControlName;
 		public subFormGroupName: string = subFormGroupName;
 
-		@ViewChild(NgxFormErrorsDirective)
+		@ViewChild(NgxFormErrorsDirective, { static: false })
 		public formErrorsDirective!: NgxFormErrorsDirective;
 
 		public constructor(public formBuilder: FormBuilder) {
