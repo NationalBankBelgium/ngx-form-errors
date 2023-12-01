@@ -170,9 +170,9 @@ describe("NgxFormErrorsMessageService", () => {
 });
 
 class NgxFormErrorsMessageServiceHelper extends NgxFormErrorsMessageService {
-	public errorMessages: NgxValidationErrorMessages = {};
+	public override errorMessages: NgxValidationErrorMessages = {};
 
-	public fieldNames: NgxValidationErrorFieldNames = {};
+	public override fieldNames: NgxValidationErrorFieldNames = {};
 
 	public constructor() {
 		super();

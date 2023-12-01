@@ -17,9 +17,23 @@ import "zone.js/dist/fake-async-test";
 import { TestBed } from "@angular/core/testing";
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from "@angular/platform-browser-dynamic/testing";
 
-TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(),
-	{teardown: {destroyAfterEach: false}
-});
+TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), { teardown: { destroyAfterEach: false } });
 
 // define global environment variable if needed
 // global["ENV"] = "development";
+// Then we find all the tests.
+
+declare const require: {
+	context(
+		path: string,
+		deep?: boolean,
+		filter?: RegExp
+	): {
+		keys(): string[];
+		<T>(id: string): T;
+	};
+};
+
+const context = require.context("./src", true, /\.spec\.ts$/);
+// And load the modules.
+context.keys().forEach(context);
