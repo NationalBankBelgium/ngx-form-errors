@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "extends": ["@nationalbankbelgium"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "prefix": "ngx-form-errors",
+            "style": "kebab-case",
+            "type": "element"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "prefix": "ngxFormErrors",
+            "style": "camelCase",
+            "type": "attribute"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-/* tslint:disable:completed-docs */
 import { NgxFormErrorsMessageService, NgxValidationErrorFieldNames, NgxValidationErrorMessages } from "./form-errors-message.service";
 
 describe("NgxFormErrorsMessageService", () => {

@@ -28,6 +28,7 @@ export class NgxFormErrorsGroupDirective implements OnInit {
 	/**
 	 * Class constructor
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-useless-constructor
 	public constructor() {
 		// TODO: how to prevent multiple ngxFormErrorsGroup on the same <form> element?
 		// if ((<HTMLElement>elementRef.nativeElement).attributes["ngxFormErrorsGroup"]) {

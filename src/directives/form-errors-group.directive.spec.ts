@@ -1,4 +1,3 @@
-/* tslint:disable:completed-docs */
 import { Component, ViewChild } from "@angular/core";
 import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
 import { NgxFormErrorsGroupDirective } from "./form-errors-group.directive";

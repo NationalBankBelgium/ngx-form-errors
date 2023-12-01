@@ -1,4 +1,3 @@
-/* tslint:disable:no-big-function completed-docs */
 import { Component, ViewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
@@ -130,8 +129,7 @@ describe("NgxFormErrorsDirective", () => {
 	let mockFormErrorsMessageService: SpyObj<NgxFormErrorsMessageService>;
 	let mockFormErrorsConfig: NgxFormErrorsConfig;
 	let mockObserver: SpyObj<Observer<any>>;
-
-	/* tslint:disable-next-line:no-duplicate-string */
+	
 	const invalidValues: any[] = ["na", "too long value", "", undefined];
 
 	function initializeComponentFixture(): void {
