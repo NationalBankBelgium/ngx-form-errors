@@ -98,7 +98,10 @@ jobs:
       - name: Linting and testing
         run: |
           npm run lint:all
-          npm run test:ci:all
+          # npm run test:ci:all // comand remove due to incomability node18 and angular12
+          npm run test:ci
+          npm run test:ci:demo:ng-latest
+          
 
       - name: Generate docs coverage
         run: npm run docs:coverage

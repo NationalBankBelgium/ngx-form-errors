@@ -1,0 +1,21 @@
+@use '~@angular/material' as mat;
+@mixin language-selector-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  .language-selector mat-button-toggle-group mat-button-toggle {
+    &.active {
+      &,
+      &:hover,
+      &:active {
+        background-color: mat.get-color-from-palette($primary, 500);
+        color: mat.get-contrast-color-from-palette($primary, 500);
+      }
+    }
+
+    &:hover,
+    &:focus {
+      background-color: mat.get-color-from-palette($primary, 100);
+      color: mat.get-contrast-color-from-palette($primary, 100);
+    }
+  }
+}
