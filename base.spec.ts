@@ -17,7 +17,9 @@ import "zone.js/dist/fake-async-test";
 import { TestBed } from "@angular/core/testing";
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from "@angular/platform-browser-dynamic/testing";
 
-TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(),
+	{teardown: {destroyAfterEach: false}
+});
 
 // define global environment variable if needed
 // global["ENV"] = "development";
