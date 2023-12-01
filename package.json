@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/NationalBankBelgium/ngx-form-errors",
   "engines": {
-    "node": ">=12.22.1",
-    "npm": ">=7.12.1"
+    "node": ">=18.17.1",
+    "npm": ">=10.1.0"
   },
   "devDependencies": {
     "@angular/cli": "^13.3.11",
