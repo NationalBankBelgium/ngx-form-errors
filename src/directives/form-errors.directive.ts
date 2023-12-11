@@ -3,13 +3,12 @@ import {
 	ComponentFactoryResolver,
 	ComponentRef,
 	Directive,
+	DoCheck,
 	Inject,
 	Input,
-	OnChanges,
 	OnDestroy,
 	OnInit,
 	Optional,
-	SimpleChanges,
 	TemplateRef,
 	Type,
 	ViewContainerRef
@@ -34,11 +33,11 @@ export type FormControlState = "untouched" | "touched" | "pristine" | "dirty" | 
 	selector: "[ngxFormErrors]",
 	exportAs: "ngxFormErrors"
 })
-export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
+export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 	/**
 	 * The name of the form control to be bound to this directive
 	 */
-	/* tslint:disable-next-line:no-input-rename */
+	/* eslint-disable-next-line @angular-eslint/no-input-rename */
 	@Input("ngxFormErrors")
 	public formControlName!: string;
 
@@ -46,7 +45,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 * The field name or alias to be displayed in the validation messages instead of the form control's name.
 	 * This alias will be sent in the `params.fieldName` property of the {@link NgxFormFieldError}(s) emitted by this directive
 	 */
-	/* tslint:disable-next-line:no-input-rename */
+	/* eslint-disable-next-line @angular-eslint/no-input-rename */
 	@Input("ngxFormErrorsFieldName")
 	public fieldName?: string;
 
@@ -127,11 +126,10 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 
 	/**
 	 * Directive's lifecycle hook
-	 * @param _changes - The changed inputs
 	 */
-	public ngOnChanges(_changes: SimpleChanges): void {
+	public ngDoCheck(): void {
 		let control: AbstractControl | undefined;
-		if (!!this._form.control) {
+		if (this._form.control) {
 			control = this._form.control.get(this.formControlName) || undefined;
 		}
 
@@ -149,7 +147,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 			.subscribe((errors: ValidationErrors) => {
 				const fieldErrors: NgxFormFieldError[] = [];
 
-				/* tslint:disable-next-line:forin */
+				/* eslint-disable-next-line guard-for-in */
 				for (const errorKey in errors) {
 					const formError: NgxFormFieldError = this.constructFieldError(errorKey, errors[errorKey]);
 					fieldErrors.push(formError);
@@ -209,7 +207,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	public get errors(): ValidationErrors | null {
 		if (!this._formControl) {
-			/* tslint:disable-next-line:no-null-keyword */
+			/* eslint-disable-next-line no-null/no-null */
 			return null;
 		}
 		return this._formControl.errors;
@@ -239,7 +237,7 @@ export class NgxFormErrorsDirective implements OnInit, OnChanges, OnDestroy {
 	 */
 	public getError(name: string): any | null {
 		if (!this._formControl) {
-			/* tslint:disable-next-line:no-null-keyword */
+			/* eslint-disable-next-line no-null/no-null */
 			return null;
 		}
 		return this._formControl.getError(name);

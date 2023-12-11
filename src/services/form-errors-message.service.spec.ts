@@ -1,4 +1,3 @@
-/* tslint:disable:completed-docs */
 import { NgxFormErrorsMessageService, NgxValidationErrorFieldNames, NgxValidationErrorMessages } from "./form-errors-message.service";
 
 describe("NgxFormErrorsMessageService", () => {
@@ -171,9 +170,9 @@ describe("NgxFormErrorsMessageService", () => {
 });
 
 class NgxFormErrorsMessageServiceHelper extends NgxFormErrorsMessageService {
-	public errorMessages: NgxValidationErrorMessages = {};
+	public override errorMessages: NgxValidationErrorMessages = {};
 
-	public fieldNames: NgxValidationErrorFieldNames = {};
+	public override fieldNames: NgxValidationErrorFieldNames = {};
 
 	public constructor() {
 		super();

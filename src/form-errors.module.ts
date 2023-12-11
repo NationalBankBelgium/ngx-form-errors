@@ -14,11 +14,11 @@ export class NgxFormErrorsModule {
 	/**
 	 * Instantiates the services only once since they should be singletons
 	 * so the forRoot() should be called only by the AppModule
-	 * @link https://angular.io/guide/singleton-services#forroot
+	 * @see https://angular.io/guide/singleton-services#forroot
 	 * @param formErrorsConfig - Object containing the configuration (if any) for the {@link NgxFormErrorsDirective}
 	 * @returns a module with providers
 	 */
-	public static forRoot(formErrorsConfig: NgxFormErrorsConfig): ModuleWithProviders {
+	public static forRoot(formErrorsConfig: NgxFormErrorsConfig): ModuleWithProviders<NgxFormErrorsModule> {
 		return {
 			ngModule: NgxFormErrorsModule,
 			providers: [NgxFormErrorsMessageService, { provide: NGX_FORM_ERRORS_CONFIG, useValue: formErrorsConfig }]

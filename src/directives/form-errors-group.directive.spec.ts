@@ -1,4 +1,3 @@
-/* tslint:disable:completed-docs */
 import { Component, ViewChild } from "@angular/core";
 import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
 import { NgxFormErrorsGroupDirective } from "./form-errors-group.directive";
@@ -13,7 +12,7 @@ describe("NgxFormErrorsGroupDirective", () => {
 	class TestComponent {
 		public dummyGroup: string = groupName;
 
-		@ViewChild(NgxFormErrorsGroupDirective)
+		@ViewChild(NgxFormErrorsGroupDirective, {  static: false  })
 		public formErrorGroup!: NgxFormErrorsGroupDirective;
 	}
 

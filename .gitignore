@@ -1,3 +1,5 @@
+#cache angular
+/.angular/cache
 # Build
 dist/
 /dist/

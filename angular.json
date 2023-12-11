@@ -10,10 +10,15 @@
       "prefix": "ngx-form-errors",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "./tsconfig.lib.json",
             "project": "./ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -25,14 +30,16 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["./tsconfig.lib.json", "./tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
   },
-  "defaultProject": "ngx-form-errors"
+  "defaultProject": "ngx-form-errors",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
