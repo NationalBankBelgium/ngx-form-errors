@@ -6,7 +6,7 @@ export class PasswordValidator {
 		let value: string | undefined;
 		let valid = true;
 		for (const key in formGroup.controls) {
-      /* eslint-disable-next-line no-prototype-builtins */
+			/* eslint-disable-next-line no-prototype-builtins */
 			if (formGroup.controls.hasOwnProperty(key)) {
 				const control: FormControl = <FormControl>formGroup.controls[key];
 

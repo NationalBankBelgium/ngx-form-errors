@@ -10,5 +10,4 @@ const componentName = "navigation";
 export class NavigationComponent {
 	@HostBinding("class")
 	public cssClass: string = componentName;
-
 }

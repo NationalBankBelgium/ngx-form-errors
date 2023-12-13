@@ -39,5 +39,4 @@ export class CardComponent {
 				break;
 		}
 	}
-
 }
