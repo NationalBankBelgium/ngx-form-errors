@@ -97,7 +97,7 @@ export class NgxFormErrorsMessageService {
 		if (group) {
 			fieldNameKey = `${group}.${fieldName}`; // concatenating group + field name with a "."
 		}
-		
+
 		/* eslint-disable no-prototype-builtins */
 		if (this.fieldNames.hasOwnProperty(fieldNameKey)) {
 			return this.fieldNames[fieldNameKey];

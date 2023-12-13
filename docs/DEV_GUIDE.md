@@ -2,29 +2,29 @@
 
 ## Table of Contents
 
--   [ngxFormErrors directive](#ngx-form-errors)
+- [ngxFormErrors directive](#ngx-form-errors)
 
-    -   [Binding to a FormControl](#binding-form-control)
-    -   [Validation errors emitted](#validation-errors)
-    -   [Defining an alias for a form control](#defining-alias-for-one-form-control)
-    -   [Template reference variable](#template-ref-variable)
-    -   [Integrating Angular Material form field errors](#integrating-angular-material)
+  - [Binding to a FormControl](#binding-form-control)
+  - [Validation errors emitted](#validation-errors)
+  - [Defining an alias for a form control](#defining-alias-for-one-form-control)
+  - [Template reference variable](#template-ref-variable)
+  - [Integrating Angular Material form field errors](#integrating-angular-material)
 
--   [ngxFormErrorsGroup directive](#ngx-form-errors-group)
+- [ngxFormErrorsGroup directive](#ngx-form-errors-group)
 
-    -   [Defining different messages for the same validation error](#defining-groups)
-    -   [Nesting multiple ngxFormErrorsGroup directives](#multiple-nesting)
+  - [Defining different messages for the same validation error](#defining-groups)
+  - [Nesting multiple ngxFormErrorsGroup directives](#multiple-nesting)
 
--   [Error component](#error-component)
+- [Error component](#error-component)
 
-    -   [Defining the Error component to use](#defining-error-component)
-    -   [Integrating translation support for validation messages](#integrating-translation-support)
+  - [Defining the Error component to use](#defining-error-component)
+  - [Integrating translation support for validation messages](#integrating-translation-support)
 
--   [NgxFormErrorsMessageService](#ngx-form-errors-message-service)
-    -   [Adding messages for specific validation errors](#adding-messages-for-validation-errors)
-    -   [Getting validation error messages](#getting-validation-error-messages)
-    -   [Adding field names or alias globally](#adding-alias-globally-for-form-controls)
-    -   [Getting field names or alias](#getting-field-names)
+- [NgxFormErrorsMessageService](#ngx-form-errors-message-service)
+  - [Adding messages for specific validation errors](#adding-messages-for-validation-errors)
+  - [Getting validation error messages](#getting-validation-error-messages)
+  - [Adding field names or alias globally](#adding-alias-globally-for-form-controls)
+  - [Getting field names or alias](#getting-field-names)
 
 ---
 
@@ -36,6 +36,7 @@ This directive creates an Error component dynamically where the validation messa
 
 Let's start by defining the Angular form group:
 
+<!-- prettier-ignore -->
 ```typescript
 this.formGroup = this.formBuilder.group({
 	foo: ["", Validators.required]
@@ -45,6 +46,7 @@ this.formGroup = this.formBuilder.group({
 Now bind the form and its fields in the template to the model using the [Reactive Forms API](https://angular.io/guide/reactive-forms#reactive-forms-api).
 Then add the `ngxFormErrors` directive and bind it to the FormControl whose validation errors you want to display:
 
+<!-- prettier-ignore -->
 ```html
 <form [formGroup]="formGroup" (ngSubmit)="...">
 	<input type="text" formControlName="foo" />
@@ -121,6 +123,7 @@ globally via the `NgxFormErrorsMessageService`.
 
 This alias is included in the error emitted by the directive so you can use it in your Error component. For example:
 
+<!-- prettier-ignore -->
 ```html
 <!-- your Error component-->
 <div *ngFor="let error of errors; trackBy: trackError" [ngClass]="getErrorClass()">
@@ -186,6 +189,7 @@ In case you are using [Angular Material](https://material.angular.io), integrati
 
 Just wrap the `ngxFormErrors` directive inside a `<mat-error>` element and that's it!
 
+<!-- prettier-ignore -->
 ```html
 <form [formGroup]="formGroup" (ngSubmit)="...">
 	<mat-form-field>
@@ -212,6 +216,7 @@ The "group" defined with the `ngxFormErrorsGroup` is just a logical grouping in 
 
 For example, with this template:
 
+<!-- prettier-ignore -->
 ```html
 <form [formGroup]="formGroup" (ngSubmit)="...">
 	<!-- required field -->
@@ -226,6 +231,7 @@ For example, with this template:
 
 And this message configuration:
 
+<!-- prettier-ignore -->
 ```typescript
 // in the AppModule or feature module
 // inject the NgxFormErrorsMessageService to define the messages
@@ -239,6 +245,7 @@ Both fields will display the same message: "Required field".
 
 However, if you want to display a different message for one of the fields, you can add the `ngxFormErrorsGroup` directive to add a group to one of them:
 
+<!-- prettier-ignore -->
 ```html
 <form [formGroup]="formGroup" (ngSubmit)="...">
 	<!-- required field -->
@@ -256,6 +263,7 @@ However, if you want to display a different message for one of the fields, you c
 
 And provide a different message for it in the message configuration using the group you defined:
 
+<!-- prettier-ignore -->
 ```typescript
 // in the AppModule or feature module
 // inject the NgxFormErrorsMessageService to define the messages
@@ -275,6 +283,7 @@ the validation message to be displayed by the `ngxFormErrors` directive will be 
 
 For example:
 
+<!-- prettier-ignore -->
 ```html
 <form [formGroup]="formGroup" (ngSubmit)="...">
 	<div ngxFormErrorsGroup="parent-group">
@@ -295,6 +304,7 @@ For example:
 
 The definition of a different message for both fields would be like this:
 
+<!-- prettier-ignore -->
 ```typescript
 // in the AppModule or feature module
 // inject the NgxFormErrorsMessageService to define the messages
@@ -315,6 +325,7 @@ In order to make NgxFormErrors as flexible as possible, there is no Error compon
 
 It must be provided via the `NgxFormErrorsModule.forRoot`:
 
+<!-- prettier-ignore -->
 ```typescript
 @NgModule({
 	declarations: [AppComponent, YourCustomErrorComponent],
@@ -355,6 +366,7 @@ This is specially important in case you want to add translation support to your 
 
 For example, you can use [ngx-translate](https://github.com/ngx-translate/core) and integrate it in your Error component to translate the messages:
 
+<!-- prettier-ignore -->
 ```html
 <!-- You can translate the message and also pass the error params to have even more flexible translations -->
 <span *ngFor="let error of errors; trackBy: trackError" [ngClass]="getErrorClass()">
@@ -364,6 +376,7 @@ For example, you can use [ngx-translate](https://github.com/ngx-translate/core) 
 
 Then in your translations you can use the params passed to the `translate` pipe:
 
+<!-- prettier-ignore -->
 ```json
 {
 	"VALIDATIONS": {
@@ -375,6 +388,7 @@ Then in your translations you can use the params passed to the `translate` pipe:
 
 Finally, the messages provided to the `NgxFormErrorsMessageService` should be the translation keys defined above:
 
+<!-- prettier-ignore -->
 ```typescript
 // in the AppModule or feature module
 // inject the NgxFormErrorsMessageService to define the messages
@@ -400,6 +414,7 @@ Then add the messages you want the `ngxFormErrors` directive to display for a sp
 
 For example, in this case we will add messages for the `required` and the `pattern` errors:
 
+<!-- prettier-ignore -->
 ```typescript
 // in the AppModule or feature module
 // inject the NgxFormErrorsMessageService to define the messages
@@ -473,6 +488,7 @@ in those cases you might want to display better error messages with meaningful f
 
 To do this you can provide the field name or alias to be used for specific form control names:
 
+<!-- prettier-ignore -->
 ```typescript
 // in the AppModule or feature module
 // inject the NgxFormErrorsMessageService to define the messages
@@ -487,6 +503,7 @@ then that one has precedence and it will be used instead. See [Defining an alias
 
 This alias is included in the error emitted by the `ngxFormErrors` directive so you can use it in your Error component. For example:
 
+<!-- prettier-ignore -->
 ```html
 <!-- your Error component-->
 <div *ngFor="let error of errors; trackBy: trackError" [ngClass]="getErrorClass()">
