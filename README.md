@@ -17,9 +17,9 @@
 
 NgxFormErrors is heavily inspired in these projects:
 
--   [valdr](https://github.com/netceteragroup/valdr): a model centric approach to AngularJS form validation
--   [ngx-errors](https://github.com/UltimateAngular/ngx-errors): a declarative validation errors library for Angular Reactive Forms
--   [ngx-valdemort](https://github.com/Ninja-Squad/ngx-valdemort): consistent validation error messages for Angular Reactive forms
+- [valdr](https://github.com/netceteragroup/valdr): a model centric approach to AngularJS form validation
+- [ngx-errors](https://github.com/UltimateAngular/ngx-errors): a declarative validation errors library for Angular Reactive Forms
+- [ngx-valdemort](https://github.com/Ninja-Squad/ngx-valdemort): consistent validation error messages for Angular Reactive forms
 
 ## Why NgxFormErrors?
 
@@ -27,6 +27,7 @@ Let's just have a look at the following example:
 
 ### Plain Reactive Forms approach
 
+<!-- prettier-ignore -->
 ```html
 <input type="text" formControlName="foo" />
 
@@ -48,6 +49,7 @@ This easily becomes messy and cumbersome as soon as you have multiple fields. An
 
 Your component template is cleaner :wink:
 
+<!-- prettier-ignore -->
 ```html
 <input type="text" formControlName="foo" />
 <!--or-->
@@ -59,6 +61,7 @@ Your component template is cleaner :wink:
 
 You decide how to display the messages by defining your own Error component :sunglasses:
 
+<!-- prettier-ignore -->
 ```html
 <!-- Error component's template -->
 
@@ -75,6 +78,7 @@ You decide how to display the messages by defining your own Error component :sun
 
 And the messages are centralized in a service :astonished:
 
+<!-- prettier-ignore -->
 ```typescript
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxFormErrorsMessageService, NgxFormErrorsModule } from "@nationalbankbelgium/ngx-form-errors";
@@ -121,11 +125,11 @@ npm install @nationalbankbelgium/ngx-form-errors
 
 NgxFormErrors is built with [ng-packagr](https://github.com/ng-packagr/ng-packagr) which means that the final package implements the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview) providing the following bundles:
 
--   FESM2015
--   FESM5
--   ESM2015
--   ESM5
--   UMD
+- FESM2015
+- FESM5
+- ESM2015
+- ESM5
+- UMD
 
 So it can be consumed by [Angular CLI](https://github.com/angular/angular-cli), [Webpack](https://github.com/webpack/webpack) or [SystemJS](https://github.com/systemjs/systemjs).
 
@@ -143,11 +147,11 @@ To know how to release NgxFormErrors, refer to [this page](/RELEASE.md).
 
 ### Christopher Cortes
 
--   [@GitHub](https://github.com/christophercr)
+- [@GitHub](https://github.com/christophercr)
 
 ### Alexis Georges
 
--   [@GitHub](https://github.com/SuperITMan)
+- [@GitHub](https://github.com/SuperITMan)
 
 ## License
 
@@ -155,7 +159,7 @@ This project and all associated source code is licensed under the terms of the [
 
 ## Documentation
 
--   [Developer Guide](/docs/DEV_GUIDE.md)
+- [Developer Guide](/docs/DEV_GUIDE.md)
 
 ## Thank you notes :)
 

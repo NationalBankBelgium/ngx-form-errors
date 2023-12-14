@@ -39,28 +39,28 @@ import { NgxFormsExampleComponent, ReactiveFormsExampleComponent, TemplateDriven
 		NavigationComponent,
 		CardComponent
 	],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatListModule,
-    MatSidenavModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    TranslateModule.forRoot(),
-    NgxFormErrorsModule.forRoot({
-      formErrorComponent: TranslatedFormErrorComponent
-    })
-  ],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		FormsModule,
+		HttpClientModule,
+		MatButtonModule,
+		MatButtonToggleModule,
+		MatCardModule,
+		MatFormFieldModule,
+		MatGridListModule,
+		MatInputModule,
+		MatToolbarModule,
+		MatListModule,
+		MatSidenavModule,
+		MatIconModule,
+		ReactiveFormsModule,
+		TranslateModule.forRoot(),
+		NgxFormErrorsModule.forRoot({
+			formErrorComponent: TranslatedFormErrorComponent
+		})
+	],
 	exports: [LanguageSelectorComponent],
 	providers: [],
 	entryComponents: [SimpleFormErrorComponent, TranslatedFormErrorComponent],

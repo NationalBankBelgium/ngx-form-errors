@@ -112,9 +112,7 @@ describe("NgxFormErrorsDirective", () => {
 
 	@Component({
 		selector: "form-error",
-		template: `
-			<div>some content here</div>
-		`
+		template: ` <div>some content here</div> `
 	})
 	class FormErrorComponent implements NgxFormErrorComponent {
 		public errors$!: Observable<NgxFormFieldError[]>;
@@ -129,7 +127,7 @@ describe("NgxFormErrorsDirective", () => {
 	let mockFormErrorsMessageService: SpyObj<NgxFormErrorsMessageService>;
 	let mockFormErrorsConfig: NgxFormErrorsConfig;
 	let mockObserver: SpyObj<Observer<any>>;
-	
+
 	const invalidValues: any[] = ["na", "too long value", "", undefined];
 
 	function initializeComponentFixture(): void {
@@ -671,7 +669,9 @@ describe("NgxFormErrorsDirective", () => {
 					return errorMessages[`${errorGroup}.${errorKey}`] || errorMessages[errorKey] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`);
+				const formControl: FormControl = <FormControl>(
+					componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`)
+				);
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {
@@ -731,7 +731,9 @@ describe("NgxFormErrorsDirective", () => {
 					return fieldNames[fieldName] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`);
+				const formControl: FormControl = <FormControl>(
+					componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`)
+				);
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {
