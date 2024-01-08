@@ -1,5 +1,5 @@
-@use "~@angular/material" as mat;
-@import "~@angular/material/theming";
+@use "@angular/material" as mat;
+@import "@angular/material/theming";
 @import "../app/components/navigation/navigation.theme";
 @import "../app/components/language-selector/language-selector.theme";
 @import "../app/components/card/card.theme";
