@@ -1,0 +1,214 @@
+<div class="container">
+	<div class="mat-display-1">Typed Reactive Forms (Model Driven Forms)</div>
+
+	<form [formGroup]="formGroup" (ngSubmit)="onSubmitUserDetails(formGroup)" class="form-group">
+		<div class="grid">
+			<app-card class="form-card">
+				<mat-card-content>
+					<mat-form-field class="username">
+						<input matInput [placeholder]="'DEMO.PLACEHOLDERS.USER_NAME' | translate" formControlName="username" required />
+						<mat-error *ngFor="let validation of validationMessages['username']">
+							<div
+								class="error-message"
+								*ngIf="
+									formGroup.get('username')!.hasError(validation.type) &&
+									(formGroup.get('username')!.dirty || formGroup.get('username')!.touched)
+								"
+							>
+								{{ validation.message | translate }}
+							</div>
+						</mat-error>
+					</mat-form-field>
+
+					<div formGroupName="matchingPasswords" class="matching-passwords">
+						<mat-form-field class="full-width">
+							<input
+								matInput
+								type="password"
+								[placeholder]="'DEMO.PLACEHOLDERS.PASSWORD' | translate"
+								formControlName="password"
+								required
+							/>
+							<mat-error *ngFor="let validation of validationMessages['password']">
+								<div
+									class="error-message"
+									*ngIf="
+										formGroup.get('matchingPasswords.password')!.hasError(validation.type) &&
+										(formGroup.get('matchingPasswords.password')!.dirty ||
+											formGroup.get('matchingPasswords.password')!.touched)
+									"
+								>
+									{{ validation.message | translate }}
+								</div>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field class="full-width">
+							<input
+								matInput
+								type="password"
+								[placeholder]="'DEMO.PLACEHOLDERS.CONFIRM_PASSWORD' | translate"
+								formControlName="confirmPassword"
+								[errorStateMatcher]="parentErrorStateMatcher"
+								required
+							/>
+							<mat-error *ngFor="let validation of validationMessages['confirmPassword']">
+								<div
+									class="error-message"
+									*ngIf="
+										(formGroup.get('matchingPasswords.confirmPassword')!.hasError(validation.type) ||
+											formGroup.get('matchingPasswords')!.hasError(validation.type)) &&
+										(formGroup.get('matchingPasswords.confirmPassword')!.dirty ||
+											formGroup.get('matchingPasswords.confirmPassword')!.touched)
+									"
+								>
+									{{ validation.message | translate }}
+								</div>
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions class="form-buttons">
+					<button color="primary" mat-raised-button type="submit" [disabled]="!formGroup.valid">Submit</button>
+					<!--<button color="primary" mat-button type="button" (click)="getFormStatus()">Get Form status</button>-->
+					<button color="primary" mat-button type="button" (click)="toggleValidationDetails()">
+						{{ showValidationDetails ? "Hide validation details" : "Show validation details" }}
+					</button>
+					<button color="primary" mat-button type="button" (click)="toggleValidationSummary()">
+						{{ showValidationSummary ? "Hide validation summary" : "Show validation summary" }}
+					</button>
+				</mat-card-actions>
+			</app-card>
+
+			<ng-container *ngIf="showValidationDetails">
+				<app-card class="form-field-info" color="accent">
+					<mat-card-title>Username</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ !!formGroup.get("username")!.errors }}</div>
+						<div>Has 'required' error: {{ formGroup.get("username")!.hasError("required") }}</div>
+						<div>
+							'required' error:
+							<pre>{{ formGroup.get("username")!.getError("required") | json }}</pre>
+						</div>
+						<div>Is touched? {{ formGroup.get("username")!.touched }}</div>
+						<div *ngIf="formGroup.get('username')!.errors">
+							Errors:
+							<pre>{{ formGroup.get("username")!.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</app-card>
+
+				<app-card class="form-field-info" color="accent">
+					<mat-card-title>Password</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ !!formGroup.get("matchingPasswords.password")!.errors }}</div>
+						<div>Has 'pattern' error: {{ formGroup.get("matchingPasswords.password")!.hasError("pattern") }}</div>
+						<div>Is touched? {{ formGroup.get("matchingPasswords.password")!.touched }}</div>
+						<div>
+							'pattern' error:
+							<pre>{{ formGroup.get("matchingPasswords.password")!.getError("pattern") | json }}</pre>
+						</div>
+						<div *ngIf="formGroup.get('matchingPasswords.password')!.errors">
+							Errors:
+							<pre>{{ formGroup.get("matchingPasswords.password")!.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</app-card>
+
+				<app-card class="form-field-info" color="accent">
+					<mat-card-title>Confirm password</mat-card-title>
+					<mat-card-content>
+						<div>Has errors: {{ !!formGroup.get("matchingPasswords.confirmPassword")!.errors }}</div>
+						<div>Has 'required' error: {{ formGroup.get("matchingPasswords.confirmPassword")!.hasError("required") }}</div>
+						<div>Is touched? {{ formGroup.get("matchingPasswords.confirmPassword")!.touched }}</div>
+						<div>
+							'required' error:
+							<pre>{{ formGroup.get("matchingPasswords.confirmPassword")!.getError("required") | json }}</pre>
+						</div>
+						<div *ngIf="formGroup.get('matchingPasswords.confirmPassword')!.errors">
+							Errors:
+							<pre>{{ formGroup.get("matchingPasswords.confirmPassword")!.errors | json }}</pre>
+						</div>
+					</mat-card-content>
+				</app-card>
+			</ng-container>
+
+			<app-card
+				*ngIf="showValidationSummary"
+				class="form-validation-messages"
+				[color]="
+					!formGroup.get('username')!.errors &&
+					!formGroup.get('matchingPasswords')!.errors &&
+					!formGroup.get('matchingPasswords.password')!.errors &&
+					!formGroup.get('matchingPasswords.confirmPassword')!.errors
+						? 'success'
+						: 'warning'
+				"
+			>
+				<p
+					*ngIf="
+						!formGroup.get('username')!.errors &&
+						!formGroup.get('matchingPasswords')!.errors &&
+						!formGroup.get('matchingPasswords.password')!.errors &&
+						!formGroup.get('matchingPasswords.confirmPassword')!.errors
+					"
+				>
+					No validation errors
+				</p>
+				<ul
+					*ngIf="
+						formGroup.get('username')!.errors ||
+						formGroup.get('matchingPasswords')!.errors ||
+						formGroup.get('matchingPasswords.password')!.errors ||
+						formGroup.get('matchingPasswords.confirmPassword')!.errors
+					"
+				>
+					<ng-container *ngIf="formGroup.get('username')!.errors">
+						<ng-container *ngFor="let validation of validationMessages['username']">
+							<li *ngIf="formGroup.get('username')!.errors && formGroup.get('username')!.errors![validation.type]">
+								{{ validation.message | translate }}
+							</li>
+						</ng-container>
+					</ng-container>
+					<ng-container *ngIf="formGroup.get('matchingPasswords')!.errors">
+						<ng-container *ngFor="let validation of validationMessages['matchingPasswords']">
+							<li
+								*ngIf="
+									formGroup.get('matchingPasswords')!.errors &&
+									formGroup.get('matchingPasswords')!.errors![validation.type]
+								"
+							>
+								{{ validation.message | translate }}
+							</li>
+						</ng-container>
+					</ng-container>
+					<ng-container *ngIf="formGroup.get('matchingPasswords.password')!.errors">
+						<ng-container *ngFor="let validation of validationMessages['password']">
+							<li
+								*ngIf="
+									formGroup.get('matchingPasswords.password')!.errors &&
+									formGroup.get('matchingPasswords.password')!.errors![validation.type]
+								"
+							>
+								{{ validation.message | translate }}
+							</li>
+						</ng-container>
+					</ng-container>
+					<ng-container *ngIf="formGroup.get('matchingPasswords.confirmPassword')!.errors">
+						<ng-container *ngFor="let validation of validationMessages['confirmPassword']">
+							<li
+								*ngIf="
+									formGroup.get('matchingPasswords.confirmPassword')!.errors &&
+									formGroup.get('matchingPasswords.confirmPassword')!.errors![validation.type]
+								"
+							>
+								{{ validation.message | translate }}
+							</li>
+						</ng-container>
+					</ng-container>
+				</ul>
+			</app-card>
+		</div>
+	</form>
+</div>
