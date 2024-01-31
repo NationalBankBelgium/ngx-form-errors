@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
@@ -61,7 +61,7 @@ describe("NgxFormErrorsDirective", () => {
 		template: templateWithFormControl
 	})
 	class TestComponent {
-		public formNgxError: FormGroup;
+		public formNgxError: UntypedFormGroup;
 		public formControlName: string = formControlName;
 		public formControlAlias: string = formControlAlias;
 		public instantiateLazyFormErrorDirective = false;
@@ -69,7 +69,7 @@ describe("NgxFormErrorsDirective", () => {
 		@ViewChild(NgxFormErrorsDirective, { static: false })
 		public formErrorsDirective!: NgxFormErrorsDirective;
 
-		public constructor(public formBuilder: FormBuilder) {
+		public constructor(public formBuilder: UntypedFormBuilder) {
 			this.formNgxError = this.formBuilder.group({
 				[this.formControlName]: [
 					"John Doe",
@@ -91,14 +91,14 @@ describe("NgxFormErrorsDirective", () => {
 		`
 	})
 	class TestWithSubFormGroupComponent {
-		public formNgxError: FormGroup;
+		public formNgxError: UntypedFormGroup;
 		public formControlName: string = formControlName;
 		public subFormGroupName: string = subFormGroupName;
 
 		@ViewChild(NgxFormErrorsDirective, { static: false })
 		public formErrorsDirective!: NgxFormErrorsDirective;
 
-		public constructor(public formBuilder: FormBuilder) {
+		public constructor(public formBuilder: UntypedFormBuilder) {
 			this.formNgxError = this.formBuilder.group({
 				[this.subFormGroupName]: this.formBuilder.group({
 					[this.formControlName]: [
@@ -247,7 +247,7 @@ describe("NgxFormErrorsDirective", () => {
 			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName]; /// or <FormControl>formErrorsDirective.formControl;
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName]; /// or <FormControl>formErrorsDirective.formControl;
 			const valueChanges: any[] = ["first", "second", ...invalidValues];
 
 			for (const value of valueChanges) {
@@ -273,7 +273,7 @@ describe("NgxFormErrorsDirective", () => {
 			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 			const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 			for (const value of valueChanges) {
@@ -347,7 +347,7 @@ describe("NgxFormErrorsDirective", () => {
 					return errorMessages[`${formCtrlName}.${errorKey}`] || errorMessages[errorKey] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+				const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {
@@ -407,7 +407,7 @@ describe("NgxFormErrorsDirective", () => {
 					return fieldNames[fieldName] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+				const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {
@@ -509,7 +509,7 @@ describe("NgxFormErrorsDirective", () => {
 					return errorMessages[`${errorGroup}.${errorKey}`] || errorMessages[errorKey] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+				const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {
@@ -569,7 +569,7 @@ describe("NgxFormErrorsDirective", () => {
 					return fieldNames[fieldName] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+				const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {
@@ -669,7 +669,7 @@ describe("NgxFormErrorsDirective", () => {
 					return errorMessages[`${errorGroup}.${errorKey}`] || errorMessages[errorKey] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>(
+				const formControl: UntypedFormControl = <UntypedFormControl>(
 					componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`)
 				);
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
@@ -731,7 +731,7 @@ describe("NgxFormErrorsDirective", () => {
 					return fieldNames[fieldName] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>(
+				const formControl: UntypedFormControl = <UntypedFormControl>(
 					componentWithSubFormGroup.formNgxError.get(`${subFormGroupName}.${formControlName}`)
 				);
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
@@ -830,7 +830,7 @@ describe("NgxFormErrorsDirective", () => {
 					return fieldNames[fieldName] || undefined;
 				});
 
-				const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+				const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 				const valueChanges: any[] = [...invalidValues]; // just invalid values
 
 				for (const value of valueChanges) {
@@ -910,7 +910,7 @@ describe("NgxFormErrorsDirective", () => {
 			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 			const valueChanges: any[] = ["first", "second", ...invalidValues];
 
 			for (const value of valueChanges) {
@@ -947,7 +947,7 @@ describe("NgxFormErrorsDirective", () => {
 			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 			formControl.setValue(invalidValues[0]);
 			formControl.markAsTouched(); // simulate the form control has been touched (although it does not really matter)
 
@@ -1003,7 +1003,7 @@ describe("NgxFormErrorsDirective", () => {
 			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 			const valueChanges: any[] = ["first", "second", ...invalidValues];
 
 			for (const value of valueChanges) {
@@ -1049,7 +1049,7 @@ describe("NgxFormErrorsDirective", () => {
 			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
 			formErrorsDirective._controlErrors$.subscribe(mockObserver);
 
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 			const invalidValuesObj: object[] = [
 				{ minlength: "na" },
 				{ maxlength: "too long value" },
@@ -1112,7 +1112,7 @@ describe("NgxFormErrorsDirective", () => {
 
 		it("should return the Angular validation error for the given validation or null if the form control doesn't have such error", () => {
 			const formErrorsDirective: NgxFormErrorsDirective = component.formErrorsDirective;
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 			const invalidValuesObj: object[] = [
 				{ minlength: "na" },
 				{ maxlength: "too long value" },
@@ -1176,7 +1176,7 @@ describe("NgxFormErrorsDirective", () => {
 			expect(formErrorsDirective.hasState("dirty")).toBe(false);
 			expect(formErrorsDirective.hasState("touched")).toBe(false);
 
-			const formControl: FormControl = <FormControl>component.formNgxError.controls[formControlName];
+			const formControl: UntypedFormControl = <UntypedFormControl>component.formNgxError.controls[formControlName];
 
 			formControl.markAsDirty();
 			expect(formErrorsDirective.hasState("dirty")).toBe(true);
