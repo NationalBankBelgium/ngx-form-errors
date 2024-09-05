@@ -11,7 +11,7 @@ on:
     branches:
       - master
       - 1.[0-9]+.x
-        
+
 env:
   TZ: "Europe/Brussels"
   MAIN_NODEJS: "18"
@@ -26,11 +26,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node_version: [ "18" ]
-        os: [ ubuntu-latest ]
-        experimental: [ false ]
+        node_version: ["18"]
+        os: [ubuntu-latest]
+        experimental: [false]
         # Mark following configurations as "experimental" and allow to continue in case of error
-        # See documentation: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#example-including-new-combinations 
+        # See documentation: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#example-including-new-combinations
         include:
           - os: macos-latest
             node_version: 18
@@ -47,29 +47,29 @@ jobs:
           fi
 
       # See: https://github.com/marketplace/actions/checkout
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # See: https://github.com/marketplace/actions/setup-node-js-environment
       - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
 
       # See: https://github.com/marketplace/actions/cache
       # See doc: https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules-${{ matrix.node_version }}-${{ matrix.os }}
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
+          # npm cache files are stored in `~/.npm` on Linux
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-            
+
       - name: Install npm ${{ env.NPM_VERSION }}
         run: npm i -g npm@${{ env.NPM_VERSION }}
 
@@ -101,15 +101,14 @@ jobs:
           # npm run test:ci:all // comand remove due to incomability node18 and angular12
           npm run test:ci
           npm run test:ci:demo:ng-latest
-          
 
       - name: Generate docs coverage
         run: npm run docs:coverage
         if: env.IS_MAIN_ENVIRONMENT == 1
 
-      # See: https://github.com/marketplace/actions/upload-artifact
+      # See: https://github.com/marketplace/actions/upload-a-build-artifact
       - name: Upload ngx-form-errors dist folder
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ngx-form-errors-dist
           path: dist
@@ -117,7 +116,7 @@ jobs:
 
       # See: https://github.com/marketplace/actions/coveralls-github-action
       - name: Coveralls
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: "reports/coverage/lcov.info"
@@ -130,18 +129,19 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       # See: https://github.com/marketplace/actions/checkout
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # See: https://github.com/marketplace/actions/setup-node-js-environment
       - name: Use Node.js ${{ env.MAIN_NODEJS }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.MAIN_NODEJS }}
 
       - name: Install npm ${{ env.NPM_VERSION }}
         run: npm i -g npm@${{ env.NPM_VERSION }}
 
-      - uses: actions/download-artifact@v2
+      # See: https://github.com/marketplace/actions/download-a-build-artifact
+      - uses: actions/download-artifact@v4
         with:
           name: ngx-form-errors-dist
           path: dist
