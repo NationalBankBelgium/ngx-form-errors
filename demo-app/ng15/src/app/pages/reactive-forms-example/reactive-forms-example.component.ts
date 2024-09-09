@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/template/use-track-by-function, @angular-eslint/template/cyclomatic-complexity */
 import { Component } from "@angular/core";
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { PasswordValidator } from "../../password-validator";
 import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
@@ -11,19 +11,19 @@ import { ParentErrorStateMatcher } from "../../parent-error-state-matcher";
 	styleUrls: ["./reactive-forms-example.component.scss"]
 })
 export class ReactiveFormsExampleComponent {
-	public formGroup: FormGroup;
+	public formGroup: UntypedFormGroup;
 	public validationMessages: { [key: string]: { type: string; message: string }[] };
 	public parentErrorStateMatcher: ErrorStateMatcher = new ParentErrorStateMatcher();
 	public passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$";
 	public showValidationDetails = false;
 	public showValidationSummary = true;
 
-	public constructor(private formBuilder: FormBuilder) {
+	public constructor(private formBuilder: UntypedFormBuilder) {
 		this.formGroup = this.formBuilder.group({
 			username: [undefined, Validators.required],
-			matchingPasswords: new FormGroup(
+			matchingPasswords: new UntypedFormGroup(
 				{
-					password: new FormControl(
+					password: new UntypedFormControl(
 						"",
 						Validators.compose([
 							Validators.minLength(3),
@@ -32,10 +32,11 @@ export class ReactiveFormsExampleComponent {
 							Validators.pattern(this.passwordPattern) // this is for the letters (both uppercase and lowercase) and numbers validation
 						])
 					),
-					confirmPassword: new FormControl("", Validators.required)
+					confirmPassword: new UntypedFormControl("", Validators.required)
 				},
 				{
-					validators: (formGroup: AbstractControl): ValidationErrors | null => PasswordValidator.areEqual(<FormGroup>formGroup)
+					validators: (formGroup: AbstractControl): ValidationErrors | null =>
+						PasswordValidator.areEqual(<UntypedFormGroup>formGroup)
 				}
 			)
 		});
@@ -80,7 +81,7 @@ export class ReactiveFormsExampleComponent {
 		this.showValidationSummary = !this.showValidationSummary;
 	}
 
-	public onSubmitUserDetails(formGroup: FormGroup): void {
+	public onSubmitUserDetails(formGroup: UntypedFormGroup): void {
 		console.log("Submitted form:", formGroup.value);
 	}
 

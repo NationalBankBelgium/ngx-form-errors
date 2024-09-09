@@ -1,5 +1,5 @@
 {
-  "extends": "@nationalbankbelgium/code-style/tsconfig/4.4.x/ng13",
+  "extends": "@nationalbankbelgium/code-style/tsconfig/4.9.x/ng15",
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
@@ -11,9 +11,16 @@
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["dom", "dom.iterable", "es2017"]
+    "target": "ES2022",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2017"
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
