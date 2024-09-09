@@ -14,7 +14,7 @@ on:
 
 env:
   TZ: "Europe/Brussels"
-  MAIN_NODEJS: "18"
+  MAIN_NODEJS: "20"
   NPM_VERSION: "10.x"
   LOGS_DIR: /tmp/ngx-form-errors/logs
   LOGS_FILE: /tmp/ngx-form-errors/logs/build-perf.log
@@ -26,14 +26,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node_version: ["18"]
+        node_version: ["20"]
         os: [ubuntu-latest]
         experimental: [false]
         # Mark following configurations as "experimental" and allow to continue in case of error
         # See documentation: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#example-including-new-combinations
         include:
           - os: macos-latest
-            node_version: 18
+            node_version: 20
             experimental: true
     steps:
       # Some actions should be executed only in one environment.
