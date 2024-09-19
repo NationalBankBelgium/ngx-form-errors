@@ -1,3 +1,19 @@
+# [2.0.0-rc.1](https://github.com/NationalBankBelgium/ngx-form-errors/compare/2.0.0-rc.0...2.0.0-rc.1) (2024-09-19)
+
+
+### Bug Fixes
+
+* **demo:** fix wrong version of @angular/material ([40b8f04](https://github.com/NationalBankBelgium/ngx-form-errors/commit/40b8f040ffb0e0b3eb2bc1c928a32ddd64376f51))
+* **release:** fix `release-it` by upgrading `@commitlint/*` devDependencies ([bc08445](https://github.com/NationalBankBelgium/ngx-form-errors/commit/bc08445a44267e98a2dce422da46df90cfb58518))
+
+
+### Features
+
+* **all:** update to angular 14 ([29eec87](https://github.com/NationalBankBelgium/ngx-form-errors/commit/29eec8711c236c645dcfefbb9c973713a9348c75))
+* **demo:** update to angular 14 ([90aa011](https://github.com/NationalBankBelgium/ngx-form-errors/commit/90aa01117352d3fd942b824e5e6c562794f9cea6))
+
+
+
 # [2.0.0-rc.0](https://github.com/NationalBankBelgium/ngx-form-errors/compare/1.1.0...2.0.0-rc.0) (2023-12-11)
 
 
