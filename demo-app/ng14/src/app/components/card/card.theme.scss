@@ -1,0 +1,28 @@
+@use "@angular/material" as mat;
+@mixin card-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warning: map-get($theme, warn);
+  $success: map-get($theme, success);
+
+  app-card.app-color-primary mat-card {
+    background-color: mat.get-color-from-palette($primary, 500);
+    color: mat.get-contrast-color-from-palette($primary, 500);
+  }
+
+  app-card.app-color-accent mat-card {
+    background-color: mat.get-color-from-palette($accent, 500);
+    color: mat.get-contrast-color-from-palette($accent, 500);
+  }
+
+  app-card.app-color-warning mat-card {
+    background-color: mat.get-color-from-palette($warning, 500);
+    color: mat.get-contrast-color-from-palette($warning, 500);
+  }
+
+  app-card.app-color-success mat-card {
+    /*Themes do not have a success map by default*/
+    background-color: mat.get-color-from-palette($success, 500);
+    color: mat.get-contrast-color-from-palette($success, 500);
+  }
+}
