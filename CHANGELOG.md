@@ -1,3 +1,21 @@
+# [2.0.0-rc.2](https://github.com/NationalBankBelgium/ngx-form-errors/compare/2.0.0-rc.1...2.0.0-rc.2) (2024-09-20)
+
+
+### Bug Fixes
+
+* **release:** fix release-publish script by reading `GITHUB_REF` variable instead of custom `GH_ACTIONS_TAG` var ([be92516](https://github.com/NationalBankBelgium/ngx-form-errors/commit/be92516aeb1c73fda1334b65bc682a3b2bd1b0e1))
+
+
+### Features
+
+* **all:** update `RXJS` from "^6.6.7" to "^7.8.1" ([c1f4587](https://github.com/NationalBankBelgium/ngx-form-errors/commit/c1f45871cf17cc5e7c19c2f63bb30f2f4d8ec081))
+* **all:** update to angular@15 ([73e6a2d](https://github.com/NationalBankBelgium/ngx-form-errors/commit/73e6a2dd49c6c97535b2bb3c2dd954f668470ceb))
+* **demo:** update `RXJS` from "^6.6.7" to "^7.8.1" for ng13 ([04b6c5e](https://github.com/NationalBankBelgium/ngx-form-errors/commit/04b6c5e5b1b89ed8d444297cdfc2cd362937dca0))
+* **demo:** update `RXJS` from "^6.6.7" to "^7.8.1" for ng14 ([d3c11c6](https://github.com/NationalBankBelgium/ngx-form-errors/commit/d3c11c6b48d985c0765131c82f0d1b3083c0f772))
+* **demo:** update demo to angular15 ([ebfc966](https://github.com/NationalBankBelgium/ngx-form-errors/commit/ebfc9660fb9a52e760e7c9399a545f4c40aa5692))
+
+
+
 # [2.0.0-rc.1](https://github.com/NationalBankBelgium/ngx-form-errors/compare/2.0.0-rc.0...2.0.0-rc.1) (2024-09-19)
 
 
