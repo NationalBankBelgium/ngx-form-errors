@@ -89,7 +89,7 @@ if [[ ${GITHUB_ACTIONS} == true ]]; then
 
   logInfo "Verifying if this build has been triggered for a tag" 
 
-  if [[ ${GITHUB_REF} == refs/tags/* ]]; then
+  if [[ ${GITHUB_REF} != refs/tags/* ]]; then
     logInfo "Not publishing because this is not a build triggered for a tag" 1
     exit 0;
   else
