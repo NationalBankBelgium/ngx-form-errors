@@ -115,8 +115,13 @@ ghActionsGroupStart "publishing: ${PACKAGE}" "no-xtrace"
   for file in ${TGZ_FILES}; do
     logInfo "Publishing TGZ file: ${TGZ_FILES}" 2
     if [[ ${DRY_RUN} == false ]]; then
-      logTrace "Publishing the release (with tag latest)" 2
-      npm publish ${file} --access public
+      if [[ ${GITHUB_REF} =~ /(alpha|beta|rc)/ ]]; then
+        logTrace "Publishing the release (with tag next)" 2
+        npm publish ${file} --tag next --access public
+      else
+        logTrace "Publishing the release (with tag latest)" 2
+        npm publish ${file} --access public
+      fi
     else
       logTrace "DRY RUN, skipping npm publish!" 2
     fi
