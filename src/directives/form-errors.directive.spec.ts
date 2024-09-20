@@ -2,7 +2,6 @@ import { Component, ViewChild } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ComponentFixture, fakeAsync, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
-import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
 import { Observable, Observer } from "rxjs";
 import { NgxFormErrorsGroupDirective } from "./form-errors-group.directive";
 import { NgxFormErrorsDirective } from "./form-errors.directive";
@@ -164,9 +163,6 @@ describe("NgxFormErrorsDirective", () => {
 				{ provide: NgxFormErrorsMessageService, useValue: mockFormErrorsMessageService },
 				{ provide: NGX_FORM_ERRORS_CONFIG, useValue: mockFormErrorsConfig }
 			]
-		}).overrideModule(BrowserDynamicTestingModule, {
-			// add entryComponent to TestingModule (suggested in https://github.com/angular/angular/issues/12079)
-			set: { entryComponents: [FormErrorComponent] }
 		});
 	});
 
