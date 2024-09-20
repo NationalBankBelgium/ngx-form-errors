@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/NationalBankBelgium/ngx-form-errors/compare/2.0.0-rc.2...2.0.0) (2024-09-20)
+
+
+### Features
+
+* **all:** update to angular 16 ([0a113f5](https://github.com/NationalBankBelgium/ngx-form-errors/commit/0a113f57a3970c7624fe64c384fe1cd37f68dffe))
+* **demo:** update to angular 16 ([c3d84f8](https://github.com/NationalBankBelgium/ngx-form-errors/commit/c3d84f80b4efaa67f1af1d54dfb4ff2a035c8fd0))
+
+
+
 # [2.0.0-rc.2](https://github.com/NationalBankBelgium/ngx-form-errors/compare/2.0.0-rc.1...2.0.0-rc.2) (2024-09-20)
 
 
