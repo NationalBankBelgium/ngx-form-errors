@@ -18,7 +18,7 @@ DRY_RUN=false
 PACKAGE=ngx-form-errors
 
 EXPECTED_REPOSITORY="NationalBankBelgium/ngx-form-errors"
-GH_ACTIONS_TAG=${GH_ACTIONS_TAG:-""}
+GITHUB_REF=${GITHUB_REF:-""}
 
 #----------------------------------------------
 # Uncomment block below to test locally
@@ -29,7 +29,7 @@ GH_ACTIONS_TAG=${GH_ACTIONS_TAG:-""}
 #touch ${LOGS_FILE}
 #GITHUB_ACTIONS=true
 #GITHUB_REPOSITORY="NationalBankBelgium/ngx-form-errors"
-#GH_ACTIONS_TAG="fooBar"
+#GITHUB_REF="refs/tags/fooBar"
 #----------------------------------------------
 
 readonly currentDir=$(cd $(dirname $0); pwd)
@@ -89,7 +89,7 @@ if [[ ${GITHUB_ACTIONS} == true ]]; then
 
   logInfo "Verifying if this build has been triggered for a tag" 
 
-  if [[ ${GH_ACTIONS_TAG} == "" ]]; then
+  if [[ ${GITHUB_REF} == refs/tags/* ]]; then
     logInfo "Not publishing because this is not a build triggered for a tag" 1
     exit 0;
   else
