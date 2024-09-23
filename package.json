@@ -80,9 +80,9 @@
     "zone.js": "~0.13.3"
   },
   "peerDependencies": {
-    "@angular/common": "15.x || 15.x",
-    "@angular/core": "15.x || 15.x",
-    "@angular/forms": "15.x || 15.x",
+    "@angular/common": "15.x || 16.x",
+    "@angular/core": "15.x || 16.x",
+    "@angular/forms": "15.x || 16.x",
     "rxjs": "7.x"
   },
   "scripts": {
