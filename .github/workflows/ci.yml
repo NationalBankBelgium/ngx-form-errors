@@ -86,8 +86,6 @@ jobs:
           echo "Main ENV    : ${{ env.IS_MAIN_ENVIRONMENT }}"
           NODE_VERSION="$(node -v)"
           echo "Node version: $NODE_VERSION"
-          # This ensures that we are authenticated without requiring to have an actual .npmrc file within the project
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
       - name: Install dependencies
         run: |
@@ -149,6 +147,10 @@ jobs:
           # cfr scripts/_ghactions-group.sh
           mkdir -p $LOGS_DIR
           touch $LOGS_FILE
+
+      # This ensures that we are authenticated without requiring to have an actual .npmrc file within the project
+      - name: Set npm token
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
       - name: Release
         run: npm run release:publish
