@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/NationalBankBelgium/ngx-form-errors/compare/2.0.0...2.0.1) (2024-09-23)
+
+
+### Bug Fixes
+
+* **build:** fix wrong peerDependencies version in "package.json" ([3f00db5](https://github.com/NationalBankBelgium/ngx-form-errors/commit/3f00db54ba01e12088a10af1be3ad242a586812a))
+
+
+
 # [2.0.0](https://github.com/NationalBankBelgium/ngx-form-errors/compare/2.0.0-rc.2...2.0.0) (2024-09-20)
 
 
