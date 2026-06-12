@@ -92,7 +92,6 @@ import { NgxFormErrorsMessageService, NgxFormErrorsModule } from "@nationalbankb
 			formErrorComponent: YourCustomErrorComponent // your own Error component
 		})
 	],
-	entryComponents: [YourCustomErrorComponent], // add the Error component here so it can be created dynamically
 	bootstrap: [AppComponent]
 })
 export class AppModule {
