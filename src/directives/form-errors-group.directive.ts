@@ -5,7 +5,8 @@ import { Directive, Input, OnInit } from "@angular/core";
  * The directive exposes the group through the controller to allow access to it by wrapped {@link NgxFormErrorsDirective}(s).
  */
 @Directive({
-	selector: "[ngxFormErrorsGroup]"
+	selector: "[ngxFormErrorsGroup]",
+	standalone: false
 })
 export class NgxFormErrorsGroupDirective implements OnInit {
 	/**

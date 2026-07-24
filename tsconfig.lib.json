@@ -1,9 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
-    "skipTemplateCodegen": true,
-    "enableResourceInlining": true
+    "compilationMode": "partial"
   },
   "buildOnSave": false,
   "compileOnSave": false,

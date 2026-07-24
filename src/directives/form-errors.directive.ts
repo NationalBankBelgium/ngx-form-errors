@@ -1,6 +1,4 @@
 import {
-	ComponentFactory,
-	ComponentFactoryResolver,
 	ComponentRef,
 	Directive,
 	DoCheck,
@@ -26,12 +24,12 @@ export type FormControlState = "untouched" | "touched" | "pristine" | "dirty" | 
 
 /**
  * Directive that creates dynamically an Error component when there are validation errors in the form control bound to it.
- * The Error component should be provided via the {@link NgxFormErrorsModule}.forRoot() method and it should be included in the
- * entryComponents of your app/feature NgModule so that it can be dynamically created.
+ * The Error component should be provided via the {@link NgxFormErrorsModule}.forRoot() method.
  */
 @Directive({
 	selector: "[ngxFormErrors]",
-	exportAs: "ngxFormErrors"
+	exportAs: "ngxFormErrors",
+	standalone: false
 })
 export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 	/**
@@ -65,9 +63,9 @@ export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 	public _controlErrors$: Observable<NgxFormFieldError[]>;
 
 	/**
-	 * The factory to be used to dynamically create the specified Error component
+	 * The component type to be used to dynamically create the specified Error component
 	 */
-	private _componentFactory: ComponentFactory<NgxFormErrorComponent>;
+	private _componentType: Type<NgxFormErrorComponent>;
 
 	/**
 	 * Represents a component created by a `ComponentFactory`.
@@ -84,7 +82,6 @@ export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 	 * @param _form - The Angular control container that contains the form control bound to this directive
 	 * @param _templateRef - The embedded template that can be used to instantiate embedded views
 	 * @param _viewContainer - The container where the Error component view(s) can be attached
-	 * @param componentFactoryResolver - Resolver that returns Angular component factories
 	 * @param formErrorsGroup - The NgxFormErrorsGroupDirective that wraps (if any) the form control bound to this directive
 	 * @param _formErrorsMessageService - The NgxFormErrorsMessageService to add and retrieve error messages for the different validation errors
 	 * @param formErrorsConfig - Configuration object for the NgxFormErrors module
@@ -93,7 +90,6 @@ export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 		private _form: ControlContainer,
 		private _templateRef: TemplateRef<any>,
 		private _viewContainer: ViewContainerRef,
-		componentFactoryResolver: ComponentFactoryResolver,
 		@Optional() public formErrorsGroup: NgxFormErrorsGroupDirective,
 		private _formErrorsMessageService: NgxFormErrorsMessageService,
 		@Inject(NGX_FORM_ERRORS_CONFIG) formErrorsConfig: NgxFormErrorsConfig
@@ -106,7 +102,7 @@ export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 		} else {
 			throw new Error("ngxFormErrors directive: no form error component provided");
 		}
-		this._componentFactory = componentFactoryResolver.resolveComponentFactory(component);
+		this._componentType = component;
 	}
 
 	/**
@@ -114,7 +110,7 @@ export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 	 */
 	public ngOnInit(): void {
 		this._viewContainer.createEmbeddedView(this._templateRef);
-		this._componentRef = this._viewContainer.createComponent(this._componentFactory);
+		this._componentRef = this._viewContainer.createComponent(this._componentType);
 		/// this._componentRef = this._componentFactory.create(this.injector);
 		/// this.componentView = this._componentRef.hostView;
 		/// this.viewContainer.insert(this.componentView);
@@ -251,9 +247,15 @@ export class NgxFormErrorsDirective implements OnInit, OnDestroy, DoCheck {
 		if (!this._formControl) {
 			return false; // false by default
 		}
-		if (typeof this._formControl[state] === "undefined") {
+		const controlState = this._formControl as unknown as Record<string, unknown>;
+		const stateValue = controlState[state];
+
+		if (typeof stateValue === "undefined") {
 			throw new Error("ngxFormErrors directive: form control has no '" + state + "' state defined");
 		}
-		return this._formControl[state];
+		if (typeof stateValue !== "boolean") {
+			throw new Error("ngxFormErrors directive: form control state '" + state + "' is not a boolean");
+		}
+		return stateValue;
 	}
 }
